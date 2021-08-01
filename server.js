@@ -3,6 +3,9 @@ const app = express();
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 dotenv.config({path: './config.env'});
+const authJwt = require('./helpers/jwt');
+const AppError = require('./helpers/appErrors');
+const globalErrorHandler = require('./helpers/error-handler');
 
 const connectDB = require('./config/db');
 
@@ -13,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 // 1. Middel ware
 app.use(express.json());
 app.use(morgan('tiny'));
+//app.use(authJwt());
 
 // 2. Route
 const doctorRoute = require('./routes/doctorRoute');
@@ -31,6 +35,10 @@ app.use(`${api}/followUp`, followUpRoute);
 app.get(`${api}`, (req, res) => {
   res.send('Api is running');
 });
+app.all('*', (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+app.use(globalErrorHandler);
 
 app.listen(
   PORT,
