@@ -1,5 +1,10 @@
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const {v4: uuidV4} = require('uuid');
+const {PeerServer} = require('peer');
+const peerServer = PeerServer({port: 9000, path: '/myapp'});
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 dotenv.config({path: './config.env'});
@@ -11,12 +16,11 @@ const connectDB = require('./config/db');
 
 connectDB();
 
-const PORT = process.env.PORT || 3000;
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-// 1. Middel ware
 app.use(express.json());
 app.use(morgan('tiny'));
-//app.use(authJwt());
 
 // 2. Route
 const doctorRoute = require('./routes/doctorRoute');
@@ -32,15 +36,34 @@ app.use(`${api}/appointment`, appointmentRoute);
 app.use(`${api}/patient`, patientRoute);
 app.use(`${api}/followUp`, followUpRoute);
 
-app.get(`${api}`, (req, res) => {
-  res.send('Api is running');
+app.get('/test/:userId', (req, res) => {
+  res.render('doctorDashBoard', {userId: req.params.userId});
 });
+
+// Video Route
+app.get(`${api}/video`, (req, res) => {
+  res.redirect(`/${uuidV4()}`);
+});
+app.get('/:room', (req, res) => {
+  res.render('room', {roomId: req.params.room});
+});
+
+const useSocket = require('./helpers/useSocket');
+useSocket(io);
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'API is Running',
+  });
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 app.use(globalErrorHandler);
 
-app.listen(
+const PORT = process.env.PORT || 3000;
+server.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`)
 );

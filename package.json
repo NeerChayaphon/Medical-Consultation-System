@@ -1,24 +1,36 @@
 {
-  "name": "doctor",
+  "name": "video-chat",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.sj"
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeerChayaphon/video-chat.git"
   },
   "author": "Chayaphon Bunyakan",
   "license": "ISC",
-  "description": "",
+  "bugs": {
+    "url": "https://github.com/NeerChayaphon/video-chat/issues"
+  },
+  "homepage": "https://github.com/NeerChayaphon/video-chat#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "express-jwt": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.4",
-    "morgan": "^1.10.0"
+    "mongoose": "^5.13.5",
+    "morgan": "^1.10.0",
+    "peer": "^0.6.1",
+    "peerjs": "^1.3.2",
+    "socket.io": "^4.1.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
