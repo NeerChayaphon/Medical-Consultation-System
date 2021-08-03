@@ -1,3 +1,5 @@
+const userSocketIdMap = new Map(); //a map of online usernames and their clients
+
 function useSocket(io) {
   io.on('connection', (socket) => {
     socket.on('join-room', (roomId, userId) => {
@@ -11,9 +13,35 @@ function useSocket(io) {
       });
     });
     socket.on('online-doctor', (socketId, userId) => {
-      console.log(socketId, userId);
+      addClientToMap(userId, socketId);
+      socket.on('disconnect', () => {
+        removeClientFromMap(userId, socketId);
+      });
     });
   });
+}
+
+function addClientToMap(userId, socketId) {
+  if (!userSocketIdMap.has(userId)) {
+    //when user is joining first time
+    userSocketIdMap.set(userId, new Set([socketId]));
+  } else {
+    //user had already joined from one client and now joining using another client
+    userSocketIdMap.get(userId).add(socketId);
+  }
+  console.log(userSocketIdMap);
+}
+
+function removeClientFromMap(userId, socketId) {
+  if (userSocketIdMap.has(userId)) {
+    let userSocketIdSet = userSocketIdMap.get(userId);
+    userSocketIdSet.delete(socketId);
+    //if there are no clients for a user, remove that user from online
+    if (userSocketIdSet.size == 0) {
+      userSocketIdMap.delete(userId);
+    }
+  }
+  console.log(userSocketIdMap);
 }
 
 module.exports = useSocket;
