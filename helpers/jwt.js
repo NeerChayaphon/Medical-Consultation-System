@@ -1,32 +1,24 @@
-const expressJwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
+const secret = process.env.secret;
 
-function authJwt() {
-  const secret = process.env.secret;
-  const api = process.env.API_URL;
-  return expressJwt({
-    secret,
-    algorithms: ['HS256'],
-    isRevoked: isRevoked,
-  }).unless({
-    path: [
-      // {url: /\/public\/uploads(.*)/, methods: ['GET', 'OPTIONS']},
-      // {url: /\/api\/v1\/products(.*)/, methods: ['GET', 'OPTIONS']},
-      // {url: /\/api\/v1\/categories(.*)/, methods: ['GET', 'OPTIONS']},
-      // {url: /\/api\/v1\/orders(.*)/, methods: ['GET', 'OPTIONS', 'POST']},
-      //{url: /\/api\/v1\/users(.*)/, methods: ['GET', 'OPTIONS', 'POST']},
-      {url: /\/api\/v1\/patient(.*)/, methods: ['GET', 'OPTIONS', 'POST']},
-      `${api}/patient/login`,
-      `${api}/patient/register`,
-    ],
-  });
-}
-
-async function isRevoked(req, payload, done) {
-  if (!payload.isDoctor) {
-    done(null, true);
+const patientVerify = (req, res, next) => {
+  const token = req.headers['x-acess-token'];
+  if (!token) {
+    res.send('You need token');
+  } else {
+    jwt.verify(token, secret, (err, decoded) => {
+      if (err) {
+        res.json({message: 'fail'});
+      } else {
+        if (decoded.isPatient) {
+          req.body = {data: decoded};
+          next();
+        } else {
+          res.json({message: 'User is not a Patient'});
+        }
+      }
+    });
   }
+};
 
-  done();
-}
-
-module.exports = authJwt;
+module.exports = patientVerify;

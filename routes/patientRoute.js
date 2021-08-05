@@ -1,9 +1,11 @@
 const express = require('express');
 const patient = require('../controllers/patient');
 const router = express.Router();
+const patientVerify = require('../helpers/jwt');
 
 router.route('/').get(patient.getAllPatient).post(patient.createPatient); // chain route
 
+router.route('/checkLogin').get(patientVerify, patient.checkPatientLogin);
 router
   .route('/:id')
   .get(patient.getPatient)

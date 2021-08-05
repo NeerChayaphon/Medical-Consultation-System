@@ -81,6 +81,10 @@ exports.deletePatient = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.checkPatientLogin = asyncHandler(async (req, res) => {
+  res.send(req.body);
+});
+
 exports.patientLogin = asyncHandler(async (req, res) => {
   const patient = await Patient.findOne({email: req.body.email});
   const secret = process.env.secret;
@@ -90,8 +94,9 @@ exports.patientLogin = asyncHandler(async (req, res) => {
   if (patient && bcrypt.compareSync(req.body.password, patient.passwordHash)) {
     const token = jwt.sign(
       {
-        userId: patient.id,
+        id: patient.id,
         isDoctor: false,
+        isAdmin: false,
         isPatient: true,
       },
 
@@ -99,8 +104,12 @@ exports.patientLogin = asyncHandler(async (req, res) => {
       {expiresIn: '1d'}
     );
 
-    res.status(200).send({user: patient.email, token: token});
+    res.status(200).json({user: patient.email, token: token});
   } else {
-    res.status(400).send('password is wrong!');
+    res.status(400).json({
+      status: 'sucess',
+      data: null,
+      message: 'password is wrong!',
+    });
   }
 });

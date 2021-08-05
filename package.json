@@ -19,6 +19,7 @@
   "homepage": "https://github.com/NeerChayaphon/video-chat#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",

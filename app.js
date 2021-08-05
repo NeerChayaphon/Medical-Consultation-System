@@ -8,7 +8,7 @@ const peerServer = PeerServer({port: 9000, path: '/myapp'});
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 dotenv.config({path: './config.env'});
-const authJwt = require('./helpers/jwt');
+// const authJwt = require('./helpers/jwt');
 const AppError = require('./helpers/appErrors');
 const globalErrorHandler = require('./helpers/error-handler');
 
@@ -63,7 +63,4 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3000;
-server.listen(
-  PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`)
-);
+server.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`));
