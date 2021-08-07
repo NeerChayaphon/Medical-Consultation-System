@@ -1,17 +1,15 @@
 import React from 'react';
-import './Login.css';
-//import PropTypes from 'prop-types';
+import '../../styles/Login.css';
 import axios from 'axios';
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
-export default function PatientLogin({setToken}) {
+export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState(false);
   const history = useHistory();
 
-  if (!setToken) console.log('No');
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
@@ -23,15 +21,8 @@ export default function PatientLogin({setToken}) {
         return res.data;
       })
       .then((data) => {
-        // console.log(data.token);
-        // setData(data.token);
-
-        if (setToken) {
-          setToken(data.token);
-        } else {
-          localStorage.setItem('token', data.token);
-          history.go('/');
-        }
+        localStorage.setItem('token', data.token);
+        history.push('/home');
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -59,7 +50,3 @@ export default function PatientLogin({setToken}) {
     </div>
   );
 }
-
-// PatientLogin.propTypes = {
-//   setToken: PropTypes.func.isRequired,
-// };

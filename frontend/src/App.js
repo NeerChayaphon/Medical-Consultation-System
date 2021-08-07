@@ -1,7 +1,8 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './page/Home';
-import Landing from './page/Landing';
-import PatientLogin from './page/PatientLogin';
+import Home from './page/Patient/Home';
+import Landing from './page/Patient/Landing';
+import Login from './page/Patient/Login';
+import Register from './page/Patient/Register';
 //import {useState} from 'react';
 
 function App() {
@@ -14,7 +15,10 @@ function App() {
               <Landing />
             </Route>
             <Route path='/login'>
-              <PatientLogin />
+              <Login />
+            </Route>
+            <Route path='/register'>
+              <Register />
             </Route>
             <Route path='/home'>
               <Home />

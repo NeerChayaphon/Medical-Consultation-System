@@ -4,10 +4,14 @@ const patientSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
+    trim: true,
   },
   passwordHash: {
     type: String,
@@ -32,18 +36,18 @@ const patientSchema = new mongoose.Schema({
   },
   currentAddress: {
     type: String,
-    required: true,
+    default: null,
   },
   relative: {
-    name: String,
-    phoneNumber: String,
-    relativeType: String,
+    name: {type: String, default: null},
+    phoneNumber: {type: String, default: null},
+    relativeType: {type: String, default: null},
   },
-  allergy: String,
+  allergy: {type: String, default: null},
   bloodType: {
     type: String,
-    required: true,
-    enum: ['A', 'B', 'O', 'AB'],
+    enum: ['A', 'B', 'O', 'AB', null],
+    default: null,
   },
 });
 

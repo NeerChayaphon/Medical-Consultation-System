@@ -39,10 +39,10 @@ exports.createPatient = asyncHandler(async (req, res) => {
     gender: req.body.gender,
     birthdate: req.body.birthdate,
     IDcard: req.body.IDcard,
-    currentAddress: req.body.currentAddress,
-    relative: req.body.relative,
-    allergy: req.body.allergy,
-    bloodType: req.body.bloodType,
+    // currentAddress: req.body.currentAddress,
+    // relative: req.body.relative,
+    // allergy: req.body.allergy,
+    // bloodType: req.body.bloodType,
   });
   patient = await patient.save();
 
