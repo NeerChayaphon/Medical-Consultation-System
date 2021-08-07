@@ -18,9 +18,7 @@ exports.getAllDoctor = asyncHandler(async (req, res) => {
 });
 
 exports.getDoctor = asyncHandler(async (req, res) => {
-  const doctors = await Doctor.findById(req.params.id).populate(
-    'specialization'
-  );
+  const doctors = await Doctor.findById(req.params.id).populate('specialization');
   if (!doctors) {
     return res.status(404).json({
       status: 'fail',
@@ -57,9 +55,7 @@ exports.createDoctor = asyncHandler(async (req, res) => {
 
 exports.updateDoctor = asyncHandler(async (req, res) => {
   if (req.body.specialization) {
-    const specialization = await Specialization.findById(
-      req.body.specialization
-    );
+    const specialization = await Specialization.findById(req.body.specialization);
     if (!specialization) return res.status(400).send('Invalid specialization');
   }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
@@ -85,4 +81,31 @@ exports.deleteDoctor = asyncHandler(async (req, res, next) => {
     status: 'sucess',
     data: null,
   });
+});
+
+exports.doctorLogin = asyncHandler(async (req, res) => {
+  const doctor = await Doctor.findOne({email: req.body.email});
+  const secret = process.env.secret;
+  if (!doctor) {
+    return res.status(400).send('The doctor not found');
+  }
+  if (doctor && bcrypt.compareSync(req.body.password, doctor.passwordHash)) {
+    const token = jwt.sign(
+      {
+        id: doctor.id,
+        type: 'doctor',
+      },
+
+      secret,
+      {expiresIn: '1d'}
+    );
+
+    res.status(200).json({user: doctor.email, token: token});
+  } else {
+    res.status(400).json({
+      status: 'fail',
+      data: null,
+      message: 'password is wrong!',
+    });
+  }
 });

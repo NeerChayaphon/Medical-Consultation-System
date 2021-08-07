@@ -8,16 +8,16 @@ const peerServer = PeerServer({port: 9000, path: '/myapp'});
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 dotenv.config({path: './config.env'});
-// const authJwt = require('./helpers/jwt');
 const AppError = require('./helpers/appErrors');
 const globalErrorHandler = require('./helpers/error-handler');
+const cors = require('cors');
+app.use(cors());
 
 const connectDB = require('./config/db');
-
 connectDB();
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+// app.set('view engine', 'ejs');
+// app.use(express.static('public'));
 
 app.use(express.json());
 app.use(morgan('tiny'));
@@ -28,6 +28,7 @@ const specializationRoute = require('./routes/specializationRoute');
 const appointmentRoute = require('./routes/appointmentRoute');
 const patientRoute = require('./routes/patientRoute');
 const followUpRoute = require('./routes/followUpRoute');
+const authRoute = require('./routes/authRoute');
 
 const api = process.env.API_URL;
 app.use(`${api}/doctor`, doctorRoute);
@@ -35,18 +36,21 @@ app.use(`${api}/specialization`, specializationRoute);
 app.use(`${api}/appointment`, appointmentRoute);
 app.use(`${api}/patient`, patientRoute);
 app.use(`${api}/followUp`, followUpRoute);
+app.use(`${api}/auth`, authRoute);
 
+/* 
+************* This is for online offline **************
 app.get('/test/:userId', (req, res) => {
   res.render('doctorDashBoard', {userId: req.params.userId});
 });
 
-// Video Route
+************* This is for video chat **************
 app.get(`${api}/video`, (req, res) => {
   res.redirect(`/${uuidV4()}`);
 });
 app.get('/:room', (req, res) => {
   res.render('room', {roomId: req.params.room});
-});
+});*/
 
 const useSocket = require('./helpers/useSocket');
 useSocket(io);

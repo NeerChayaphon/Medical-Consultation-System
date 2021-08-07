@@ -89,15 +89,17 @@ exports.patientLogin = asyncHandler(async (req, res) => {
   const patient = await Patient.findOne({email: req.body.email});
   const secret = process.env.secret;
   if (!patient) {
-    return res.status(400).send('The patient not found');
+    return res.status(400).json({
+      status: 'fail',
+      data: null,
+      message: 'Incorrent Email or Password',
+    });
   }
   if (patient && bcrypt.compareSync(req.body.password, patient.passwordHash)) {
     const token = jwt.sign(
       {
         id: patient.id,
-        isDoctor: false,
-        isAdmin: false,
-        isPatient: true,
+        type: 'patient',
       },
 
       secret,
@@ -107,9 +109,9 @@ exports.patientLogin = asyncHandler(async (req, res) => {
     res.status(200).json({user: patient.email, token: token});
   } else {
     res.status(400).json({
-      status: 'sucess',
+      status: 'fail',
       data: null,
-      message: 'password is wrong!',
+      message: 'Incorrent Email or Password',
     });
   }
 });
