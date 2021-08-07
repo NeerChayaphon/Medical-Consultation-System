@@ -1,13 +1,17 @@
 import React from 'react';
 import './Login.css';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import axios from 'axios';
 import {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 export default function PatientLogin({setToken}) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState(false);
+  const history = useHistory();
 
+  if (!setToken) console.log('No');
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
@@ -21,26 +25,32 @@ export default function PatientLogin({setToken}) {
       .then((data) => {
         // console.log(data.token);
         // setData(data.token);
-        setToken(data.token);
 
-        localStorage.setItem('token', data.token);
+        if (setToken) {
+          setToken(data.token);
+        } else {
+          localStorage.setItem('token', data.token);
+          history.go('/');
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
+        setError(err.response.data);
       });
   };
 
   return (
     <div className='login-wrapper'>
       <h1>Please Log In</h1>
+      {error && <div>{error.message}</div>}
       <form onSubmit={handleSubmit}>
         <label>
           <p>Email</p>
-          <input type='text' onChange={(e) => setEmail(e.target.value)} />
+          <input type='email' required onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label>
           <p>Password</p>
-          <input type='password' onChange={(e) => setPassword(e.target.value)} />
+          <input type='password' required onChange={(e) => setPassword(e.target.value)} />
         </label>
         <div>
           <button type='submit'>Submit</button>
@@ -50,6 +60,6 @@ export default function PatientLogin({setToken}) {
   );
 }
 
-PatientLogin.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+// PatientLogin.propTypes = {
+//   setToken: PropTypes.func.isRequired,
+// };
