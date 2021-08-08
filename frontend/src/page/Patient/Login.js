@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/Login.css';
 import axios from 'axios';
 import {useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -32,19 +32,26 @@ export default function Login() {
 
   return (
     <div className='login-wrapper'>
-      <h1>Please Log In</h1>
-      {error && <div>{error.message}</div>}
+      <h1 className='title'>Log In</h1>
+      <p className='or'>
+        <span></span>
+      </p>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Email</p>
+        <div className='email-login'>
+          <label>Email</label>
           <input type='email' required onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
+          <label>Password</label>
           <input type='password' required onChange={(e) => setPassword(e.target.value)} />
-        </label>
+        </div>
         <div>
-          <button type='submit'>Submit</button>
+          <button type='submit' className='cta-btn'>
+            Submit
+          </button>
+        </div>
+        <div className='authError'>{error ? <div>{error.message}</div> : <div> </div>}</div>
+
+        <div className='signup'>
+          Click here to <Link to='/register'>sign up</Link>
         </div>
       </form>
     </div>

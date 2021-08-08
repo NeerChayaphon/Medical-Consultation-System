@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/Login.css';
 import axios from 'axios';
 import {useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 
 export default function Register() {
   const [name, setName] = useState();
@@ -52,49 +52,42 @@ export default function Register() {
 
   return (
     <div className='login-wrapper'>
-      <h1>Please Sign Up</h1>
-      {error && <div>{error.message}</div>}
+      <h1 className='title'>Sign Up</h1>
+      <p className='or'>
+        <span></span>
+      </p>
       <form onSubmit={handleSubmit}>
-        <label>
-          <p>Name</p>
+        <div className='email-login'>
+          <label>Name</label>
           <input type='text' required onChange={(e) => setName(e.target.value)} />
-        </label>
-        <label>
-          <p>Email</p>
+          <label>Email</label>
           <input type='email' required onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
+          <label>Password</label>
           <input type='password' required onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <label>
-          <p>Confirm Password</p>
+          <label>Confirm Password</label>
           <input type='password' required onChange={(e) => setconfirmPass(e.target.value)} />
-        </label>
-        <label>
-          <p>Phone</p>
+          <label>Phone</label>
           <input type='text' required onChange={(e) => setPhone(e.target.value)} />
-        </label>
-        <label>
-          <p>Gender</p>
+          <label>Gender </label>
           <select required onChange={(e) => setGender(e.target.value)} value={gender}>
             <option value=''>---</option>
             <option value='Male'>Male</option>
             <option value='Female'>Female</option>
           </select>
-        </label>
-        <label>
-          <p>ID Card</p>
+          <label>ID Card</label>
           <input type='number' required onChange={(e) => setIdCard(e.target.value)} />
-        </label>
-        <label>
-          <p>Birth date</p>
+          <label>Birth date</label>
           <input type='date' required onChange={(e) => setBirthdate(e.target.value)} />
-        </label>
-        <div>
-          <button type='submit'>Submit</button>
+
+          <button className='cta-btn' type='submit'>
+            Submit
+          </button>
         </div>
+        <div className='authError'>{error ? <div>{error.message}</div> : <div> </div>}</div>
       </form>
+      <div className='signup'>
+        Click here to <Link to='/login'>sign in</Link>
+      </div>
     </div>
   );
 }

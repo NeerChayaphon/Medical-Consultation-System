@@ -1,13 +1,15 @@
-import {useHistory, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import {useState} from 'react';
+import useAuthCheck from '../../adapters/useAuthCheck';
 
 function Home() {
-  const history = useHistory();
-  let token = localStorage.getItem('token');
+  const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
 
-  if (!token) {
+  //let token = localStorage.getItem('token');
+  if (error) {
+    console.log(error);
     return <Redirect to='/login' />;
   }
-
   return (
     <div className='wrapper'>
       <h1>Home</h1>

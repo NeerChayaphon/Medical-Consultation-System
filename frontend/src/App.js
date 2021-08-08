@@ -3,6 +3,7 @@ import Home from './page/Patient/Home';
 import Landing from './page/Patient/Landing';
 import Login from './page/Patient/Login';
 import Register from './page/Patient/Register';
+
 //import {useState} from 'react';
 
 function App() {
