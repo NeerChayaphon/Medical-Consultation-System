@@ -31,29 +31,31 @@ export default function Login() {
   };
 
   return (
-    <div className='login-wrapper'>
-      <h1 className='title'>Log In</h1>
-      <p className='or'>
-        <span></span>
-      </p>
-      <form onSubmit={handleSubmit}>
-        <div className='email-login'>
-          <label>Email</label>
-          <input type='email' required onChange={(e) => setEmail(e.target.value)} />
-          <label>Password</label>
-          <input type='password' required onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div>
-          <button type='submit' className='cta-btn'>
-            Submit
-          </button>
-        </div>
-        <div className='authError'>{error ? <div>{error.message}</div> : <div> </div>}</div>
+    <>
+      <div className='login-wrapper'>
+        <h1 className='title'>Log In</h1>
+        <p className='or'>
+          <span></span>
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className='email-login'>
+            <label>Email</label>
+            <input type='email' required onChange={(e) => setEmail(e.target.value)} />
+            <label>Password</label>
+            <input type='password' required onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div>
+            <button type='submit' className='cta-btn'>
+              Submit
+            </button>
+          </div>
+          <div className='authError'>{error ? <div>{error.message}</div> : <div> </div>}</div>
 
-        <div className='signup'>
-          Click here to <Link to='/register'>sign up</Link>
-        </div>
-      </form>
-    </div>
+          <div className='signup'>
+            Click here to <Link to='/register'>sign up</Link>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

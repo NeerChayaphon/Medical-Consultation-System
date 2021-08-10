@@ -14,6 +14,7 @@ const useAuthCheck = (url) => {
             'x-acess-token': localStorage.getItem('token'),
           },
         });
+        res = await Axios.get(`http://localhost:5000/api/v1/patient/${res.data.id}`);
         setData(res.data);
         setIsPending(false);
         setError(null);

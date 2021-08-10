@@ -10,9 +10,11 @@ function Home() {
     console.log(error);
     return <Redirect to='/login' />;
   }
+
   return (
     <div className='wrapper'>
-      <h1>Home</h1>
+      <div>Home</div>
+      {user && <div>{user.data.name}</div>}
     </div>
   );
 }
