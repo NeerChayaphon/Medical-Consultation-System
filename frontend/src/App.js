@@ -6,25 +6,16 @@ import Register from './page/Patient/Register';
 import Navbar from './components/Navbar';
 
 import './App.css';
-// import {useState} from 'react';
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Switch>
-        <Route exact path='/'>
-          <Landing />
-        </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route path='/register'>
-          <Register />
-        </Route>
-        <Route path='/home'>
-          <Home />
-        </Route>
+        <Route exact path='/' component={Landing} />
+        <Route path='/signup' component={Register} />
+        <Route path='/login' component={Login} />
+        <Route path='/home' component={Home} />
       </Switch>
     </Router>
   );

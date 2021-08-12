@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import useAuthCheck from '../adapters/useAuthCheck';
+// import useAuthCheck from '../adapters/useAuthCheck';
 import {Link} from 'react-router-dom';
 import './Navbar.css';
+import {useFetchUser} from '../context/userContext';
 
 function Navbar() {
-  const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
+  // const contextValue = useContext(UserContext);
+  // console.log(contextValue);
+  const {state} = useFetchUser();
+  console.log(state.data);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -36,31 +40,29 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {user && (
-              <li className='nav-item'>
-                <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                  Home
-                </Link>
-              </li>
-            )}
-            {user && (
-              <li className='nav-item'>
-                <Link to='/patient/record' className='nav-links' onClick={closeMobileMenu}>
-                  Appointment
-                </Link>
-              </li>
-            )}
-            {user && (
+            <li className='nav-item'>
+              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                Home
+              </Link>
+            </li>
+
+            <li className='nav-item'>
+              <Link to='/patient/record' className='nav-links' onClick={closeMobileMenu}>
+                Appointment
+              </Link>
+            </li>
+
+            {state.data && (
               <li className='nav-item'>
                 <Link to='/patient' className='nav-links' onClick={closeMobileMenu}>
-                  <>{user.data.name}</>
+                  Profile
                 </Link>
               </li>
             )}
 
             <li>
               <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
-                {user ? <>Sign Out</> : <>Sign In</>}
+                <>Sign Out</>
               </Link>
             </li>
           </ul>

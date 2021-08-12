@@ -3,12 +3,14 @@ import '../../styles/Login.css';
 import axios from 'axios';
 import {useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
+import {useFetchUser} from '../../context/userContext';
 
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState(false);
   const history = useHistory();
+  const {refetch} = useFetchUser();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ export default function Login() {
       })
       .then((data) => {
         localStorage.setItem('token', data.token);
+        refetch();
         history.push('/home');
       })
       .catch((err) => {
