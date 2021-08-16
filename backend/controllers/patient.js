@@ -102,8 +102,7 @@ exports.patientLogin = asyncHandler(async (req, res) => {
         type: 'patient',
       },
 
-      secret,
-      {expiresIn: '1d'}
+      secret
     );
 
     res.status(200).json({user: patient.email, token: token});

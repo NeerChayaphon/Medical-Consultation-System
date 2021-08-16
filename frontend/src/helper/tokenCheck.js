@@ -1,9 +1,10 @@
-import {Redirect} from 'react-router-dom';
-const tokenCheck = () => {
+import {useHistory} from 'react-router-dom';
+const useTokenCheck = () => {
+  const history = useHistory();
   let token = localStorage.getItem('token');
   if (!token) {
-    return <Redirect to='/login' />;
+    history.push('/login');
   }
 };
 
-export default tokenCheck;
+export default useTokenCheck;

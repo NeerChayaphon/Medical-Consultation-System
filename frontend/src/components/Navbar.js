@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 // import useAuthCheck from '../adapters/useAuthCheck';
 import {Link} from 'react-router-dom';
-import './Navbar.css';
+import '../styles/Navbar.css';
 import {useFetchUser} from '../context/userContext';
 
 function Navbar() {
   // const contextValue = useContext(UserContext);
   // console.log(contextValue);
-  const {state} = useFetchUser();
-  console.log(state.data);
+  const {state, refetch} = useFetchUser();
+  //console.log(state.data);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -29,6 +29,11 @@ function Navbar() {
 
   window.addEventListener('resize', showButton);
 
+  const signOut = () => {
+    localStorage.removeItem('token');
+    refetch();
+  };
+
   return (
     <>
       <nav className='navbar'>
@@ -40,17 +45,13 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                Home
-              </Link>
-            </li>
-
-            <li className='nav-item'>
-              <Link to='/patient/record' className='nav-links' onClick={closeMobileMenu}>
-                Appointment
-              </Link>
-            </li>
+            {state.data && (
+              <li className='nav-item'>
+                <Link to='/appointment?id=123' className='nav-links' onClick={closeMobileMenu}>
+                  Appointment
+                </Link>
+              </li>
+            )}
 
             {state.data && (
               <li className='nav-item'>
@@ -61,14 +62,18 @@ function Navbar() {
             )}
 
             <li>
-              <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
-                <>Sign Out</>
+              <Link
+                to={`/${state.data ? '' : 'login'}`}
+                className='nav-links-mobile'
+                onClick={closeMobileMenu}
+              >
+                {state.data && !state.isLoading ? <div>Sign Out</div> : <div>Sign In</div>}
               </Link>
             </li>
           </ul>
           {button && (
-            <Link to='/login' className='btn-signup'>
-              Sign Out
+            <Link to={`/${state.data ? '' : 'login'}`} className='btn-signup' onClick={signOut}>
+              {state.data && !state.isLoading ? <div>Sign Out</div> : <div>Sign In</div>}
             </Link>
           )}
         </div>

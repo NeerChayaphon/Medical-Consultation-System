@@ -1,17 +1,16 @@
-import {Redirect} from 'react-router-dom';
-//import {useState} from 'react';
+import {useEffect} from 'react';
 import useAuthCheck from '../../hooks/useAuthCheck';
 import {useFetchUser} from '../../context/userContext';
-import tokenCheck from '../../helper/tokenCheck';
+import useTokenCheck from '../../helper/tokenCheck';
+import useDoctorAPI from '../../hooks/useDoctorAPI';
 
 function Home() {
   //const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
+  useTokenCheck();
   const {state} = useFetchUser();
-  let token = localStorage.getItem('token');
-  if (!token) {
-    return <Redirect to='/login' />;
-  }
-  console.log(state);
+  const {data: doctor} = useDoctorAPI('http://localhost:5000/api/v1/doctor');
+  console.log(doctor.data);
+
   return (
     <div className='wrapper'>
       <div>Home</div>
