@@ -1,0 +1,86 @@
+.card,
+.skeleton {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  max-width: 350px;
+  height: 180px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #ffff;
+  box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+.card {
+  cursor: pointer;
+}
+
+.card-text,
+.skeleton-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 250px;
+  margin-left: 10px;
+}
+
+.card-img,
+.skeleton-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.card-description,
+.skeleton-description {
+  margin-bottom: 10px;
+}
+
+.card-link,
+.skeleton-link {
+  margin-top: 20px;
+}
+
+.card-skills,
+.skeleton-skills {
+  display: flex;
+
+  margin-bottom: 15px;
+  justify-content: flex-start;
+}
+
+.card-img {
+  background-color: #4f46e5;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 7px;
+  color: #334155;
+}
+
+.card-description {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.card-skills p {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  padding: 2px 4px;
+  border-radius: 7px;
+  border: none;
+  background-color: antiquewhite;
+  list-style: none;
+}
+
+.card-link {
+  font-size: 12px;
+  text-align: right;
+  text-decoration: none;
+  font-weight: 500;
+  color: #4f46e5;
+}
