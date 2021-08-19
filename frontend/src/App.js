@@ -5,6 +5,7 @@ import Login from './page/Patient/Login';
 import Register from './page/Patient/Register';
 import Navbar from './components/Navbar';
 import DoctorInfo from './page/Patient/DoctorInfo';
+import DoctorDashboard from './page/Doctor/DoctorDashboard';
 
 import {useFetchUser} from './context/userContext';
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' component={Login} />
         <Route path='/home' component={Home} />
         <Route path='/doctorInfo/:id' component={DoctorInfo} />
+        <Route path='/doctor/:id' component={DoctorDashboard} />
       </Switch>
     </Router>
   );

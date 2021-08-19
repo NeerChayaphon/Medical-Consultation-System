@@ -1,9 +1,9 @@
 const userSocketIdMap = new Map(); //a map of online usernames and their clients
 
 function useSocket(io) {
-  let users = [];
+  let users = {};
   io.on('connection', (socket) => {
-    // console.log(socket.id);
+    // video chat app
     socket.on('join-room', (roomId, userId) => {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit('user-connected', userId);
@@ -14,41 +14,36 @@ function useSocket(io) {
         socket.broadcast.to(roomId).emit('user-disconnected', userId);
       });
     });
+
+    // video online user
     socket.on('online-user', (socketId, userId) => {
-      // if (checkUser(users, userId)) {
-      //   users.push({userId, socketId: [socketId]});
-      // } else {
-      //   updateUser(users, userId, socketId);
-      // }
-      // io.emit('updateuserList', users);
-      io.emit('updateuserList', addClientToMap(userId, socketId));
+      // join add update status
+      socket.join('doctor');
+      users = addClientToMap(userId, socketId);
+      io.to('doctor').emit('updateuserList', users);
+      io.to('patient').emit('updateDoctorList', users);
+      // console.log(io.sockets.adapter.rooms); // for room check
 
       socket.on('disconnect', () => {
-        io.emit('updateuserList', removeClientFromMap(userId, socketId));
+        users = removeClientFromMap(userId, socketId);
+        io.to('doctor').emit('updateuserList', users);
+        io.to('patient').emit('updateDoctorList', users);
       });
+    });
+
+    socket.on('get-online-doctor', (fillter) => {
+      let obj = JSON.parse(JSON.stringify(users));
+      if (fillter != null) {
+        obj = obj[fillter];
+        socket.join('patient-get-socket');
+        io.to('patient-get-socket').emit('patientGetSocket', obj);
+      } else {
+        socket.join('patient');
+        io.to('patient').emit('updateDoctorList', users);
+      }
     });
   });
 }
-function updateUser(users, userId, socketId) {
-  var i;
-  for (i = 0; i < users.length; i++) {
-    if (users[i].userId == userId) {
-      users[i].socketId.push(socketId);
-      break;
-    }
-  }
-}
-function checkUser(users, userId) {
-  var i;
-  for (i = 0; i < users.length; i++) {
-    if (users[i].userId == userId) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function removeUser(users, userId, socketId) {}
 
 function addClientToMap(userId, socketId) {
   if (!userSocketIdMap.has(userId)) {
@@ -79,7 +74,37 @@ function mapToObject(userSocketIdMap) {
   Object.keys(obj).forEach((key) => {
     obj[key] = Array.from(obj[key]);
   });
-  console.log(obj);
+  // console.log(obj);
   return obj;
 }
 module.exports = useSocket;
+
+/*
+if (checkUser(users, userId)) {
+  users.push({userId, socketId: [socketId]});
+} else {
+  updateUser(users, userId, socketId);
+}
+io.emit('updateuserList', users);
+
+function updateUser(users, userId, socketId) {
+  var i;
+  for (i = 0; i < users.length; i++) {
+    if (users[i].userId == userId) {
+      users[i].socketId.push(socketId);
+      break;
+    }
+  }
+}
+function checkUser(users, userId) {
+  var i;
+  for (i = 0; i < users.length; i++) {
+    if (users[i].userId == userId) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function removeUser(users, userId, socketId) {}
+ */

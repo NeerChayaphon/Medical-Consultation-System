@@ -3,20 +3,28 @@ import io from 'socket.io-client';
 
 const DoctorInfo = ({match}) => {
   const [socket, setSocket] = useState(null);
+  const [onlineDoc, setOnlineDoc] = useState(null);
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
-    connectUser(newSocket, match);
+    getOnlineDoc(newSocket, setOnlineDoc, match);
   }, [setSocket]);
 
   return <div></div>;
 };
-const connectUser = (socket, match) => {
+const getOnlineDoc = (socket, setOnlineDoc, match) => {
   socket.on('connect', () => {
-    socket.emit('online-user', socket.id, match.params.id);
+    socket.emit('get-online-doctor', match.params.id);
   });
-  socket.on('updateuserList', (users) => {
-    console.log(users);
+
+  // get Socket
+  socket.on('patientGetSocket', (doctor) => {
+    if (Object.keys(doctor).length === 0) {
+      setOnlineDoc(null);
+    } else {
+      setOnlineDoc(doctor);
+    }
+    console.log(doctor);
   });
 };
 
