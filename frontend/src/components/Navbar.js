@@ -65,7 +65,7 @@ function Navbar() {
               <Link
                 to={`/${state.data ? '' : 'login'}`}
                 className='nav-links-mobile'
-                onClick={closeMobileMenu}
+                onClick={signOut}
               >
                 {state.data && !state.isLoading ? <div>Sign Out</div> : <div>Sign In</div>}
               </Link>

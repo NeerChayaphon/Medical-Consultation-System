@@ -1,7 +1,9 @@
 const userSocketIdMap = new Map(); //a map of online usernames and their clients
 
 function useSocket(io) {
+  let users = [];
   io.on('connection', (socket) => {
+    // console.log(socket.id);
     socket.on('join-room', (roomId, userId) => {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit('user-connected', userId);
@@ -12,14 +14,41 @@ function useSocket(io) {
         socket.broadcast.to(roomId).emit('user-disconnected', userId);
       });
     });
-    socket.on('online-doctor', (socketId, userId) => {
-      addClientToMap(userId, socketId);
+    socket.on('online-user', (socketId, userId) => {
+      // if (checkUser(users, userId)) {
+      //   users.push({userId, socketId: [socketId]});
+      // } else {
+      //   updateUser(users, userId, socketId);
+      // }
+      // io.emit('updateuserList', users);
+      io.emit('updateuserList', addClientToMap(userId, socketId));
+
       socket.on('disconnect', () => {
-        removeClientFromMap(userId, socketId);
+        io.emit('updateuserList', removeClientFromMap(userId, socketId));
       });
     });
   });
 }
+function updateUser(users, userId, socketId) {
+  var i;
+  for (i = 0; i < users.length; i++) {
+    if (users[i].userId == userId) {
+      users[i].socketId.push(socketId);
+      break;
+    }
+  }
+}
+function checkUser(users, userId) {
+  var i;
+  for (i = 0; i < users.length; i++) {
+    if (users[i].userId == userId) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function removeUser(users, userId, socketId) {}
 
 function addClientToMap(userId, socketId) {
   if (!userSocketIdMap.has(userId)) {
@@ -29,7 +58,7 @@ function addClientToMap(userId, socketId) {
     //user had already joined from one client and now joining using another client
     userSocketIdMap.get(userId).add(socketId);
   }
-  console.log(userSocketIdMap);
+  return mapToObject(userSocketIdMap);
 }
 
 function removeClientFromMap(userId, socketId) {
@@ -41,7 +70,16 @@ function removeClientFromMap(userId, socketId) {
       userSocketIdMap.delete(userId);
     }
   }
-  console.log(userSocketIdMap);
+  return mapToObject(userSocketIdMap);
 }
 
+function mapToObject(userSocketIdMap) {
+  const obj = Object.fromEntries(userSocketIdMap);
+
+  Object.keys(obj).forEach((key) => {
+    obj[key] = Array.from(obj[key]);
+  });
+  console.log(obj);
+  return obj;
+}
 module.exports = useSocket;

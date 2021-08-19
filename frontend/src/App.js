@@ -4,6 +4,7 @@ import Landing from './page/Patient/Landing';
 import Login from './page/Patient/Login';
 import Register from './page/Patient/Register';
 import Navbar from './components/Navbar';
+import DoctorInfo from './page/Patient/DoctorInfo';
 
 import {useFetchUser} from './context/userContext';
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/signup' component={Register} />
         <Route path='/login' component={Login} />
         <Route path='/home' component={Home} />
+        <Route path='/doctorInfo/:id' component={DoctorInfo} />
       </Switch>
     </Router>
   );

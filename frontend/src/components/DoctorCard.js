@@ -21,15 +21,15 @@ const DoctorCard = () => {
           </span>
 
           <p className='card-description'>
-            <i class='fas fa-graduation-cap fa-fw'></i>
+            <i className='fas fa-graduation-cap fa-fw'></i>
             <span> Faculty of medicine chulalongkorn</span>
           </p>
           <p className='card-description'>
-            <i class='fas fa-map-marker-alt fa-fw'></i>
+            <i className='fas fa-map-marker-alt fa-fw'></i>
             <span> Chulalongkorn Hospital</span>
           </p>
           <p className='card-description'>
-            <i class='fas fa-clock fa-fw'></i>
+            <i className='fas fa-clock fa-fw'></i>
             <span> 17:00 - 18:00</span>
           </p>
 
