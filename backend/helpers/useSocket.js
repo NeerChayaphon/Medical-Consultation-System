@@ -20,27 +20,24 @@ function useSocket(io) {
       // join add update status
       socket.join('doctor');
       users = addClientToMap(userId, socketId);
-      io.to('doctor').emit('updateuserList', users);
-      io.to('patient').emit('updateDoctorList', users);
+      // io.to('doctor').emit('updateuserList', users);
+      //io.to('patient').emit('updateDoctorList', users);  // update this for live update
       // console.log(io.sockets.adapter.rooms); // for room check
 
       socket.on('disconnect', () => {
         users = removeClientFromMap(userId, socketId);
-        io.to('doctor').emit('updateuserList', users);
-        io.to('patient').emit('updateDoctorList', users);
+        // io.to('doctor').emit('updateuserList', users);
+        //io.to('patient').emit('updateDoctorList', users);  // update this for live update
       });
     });
 
     socket.on('get-online-doctor', (fillter) => {
-      let obj = JSON.parse(JSON.stringify(users));
-      if (fillter != null) {
-        obj = obj[fillter];
-        socket.join('patient-get-socket');
-        io.to('patient-get-socket').emit('patientGetSocket', obj);
-      } else {
-        socket.join('patient');
-        io.to('patient').emit('updateDoctorList', users);
-      }
+      socket.join(fillter);
+      io.to(fillter).emit('updateDoctorList', users);
+    });
+    socket.on('call', (socketId, message) => {
+      socket.join(socketId);
+      io.to(socketId).emit('retrieve', message);
     });
   });
 }

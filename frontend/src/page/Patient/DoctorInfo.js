@@ -7,18 +7,28 @@ const DoctorInfo = ({match}) => {
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
-    getOnlineDoc(newSocket, setOnlineDoc, match);
+    getOnlineDoc(newSocket, setOnlineDoc);
   }, [setSocket]);
 
-  return <div></div>;
-};
-const getOnlineDoc = (socket, setOnlineDoc, match) => {
-  socket.on('connect', () => {
-    socket.emit('get-online-doctor', match.params.id);
-  });
+  // call doctor
+  const callDoctor = () => {
+    let socketList = onlineDoc[match.params.id];
+    socketList.forEach((socketId) => {
+      socket.emit('call', socketId, `http...${match.params.id}`);
+    });
+  };
 
-  // get Socket
-  socket.on('patientGetSocket', (doctor) => {
+  return (
+    <div>
+      <button onClick={callDoctor}>Call</button>
+    </div>
+  );
+};
+const getOnlineDoc = (socket, setOnlineDoc) => {
+  socket.on('connect', () => {
+    socket.emit('get-online-doctor', socket.id);
+  });
+  socket.on('updateDoctorList', (doctor) => {
     if (Object.keys(doctor).length === 0) {
       setOnlineDoc(null);
     } else {

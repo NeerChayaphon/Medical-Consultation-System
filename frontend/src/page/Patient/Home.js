@@ -35,7 +35,7 @@ function Home() {
 
 const getOnlineDoc = (socket, setOnlineDoc) => {
   socket.on('connect', () => {
-    socket.emit('get-online-doctor', null);
+    socket.emit('get-online-doctor', socket.id);
   });
   socket.on('updateDoctorList', (doctor) => {
     if (Object.keys(doctor).length === 0) {

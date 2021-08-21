@@ -15,8 +15,11 @@ const connectUser = (socket, match) => {
   socket.on('connect', () => {
     socket.emit('online-user', socket.id, match.params.id);
   });
-  socket.on('updateuserList', (users) => {
-    console.log(users);
+  // socket.on('updateuserList', (users) => {
+  //   console.log(users);
+  // });
+  socket.on('retrieve', (message) => {
+    console.log('message :' + message);
   });
 };
 
