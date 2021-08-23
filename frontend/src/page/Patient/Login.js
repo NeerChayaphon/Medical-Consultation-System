@@ -43,9 +43,19 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className='email-login'>
             <label>Email</label>
-            <input type='email' required onChange={(e) => setEmail(e.target.value)} />
+            <input
+              className='input'
+              type='email'
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <label>Password</label>
-            <input type='password' required onChange={(e) => setPassword(e.target.value)} />
+            <input
+              className='input'
+              type='password'
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div>
             <button type='submit' className='cta-btn'>

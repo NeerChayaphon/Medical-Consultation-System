@@ -38,10 +38,7 @@
   font-size: 15px;
 }
 
-input[type='email'],
-input[type='password'],
-input[type='text'],
-input[type='number'] {
+.input {
   padding: 15px 20px;
   margin-top: 8px;
   margin-bottom: 15px;

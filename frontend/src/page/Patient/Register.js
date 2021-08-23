@@ -59,15 +59,35 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <div className='email-login'>
           <label>Name</label>
-          <input type='text' required onChange={(e) => setName(e.target.value)} />
+          <input className='input' type='text' required onChange={(e) => setName(e.target.value)} />
           <label>Email</label>
-          <input type='email' required onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className='input'
+            type='email'
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label>Password</label>
-          <input type='password' required onChange={(e) => setPassword(e.target.value)} />
+          <input
+            className='input'
+            type='password'
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <label>Confirm Password</label>
-          <input type='password' required onChange={(e) => setconfirmPass(e.target.value)} />
+          <input
+            className='input'
+            type='password'
+            required
+            onChange={(e) => setconfirmPass(e.target.value)}
+          />
           <label>Phone</label>
-          <input type='text' required onChange={(e) => setPhone(e.target.value)} />
+          <input
+            className='input'
+            type='text'
+            required
+            onChange={(e) => setPhone(e.target.value)}
+          />
           <label>Gender </label>
           <select required onChange={(e) => setGender(e.target.value)} value={gender}>
             <option value=''>---</option>
@@ -75,9 +95,19 @@ export default function Register() {
             <option value='Female'>Female</option>
           </select>
           <label>ID Card</label>
-          <input type='number' required onChange={(e) => setIdCard(e.target.value)} />
+          <input
+            className='input'
+            type='number'
+            required
+            onChange={(e) => setIdCard(e.target.value)}
+          />
           <label>Birth date</label>
-          <input type='date' required onChange={(e) => setBirthdate(e.target.value)} />
+          <input
+            className='input'
+            type='date'
+            required
+            onChange={(e) => setBirthdate(e.target.value)}
+          />
 
           <button className='cta-btn' type='submit'>
             Submit
