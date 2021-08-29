@@ -4,9 +4,17 @@ const {Specialization} = require('../models/Specialization');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const APIFeatures = require('../helpers/apiFeatures');
 
 exports.getAllDoctor = asyncHandler(async (req, res) => {
-  const doctors = await Doctor.find().populate('specialization');
+  // Execute query : query.sort().select().skip().limit()
+  const feature = new APIFeatures(Doctor.find().populate('specialization'), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const doctors = await feature.query;
+
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,
@@ -18,7 +26,14 @@ exports.getAllDoctor = asyncHandler(async (req, res) => {
 });
 
 exports.getDoctor = asyncHandler(async (req, res) => {
-  const doctors = await Doctor.findById(req.params.id).populate('specialization');
+  let id = req.params.id;
+  let doctors = {};
+  if (id.includes(',')) {
+    let array = id.split(',');
+    doctors = await Doctor.find({_id: {$in: array}}).populate('specialization');
+  } else {
+    doctors = await Doctor.findById(req.params.id).populate('specialization');
+  }
   if (!doctors) {
     return res.status(404).json({
       status: 'fail',
@@ -27,6 +42,7 @@ exports.getDoctor = asyncHandler(async (req, res) => {
   }
   res.status(200).json({
     status: 'sucess',
+    result: doctors.length,
     DateTime: req.requestTime,
     data: doctors,
   });

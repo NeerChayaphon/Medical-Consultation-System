@@ -21,13 +21,12 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  specialization: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Specialization',
-      required: true,
-    },
-  ],
+  specialization: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Specialization',
+    required: true,
+  },
+
   specializationDetail: {
     type: String,
     required: true,

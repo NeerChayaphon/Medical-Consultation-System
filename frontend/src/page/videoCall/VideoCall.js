@@ -72,7 +72,7 @@ const Call = ({match}) => {
       });
       peers[userId] = call;
     }
-  }, []);
+  }, [match.params.id]);
 
   let UserVideo;
   if (stream) {

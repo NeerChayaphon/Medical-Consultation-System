@@ -3,7 +3,7 @@ const patient = require('../controllers/patient');
 const router = express.Router();
 const patientVerify = require('../helpers/jwt');
 
-router.route('/').get(patient.getAllPatient).post(patient.createPatient); // chain route
+router.route('/').get(patientVerify, patient.getAllPatient).post(patient.createPatient); // chain route
 
 router
   .route('/:id')

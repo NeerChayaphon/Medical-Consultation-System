@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/DoctorCard.css';
 
-const DoctorCard = () => {
+const DoctorCard = ({doctor}) => {
   return (
     <div className='doctorCard'>
       <Link className='card' to='/login'>
@@ -14,24 +14,25 @@ const DoctorCard = () => {
           />
         </div>
         <div className='card-text'>
-          <h2 className='card-title'>Dr.Chayaphon Bunyakan</h2>
+          <h2 className='card-title'>{doctor.name}</h2>
 
           <span className='card-skills'>
-            <p className='skill'>Cardiologist</p>
+            <p className='skill'>{doctor.specialization.specialization}</p>
           </span>
 
           <p className='card-description'>
             <i className='fas fa-graduation-cap fa-fw'></i>
-            <span> Faculty of medicine chulalongkorn</span>
+            <span> {doctor.backgroud}</span>
           </p>
           <p className='card-description'>
             <i className='fas fa-map-marker-alt fa-fw'></i>
-            <span> Chulalongkorn Hospital</span>
+            <span> {doctor.hospital}</span>
           </p>
-          <p className='card-description'>
+
+          {/* <p className='card-description'>
             <i className='fas fa-clock fa-fw'></i>
             <span> 17:00 - 18:00</span>
-          </p>
+          </p> */}
 
           {/* <Link to='#' className='card-link'>
             Consult
