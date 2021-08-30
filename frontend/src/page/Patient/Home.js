@@ -62,6 +62,7 @@ const getOnlineDoc = (socket, setOnlineDoc) => {
       //setOnlineDoc(doctor);
       fetchDoctorData(Object.keys(doctor), setOnlineDoc);
     }
+    disconnectSocket(socket);
     //console.log(Object.keys(doctor));
     //console.log(doctor);
   });
@@ -90,6 +91,10 @@ const fetchDoctorData = (doctorId, setOnlineDoc) => {
     }
   };
   fetchDoctor();
+};
+
+const disconnectSocket = (socket) => {
+  socket.disconnect();
 };
 
 export default Home;

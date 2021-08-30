@@ -1,9 +1,13 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
+import {v4} from 'uuid';
+import {useHistory} from 'react-router-dom';
 
 const DoctorInfo = ({match}) => {
   const [socket, setSocket] = useState(null);
   const [onlineDoc, setOnlineDoc] = useState(null);
+  const history = useHistory();
+
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
@@ -13,9 +17,13 @@ const DoctorInfo = ({match}) => {
   // call doctor
   const callDoctor = () => {
     let socketList = onlineDoc[match.params.id];
+    let randomId = v4();
     socketList.forEach((socketId) => {
-      socket.emit('call', socketId, `http...${match.params.id}`);
+      socket.emit('call', socketId, randomId);
     });
+    console.log(socket.id);
+    socket.disconnect();
+    history.push(`/call/${randomId}`);
   };
 
   return (

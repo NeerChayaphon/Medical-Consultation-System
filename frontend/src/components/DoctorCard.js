@@ -5,7 +5,7 @@ import '../styles/DoctorCard.css';
 const DoctorCard = ({doctor}) => {
   return (
     <div className='doctorCard'>
-      <Link className='card' to='/login'>
+      <Link className='card' to={`/doctorinfo/${doctor._id}`}>
         <div>
           <img
             className='card-img'
@@ -30,8 +30,8 @@ const DoctorCard = ({doctor}) => {
           </p>
 
           {/* <p className='card-description'>
-            <i className='fas fa-clock fa-fw'></i>
-            <span> 17:00 - 18:00</span>
+            <i className='fas fa-phone-alt fa-fw'></i>
+            <span> {doctor.phone}</span>
           </p> */}
 
           {/* <Link to='#' className='card-link'>

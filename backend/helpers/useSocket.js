@@ -7,6 +7,7 @@ function useSocket(io) {
     socket.on('join-room', (roomId, userId) => {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit('user-connected', userId);
+      console.log(io.sockets.adapter.rooms);
       socket.on('message', (message) => {
         io.to(roomId).emit('createMessage', message, userId);
       });
@@ -18,8 +19,9 @@ function useSocket(io) {
     // video online user
     socket.on('online-user', (socketId, userId) => {
       // join add update status
-      socket.join('doctor');
+
       users = addClientToMap(userId, socketId);
+
       // io.to('doctor').emit('updateuserList', users);
       //io.to('patient').emit('updateDoctorList', users);  // update this for live update
       // console.log(io.sockets.adapter.rooms); // for room check
@@ -39,6 +41,7 @@ function useSocket(io) {
       socket.join(socketId);
       io.to(socketId).emit('retrieve', message);
     });
+    console.log(io.sockets.adapter.rooms);
   });
 }
 
@@ -71,7 +74,7 @@ function mapToObject(userSocketIdMap) {
   Object.keys(obj).forEach((key) => {
     obj[key] = Array.from(obj[key]);
   });
-  // console.log(obj);
+  console.log(obj);
   return obj;
 }
 module.exports = useSocket;
