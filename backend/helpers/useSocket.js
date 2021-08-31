@@ -37,9 +37,12 @@ function useSocket(io) {
       socket.join(fillter);
       io.to(fillter).emit('updateDoctorList', users);
     });
-    socket.on('call', (socketId, message) => {
+    socket.on('call', (socketId, fromId, message) => {
       socket.join(socketId);
-      io.to(socketId).emit('retrieve', message);
+      io.to(socketId).emit('retrieve', fromId, message);
+    });
+    socket.on('answerCall', (fromId, status) => {
+      io.to(fromId).emit('retrieveCall', status);
     });
     console.log(io.sockets.adapter.rooms);
   });
