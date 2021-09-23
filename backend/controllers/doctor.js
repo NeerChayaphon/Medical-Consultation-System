@@ -5,6 +5,36 @@ const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const APIFeatures = require('../helpers/apiFeatures');
+const AppError = require('../helpers/appErrors')
+
+// multer
+const multer = require('multer');
+
+const multerStorage = multer.diskStorage({
+  destination : (req,file,cb) => {
+    cb(null,'public/img/doctor');
+  },
+  filename : (req,file,cb) => {
+    const ext = file.mimetype.split('/')[1];
+    cb(null,`${req.body.name}.${ext}`)
+  }
+});
+
+const multerFilter = (req,file,cb) => {
+  if(file.mimetype.startsWith('image')) {
+    cb(null,true)
+  } else {
+    cb(new AppError('Please upload only images',400),false)
+  }
+}
+
+const upload = multer({
+  storage : multerStorage,
+  fileFilter : multerFilter
+});
+
+// image midderware
+exports.uploadDoctorPhoto = upload.single('photo')
 
 exports.getAllDoctor = asyncHandler(async (req, res) => {
   // Execute query : query.sort().select().skip().limit()
@@ -62,6 +92,8 @@ exports.createDoctor = asyncHandler(async (req, res) => {
     backgroud: req.body.backgroud,
     hospital: req.body.hospital,
   });
+
+  console.log(req.file);
   doctor = await doctor.save();
   res.status(201).json({
     status: 'sucess',
