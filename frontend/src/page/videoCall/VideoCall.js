@@ -16,12 +16,8 @@ const Call = ({match}) => {
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
-    const myPeer = new Peer(undefined, {
-      host: 'localhost',
-      port: 9000,
-      path: '/myapp',
-    });
 
+    const myPeer = new Peer();
     const peers = {};
     navigator.mediaDevices
       .getUserMedia({
