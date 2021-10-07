@@ -16,7 +16,8 @@ const multerStorage = multer.diskStorage({
   },
   filename : (req,file,cb) => {
     const ext = file.mimetype.split('/')[1];
-    cb(null,`${req.body.name}.${ext}`)
+    let filename = req.body.name
+    cb(null,`${filename.split(' ').join('_')}.${ext}`)
   }
 });
 
@@ -93,6 +94,10 @@ exports.createDoctor = asyncHandler(async (req, res) => {
     hospital: req.body.hospital,
   });
 
+  if (req.file) {
+    doctor['photo'] = req.file.filename;
+  }
+
   console.log(req.file);
   doctor = await doctor.save();
   res.status(201).json({
@@ -105,6 +110,9 @@ exports.updateDoctor = asyncHandler(async (req, res) => {
   if (req.body.specialization) {
     const specialization = await Specialization.findById(req.body.specialization);
     if (!specialization) return res.status(400).send('Invalid specialization');
+  }
+  if (req.file) {
+    req.body.photo = req.file.filename;
   }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
