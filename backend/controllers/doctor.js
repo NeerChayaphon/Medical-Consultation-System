@@ -107,12 +107,14 @@ exports.createDoctor = asyncHandler(async (req, res) => {
 });
 
 exports.updateDoctor = asyncHandler(async (req, res) => {
+  console.log(res.locals) // From doctorVerify
+  console.log(req.body) // Doctor input
   if (req.body.specialization) {
     const specialization = await Specialization.findById(req.body.specialization);
     if (!specialization) return res.status(400).send('Invalid specialization');
   }
-  if (req.file) {
-    req.body.photo = req.file.filename;
+  if (req.body.password) {
+    req.body.passwordHash = bcrypt.hashSync(req.body.password, 10)
   }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

@@ -1,8 +1,8 @@
 const express = require('express');
 const patient = require('../controllers/patient');
 const router = express.Router();
-const patientVerify = require('../helpers/jwt');
+const jwt = require('../helpers/jwt');
 
-router.route('/patient').get(patientVerify, patient.checkPatientLogin);
+router.route('/patient').get(jwt.userVerify(['patient']), patient.checkPatientLogin);
 
 module.exports = router;
