@@ -7,7 +7,8 @@ function useSocket(io) {
     socket.on('join-room', (roomId, userId) => {
       socket.join(roomId);
       socket.broadcast.to(roomId).emit('user-connected', userId);
-      console.log(io.sockets.adapter.rooms);
+      // console.log(io.sockets.adapter.rooms);
+      //console.log(mapToObject(io.sockets.adapter.rooms));
       socket.on('message', (message) => {
         io.to(roomId).emit('createMessage', message, userId);
       });
@@ -38,10 +39,21 @@ function useSocket(io) {
       io.to(fillter).emit('updateDoctorList', users);
     });
     socket.on('call', (socketId, message) => {
-      socket.join(socketId);
-      io.to(socketId).emit('retrieve', message);
+      let rooms = mapToObject(io.sockets.adapter.rooms);
+      if (!rooms[message.url]) {
+        console.log(message.url + ' is Available');
+        io.to(socketId).emit('retrieve', message);
+        io.to(message.from).emit('availableCall', true);
+      } else {
+        console.log(message.url + ' is Not Available');
+        io.to(message.from).emit('availableCall', false);
+      }
     });
-    console.log(io.sockets.adapter.rooms);
+    socket.on('answerCall', (fromId, status) => {
+      io.to(fromId).emit('retrieveCall', status);
+    });
+    //console.log(io.sockets.adapter.rooms);
+    //console.log(mapToObject(io.sockets.adapter.rooms));
   });
 }
 
@@ -74,7 +86,7 @@ function mapToObject(userSocketIdMap) {
   Object.keys(obj).forEach((key) => {
     obj[key] = Array.from(obj[key]);
   });
-  console.log(obj);
+  //console.log(obj);
   return obj;
 }
 module.exports = useSocket;

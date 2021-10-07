@@ -53,6 +53,9 @@ exports.createPatient = asyncHandler(async (req, res) => {
 });
 
 exports.updatePatient = asyncHandler(async (req, res) => {
+  if (req.body.password) {
+    req.body.passwordHash = bcrypt.hashSync(req.body.password, 10)
+  }
   const patient = await Patient.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -82,7 +85,8 @@ exports.deletePatient = asyncHandler(async (req, res, next) => {
 });
 
 exports.checkPatientLogin = asyncHandler(async (req, res) => {
-  res.send(req.body);
+  // res.send(req.body);
+  res.send(res.locals);
 });
 
 exports.patientLogin = asyncHandler(async (req, res) => {

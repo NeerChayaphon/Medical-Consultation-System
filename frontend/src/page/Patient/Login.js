@@ -65,7 +65,7 @@ export default function Login() {
           <div className='authError'>{error ? <div>{error.message}</div> : <div> </div>}</div>
 
           <div className='signup'>
-            Click here to <Link to='/register'>sign up</Link>
+            Click here to <Link to='/signup'>sign up</Link>
           </div>
         </form>
       </div>

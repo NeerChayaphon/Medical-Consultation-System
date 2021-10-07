@@ -21,6 +21,7 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  photo: {type: String, default: 'default.jpg'},
   specialization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Specialization',
