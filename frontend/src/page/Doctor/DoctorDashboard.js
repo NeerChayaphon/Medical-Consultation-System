@@ -1,21 +1,44 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
-import {Redirect} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 const DoctorDashboard = ({match}) => {
   const [socket, setSocket] = useState(null);
   const [call, setCall] = useState(null);
+  const history = useHistory();
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
     connectUser(newSocket, match, setCall);
-  }, [setSocket]);
+  }, [setSocket, match]);
+
   if (call != null) {
     console.log(call);
-    //return <Redirect to={`/call/${call}`} />;
   }
 
-  return <div>{call && <a href={`/call/${call}`}>Some one is calling</a>}</div>;
+  if (socket) {
+    socket.on('retrieve', (message) => {
+      setCall(message);
+    });
+  }
+
+  const answerCall = () => {
+    var delayInMilliseconds = 1000; //2 second
+    socket.emit('answerCall', call.from, true);
+    // setTimeout(function () {
+    //   history.push(`/call/${call.url}`);
+    // }, delayInMilliseconds);
+  };
+
+  return (
+    <div>
+      {call && (
+        <a onClick={answerCall} href={`/call/${call.url}`}>
+          Answer call
+        </a>
+      )}
+    </div>
+  );
 };
 const connectUser = (socket, match, setCall) => {
   socket.on('connect', () => {
@@ -24,12 +47,6 @@ const connectUser = (socket, match, setCall) => {
   // socket.on('updateuserList', (users) => {
   //   console.log(users);
   // });
-  socket.on('retrieve', (message) => {
-    setCall(message);
-    // let obj = {url: message};
-    // setCall((oldArray) => [...oldArray, message]);
-    // here
-  });
 };
 
 export default DoctorDashboard;

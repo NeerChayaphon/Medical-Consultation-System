@@ -16,12 +16,8 @@ const Call = ({match}) => {
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
-    const myPeer = new Peer(undefined, {
-      host: 'localhost',
-      port: 9000,
-      path: '/myapp',
-    });
 
+    const myPeer = new Peer();
     const peers = {};
     navigator.mediaDevices
       .getUserMedia({
@@ -110,10 +106,14 @@ const Call = ({match}) => {
       {PartnerVideo ? PartnerVideo : <div></div>}
       <div className='options__left'>
         <button onClick={videoControl} id='stopVideo' className='options__button'>
-          {isVideoOff ? <i class='fas fa-video-slash'></i> : <i className='fas fa-video'></i>}
+          {isVideoOff ? <i className='fas fa-video-slash'></i> : <i className='fas fa-video'></i>}
         </button>
         <button onClick={mute} id='muteButton' className='options__button'>
-          {isMute ? <i class='fas fa-microphone-slash'></i> : <i className='fa fa-microphone'></i>}
+          {isMute ? (
+            <i className='fas fa-microphone-slash'></i>
+          ) : (
+            <i className='fa fa-microphone'></i>
+          )}
         </button>
       </div>
     </div>

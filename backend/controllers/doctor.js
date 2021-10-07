@@ -5,6 +5,37 @@ const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const APIFeatures = require('../helpers/apiFeatures');
+const AppError = require('../helpers/appErrors')
+
+// multer
+const multer = require('multer');
+
+const multerStorage = multer.diskStorage({
+  destination : (req,file,cb) => {
+    cb(null,'public/img/doctor');
+  },
+  filename : (req,file,cb) => {
+    const ext = file.mimetype.split('/')[1];
+    let filename = req.body.name
+    cb(null,`${filename.split(' ').join('_')}.${ext}`)
+  }
+});
+
+const multerFilter = (req,file,cb) => {
+  if(file.mimetype.startsWith('image')) {
+    cb(null,true)
+  } else {
+    cb(new AppError('Please upload only images',400),false)
+  }
+}
+
+const upload = multer({
+  storage : multerStorage,
+  fileFilter : multerFilter
+});
+
+// image midderware
+exports.uploadDoctorPhoto = upload.single('photo')
 
 exports.getAllDoctor = asyncHandler(async (req, res) => {
   // Execute query : query.sort().select().skip().limit()
@@ -62,6 +93,12 @@ exports.createDoctor = asyncHandler(async (req, res) => {
     backgroud: req.body.backgroud,
     hospital: req.body.hospital,
   });
+
+  if (req.file) {
+    doctor['photo'] = req.file.filename;
+  }
+
+  console.log(req.file);
   doctor = await doctor.save();
   res.status(201).json({
     status: 'sucess',
@@ -70,9 +107,14 @@ exports.createDoctor = asyncHandler(async (req, res) => {
 });
 
 exports.updateDoctor = asyncHandler(async (req, res) => {
+  console.log(res.locals) // From doctorVerify
+  console.log(req.body) // Doctor input
   if (req.body.specialization) {
     const specialization = await Specialization.findById(req.body.specialization);
     if (!specialization) return res.status(400).send('Invalid specialization');
+  }
+  if (req.body.password) {
+    req.body.passwordHash = bcrypt.hashSync(req.body.password, 10)
   }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
