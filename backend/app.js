@@ -29,17 +29,19 @@ app.use(morgan('tiny'));
 // 2. Route
 const doctorRoute = require('./routes/doctorRoute');
 const specializationRoute = require('./routes/specializationRoute');
-const appointmentRoute = require('./routes/appointmentRoute');
+const medicalRecordRoute = require('./routes/medicalRecordRoute');
 const patientRoute = require('./routes/patientRoute');
 const followUpRoute = require('./routes/followUpRoute');
+const staffRoute = require('./routes/staffRoute');
 const authRoute = require('./routes/authRoute');
 
 const api = process.env.API_URL;
 app.use(`${api}/doctor`, doctorRoute);
 app.use(`${api}/specialization`, specializationRoute);
-app.use(`${api}/appointment`, appointmentRoute);
+app.use(`${api}/medicalRecord`, medicalRecordRoute);
 app.use(`${api}/patient`, patientRoute);
 app.use(`${api}/followUp`, followUpRoute);
+app.use(`${api}/staff`,staffRoute);
 app.use(`${api}/auth`, authRoute);
 
 // ************* This is for online offline **************

@@ -1,53 +1,62 @@
 const express = require('express');
 const {Doctor} = require('../models/Doctor');
 const {Patient} = require('../models/Patient');
-const {Appointment} = require('../models/Appointment');
+const {MedicalRecord} = require('../models/MedicalRecord');
 const asyncHandler = require('express-async-handler');
 const {FollowUp} = require('../models/FollowUp');
 
-exports.getAllAppointment = asyncHandler(async (req, res) => {
-  const appointment = await Appointment.find()
+exports.getAllMedicalRecord = asyncHandler(async (req, res) => {
+  const medicalRecord = await MedicalRecord.find()
     .populate('doctor', 'name')
     .populate('patient', 'name');
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,
-    result: appointment.length,
-    data: appointment,
+    result: medicalRecord.length,
+    data: medicalRecord,
   });
 });
 
-exports.getAppointment = asyncHandler(async (req, res) => {
-  const appointment = await Appointment.findById(req.params.id)
+exports.getMedicalRecord = asyncHandler(async (req, res) => {
+  const medicalRecord = await MedicalRecord.findById(req.params.id)
     .populate('doctor', 'name')
     .populate('patient', 'name');
-  if (!appointment) {
+  if (!medicalRecord) {
     return res.status(404).json({
       status: 'fail',
-      message: "can't find the appointment",
+      message: "can't find the medical record",
     });
   }
-  res.status(200).json({
-    status: 'sucess',
-    DateTime: req.requestTime,
-    data: appointment,
-  });
+  if (
+    (res.locals.id == medicalRecord.patient._id &&
+      res.locals.type == 'patient') ||
+    res.locals.type == 'doctor' ||
+    res.locals.type == 'staff'
+  ) {
+    res.status(200).json({
+      status: 'sucess',
+      DateTime: req.requestTime,
+      data: medicalRecord,
+    });
+  } else {
+    res.status(400).json({message: "You don't have autherize"});
+  }
 });
 
-exports.createAppointment = asyncHandler(async (req, res) => {
+exports.createMedicalRecord = asyncHandler(async (req, res) => {
   const doctor = await Doctor.findById(req.body.doctor);
   if (!doctor) return res.status(400).send('Invalid doctor ID');
 
   const patient = await Patient.findById(req.body.patient);
   if (!patient) return res.status(400).send('Invalid patient ID');
 
-  let appointment;
+  let medicalRecord;
 
   if (req.body.followUp) {
     const followUp = await FollowUp.create(req.body.followUp);
     if (!followUp)
       return res.status(400).send('the followUp cannot be created!');
-    appointment = new Appointment({
+    medicalRecord = new MedicalRecord({
       doctor: req.body.doctor,
       patient: req.body.patient,
       history: req.body.history,
@@ -55,18 +64,18 @@ exports.createAppointment = asyncHandler(async (req, res) => {
       treatment: req.body.treatment,
       followUp: followUp._id,
     });
-    appointment = await appointment.save();
+    medicalRecord = await medicalRecord.save();
   } else {
-    appointment = await Appointment.create(req.body);
+    medicalRecord = await MedicalRecord.create(req.body);
   }
 
   res.status(201).json({
     status: 'sucess',
-    data: appointment,
+    data: medicalRecord,
   });
 });
 
-exports.updateAppointment = asyncHandler(async (req, res) => {
+exports.updateMedicalRecord = asyncHandler(async (req, res) => {
   if (req.body.doctor) {
     const doctor = await Doctor.findById(req.body.doctor);
     if (!doctor) return res.status(400).send('Invalid doctor');
@@ -76,7 +85,7 @@ exports.updateAppointment = asyncHandler(async (req, res) => {
     if (!patient) return res.status(400).send('Invalid patient');
   }
 
-  const appointment = await Appointment.findByIdAndUpdate(
+  const medicalRecord = await MedicalRecord.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
@@ -84,22 +93,22 @@ exports.updateAppointment = asyncHandler(async (req, res) => {
     }
   );
 
-  if (!appointment) {
+  if (!medicalRecord) {
     return res.status(404).json({
       status: 'fail',
-      message: "can't find the appointment",
+      message: "can't find the medical record",
     });
   }
   res.status(200).json({
     status: 'sucess',
     data: {
-      appointment,
+      medicalRecord,
     },
   });
 });
 
-exports.deleteAppointment = asyncHandler(async (req, res, next) => {
-  await Appointment.findByIdAndDelete(req.params.id);
+exports.deleteMedicalRecord = asyncHandler(async (req, res, next) => {
+  await MedicalRecord.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
     status: 'sucess',

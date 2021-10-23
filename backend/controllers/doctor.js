@@ -167,3 +167,8 @@ exports.doctorLogin = asyncHandler(async (req, res) => {
     });
   }
 });
+
+exports.checkDoctorLogin = asyncHandler(async (req, res) => {
+  // res.send(req.body);
+  res.send(res.locals);
+});

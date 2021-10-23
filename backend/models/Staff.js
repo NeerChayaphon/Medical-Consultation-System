@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const doctorSchema = new mongoose.Schema({
+const staffSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -26,34 +26,23 @@ const doctorSchema = new mongoose.Schema({
     required: true,
     enum: ['Male', 'Female'],
   },
-  photo: {type: String, default: 'default.jpg'},
-  specialization: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Specialization',
-    required: true,
-  },
-
-  specializationDetail: {
+  position: {
     type: String,
     required: true,
   },
-  backgroud: {
-    type: String,
-    required: true,
-  },
-  hospital: {
-    type: String,
+  salary: {
+    type: Number,
     required: true,
   },
 });
 
-doctorSchema.virtual('id').get(function () {
+staffSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
-doctorSchema.set('toJSON', {
+staffSchema.set('toJSON', {
   virtuals: true,
 });
 
-exports.Doctor = mongoose.model('Doctor', doctorSchema);
-exports.doctorSchema = doctorSchema;
+exports.Staff = mongoose.model('Staff', staffSchema);
+exports.staffSchema = staffSchema;

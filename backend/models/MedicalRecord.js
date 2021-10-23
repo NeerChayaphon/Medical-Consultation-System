@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const apSchema = new mongoose.Schema({
+const mrSchema = new mongoose.Schema({
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Doctor',
@@ -57,7 +57,11 @@ const apSchema = new mongoose.Schema({
       required: true,
     },
   },
-
+  illness: {
+    type: String,
+    default: "None",
+    required: true,
+  },
   treatment: {
     type: String,
     required: true,
@@ -68,13 +72,13 @@ const apSchema = new mongoose.Schema({
   },
 });
 
-apSchema.virtual('id').get(function () {
+mrSchema.virtual('id').get(function () {
   return this._id.toHexString();
 });
 
-apSchema.set('toJSON', {
+mrSchema.set('toJSON', {
   virtuals: true,
 });
 
-exports.Appointment = mongoose.model('Appointment', apSchema);
-exports.apSchema = apSchema;
+exports.MedicalRecord = mongoose.model('MedicalRecord', mrSchema);
+exports.mrSchema = mrSchema;

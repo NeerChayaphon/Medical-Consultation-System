@@ -5,23 +5,23 @@ const jwt = require('../helpers/jwt');
 
 router
   .route('/')
-  .get(jwt.userVerify(['doctor', 'admin']), patient.getAllPatient)
-  .post(jwt.userVerify(['patient', 'doctor', 'admin']), patient.createPatient); // chain route
+  .get(jwt.userVerify(['doctor', 'staff']), patient.getAllPatient)
+  .post(jwt.userVerify(['patient', 'doctor', 'staff']), patient.createPatient); // chain route
 
 router
   .route('/:id')
   .get(
     [
-      jwt.userVerify(['patient', 'doctor', 'admin']),
+      jwt.userVerify(['patient', 'doctor', 'staff']),
       jwt.userVerifyId(['patient']),
     ],
     patient.getPatient
   )
   .put(
-    [jwt.userVerify(['patient', 'admin']), jwt.userVerifyId(['patient'])],
+    [jwt.userVerify(['patient', 'staff']), jwt.userVerifyId(['patient'])],
     patient.updatePatient
   )
-  .delete(jwt.userVerify(['admin']), patient.deletePatient);
+  .delete(jwt.userVerify(['staff']), patient.deletePatient);
 
 router.route('/register').post(patient.createPatient);
 router.route('/login').post(patient.patientLogin);
