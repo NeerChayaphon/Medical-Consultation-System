@@ -9,7 +9,7 @@ import Axios from 'axios';
 
 function Home() {
   //const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
-  useTokenCheck();
+  useTokenCheck(); // ***** Don't forget
   const {state} = useFetchUser();
   //const {data: doctor} = useDoctorAPI('http://localhost:5000/api/v1/doctor');
 
@@ -29,8 +29,60 @@ function Home() {
   console.log(onlineDoc.data);
 
   return (
-    <div className='wrapper'>
-      <div>Home</div>
+    <div className='antialiased flex flex-col mt-10'>
+      <form
+        action=''
+        className=' mx-auto max-w-7xl w-full inputs space-y-6 px-10'
+      >
+        <div className='flex space-x-4'>
+          <div className='w-10/12'>
+            <label className='text-sm px-1 text-black'>Search by name</label>
+            <div className='flex'>
+              <input
+                className='block appearance-none w-full pl-4 pr-3 py-2 rounded-l-lg border-2 border-gray-200 border-r-0 outline-none '
+                type='text'
+                name='search-doc'
+                id='search-doc'
+              />
+              <button className='mx-auto px-4 appearance-none rounded-r-lg border-2 border-l-0 border-gray-200 text-gray-500 bg-transparent outline-none hover:bg-gray-100'>
+                <i className='fas fa-search'></i>
+              </button>
+            </div>
+          </div>
+
+          <div className='w-2/12'>
+            <label className='text-sm px-1 text-black'>Specialization</label>
+            <div className='relative'>
+              <select
+                id='type'
+                className='block appearance-none w-full pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none '
+              >
+                <option value='All'>All</option>
+                <option value='1'>type 1</option>
+                <option value='2'>type 2</option>
+                <option value='3'>type 3</option>
+              </select>
+              <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
+                <svg
+                  className='fill-current h-4 w-4'
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 20 20'
+                >
+                  <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div className=' mx-auto max-w-7xl w-full inputs space-y-6 px-10'>
+        <div className='grid grid-cols-3 gap-4'>
+          
+        </div>
+      </div>
+
+      {/* <div>Home</div>
       {state.isLoading && <div>loading</div>}
       {state.data && <div>{state.data.name}</div>}
       {!onlineDoc.isPending && onlineDoc.data ? (
@@ -41,7 +93,7 @@ function Home() {
         ))
       ) : (
         <div></div>
-      )}
+      )} */}
       {/* {onlineDoc != null && <div>{Object.keys(onlineDoc)}</div>} */}
     </div>
   );
@@ -71,7 +123,11 @@ const fetchDoctorData = (doctorId, setOnlineDoc) => {
   const id = doctorId.toString();
   const fetchDoctor = async () => {
     try {
-      let res = await Axios.get(`http://localhost:5000/api/v1/doctor/${id}`);
+      let res = await Axios.get(`http://localhost:5000/api/v1/doctor/${id}`, {
+        headers: {
+          'x-acess-token': localStorage.getItem('token'),
+        },
+      });
 
       let data = res.data.data;
       if (!Array.isArray(data)) {

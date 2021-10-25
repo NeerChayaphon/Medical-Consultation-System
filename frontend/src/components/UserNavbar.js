@@ -17,27 +17,26 @@ import {
   HeartIcon,
   ViewGridIcon,
   LogoutIcon,
-  AdjustmentsIcon,
-  PlusCircleIcon,
   XIcon,
+  CollectionIcon
 } from '@heroicons/react/outline';
 import {ChevronDownIcon} from '@heroicons/react/solid';
 import ReactLogo from '../img/logo.svg';
 const dropdown = [
   {
-    name: "As Patient",
+    name: "User's profile",
     href: '#',
     icon: UserIcon,
   },
   {
-    name: 'As Doctor',
+    name: 'Medical Record',
     href: '#',
-    icon: HeartIcon,
+    icon: CollectionIcon,
   },
   {
-    name: 'As Admin',
+    name: 'Sign out',
     href: '#',
-    icon: AdjustmentsIcon,
+    icon: LogoutIcon,
   },
 ];
 function classNames(...classes) {
@@ -46,7 +45,7 @@ function classNames(...classes) {
 
 export default function UserNavbar() {
   return (
-    <Popover className='relative bg-plightBlue font-fontPro'>
+    <Popover className='relative bg-plightBlue font-fontPro z-10'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6'>
         <div className='flex justify-between items-center py-3 md:justify-start md:space-x-10'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>

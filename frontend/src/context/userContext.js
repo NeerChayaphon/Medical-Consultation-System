@@ -47,7 +47,11 @@ export const useFetchUser = () => {
           'x-acess-token': localStorage.getItem('token'),
         },
       });
-      res = await Axios.get(`http://localhost:5000/api/v1/patient/${res.data.id}`);
+      res = await Axios.get(`http://localhost:5000/api/v1/patient/${res.data.id}`, {
+        headers: {
+          'x-acess-token': localStorage.getItem('token'),
+        },
+      });
       setState({
         isLoading: false,
         isUpdating: false,

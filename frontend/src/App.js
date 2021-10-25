@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import DoctorInfo from './page/Patient/DoctorInfo';
 import DoctorDashboard from './page/Doctor/DoctorDashboard';
 import Call from './page/videoCall/VideoCall';
+import UserNavbar from './components/UserNavbar';
 
 // import {useFetchUser} from './context/userContext';
 
@@ -30,7 +31,7 @@ function App() {
 function DefaultContainer() {
   return (
     <>
-      <Navbar />
+      <UserNavbar />
       <Route path='/home' component={Home} />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
       <Route path='/doctor/:id' component={DoctorDashboard} />
