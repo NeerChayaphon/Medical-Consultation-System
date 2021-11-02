@@ -2,10 +2,11 @@
 import {useFetchUser} from '../../context/userContext';
 import useTokenCheck from '../../helper/tokenCheck';
 // import useDoctorAPI from '../../hooks/useDoctorAPI';
-import DoctorCard from '../../components/DoctorCard';
+// import CardDoctor from '../../components/CardDoctor';
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import Axios from 'axios';
+import DoctorCard from '../../components/DoctorCard';
 
 function Home() {
   //const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
@@ -35,8 +36,10 @@ function Home() {
         className=' mx-auto max-w-7xl w-full inputs space-y-6 px-10'
       >
         <div className='flex space-x-4'>
-          <div className='w-10/12'>
-            <label className='text-sm px-1 text-black'>Search by name</label>
+          <div className='lg:w-10/12 w-9/12'>
+            <label className='px-1 text-black text-xs lg:text-sm'>
+              Search by name
+            </label>
             <div className='flex'>
               <input
                 className='block appearance-none w-full pl-4 pr-3 py-2 rounded-l-lg border-2 border-gray-200 border-r-0 outline-none '
@@ -50,8 +53,10 @@ function Home() {
             </div>
           </div>
 
-          <div className='w-2/12'>
-            <label className='text-sm px-1 text-black'>Specialization</label>
+          <div className='lg:w-2/12 w-3/12'>
+            <label className='text-xs lg:text-sm px-1 text-black'>
+              Specialization
+            </label>
             <div className='relative'>
               <select
                 id='type'
@@ -76,10 +81,17 @@ function Home() {
         </div>
       </form>
 
-      <div className=' mx-auto max-w-7xl w-full inputs space-y-6 px-10'>
-        <div className='grid grid-cols-3 gap-4'>
-          
-        </div>
+      <div className='my-10 mx-auto max-w-7xl w-full px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+      {state.isLoading && <div>loading</div>}
+      {!onlineDoc.isPending && onlineDoc.data ? (
+        onlineDoc.data.map((data) => (
+          <DoctorCard doctor={data} />
+        ))
+      ) : (
+        <div></div>
+      )}
+
+
       </div>
 
       {/* <div>Home</div>

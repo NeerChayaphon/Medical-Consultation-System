@@ -3,24 +3,13 @@ import {Fragment} from 'react';
 import {Popover, Transition} from '@headlessui/react';
 import {Link} from 'react-router-dom';
 import {
-  BookmarkAltIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
   MenuIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
-  ShieldCheckIcon,
-  SupportIcon,
   UserIcon,
-  HeartIcon,
-  ViewGridIcon,
   LogoutIcon,
   XIcon,
   CollectionIcon
 } from '@heroicons/react/outline';
-import {ChevronDownIcon} from '@heroicons/react/solid';
+// import {ChevronDownIcon} from '@heroicons/react/solid';
 import ReactLogo from '../img/logo.svg';
 const dropdown = [
   {
@@ -49,7 +38,7 @@ export default function UserNavbar() {
       <div className='max-w-7xl mx-auto px-4 sm:px-6'>
         <div className='flex justify-between items-center py-3 md:justify-start md:space-x-10'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
-          <img className="w-24" src={ReactLogo} alt="logo" />
+          <img className="h-16 w-16" src={ReactLogo} alt="logo" />
             <Link
               className='text-3xl font-fontPro leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-gray-800'
               to='#'

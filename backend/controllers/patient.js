@@ -41,8 +41,8 @@ exports.createPatient = asyncHandler(async (req, res) => {
     IDcard: req.body.IDcard,
     // currentAddress: req.body.currentAddress,
     // relative: req.body.relative,
-    // allergy: req.body.allergy,
-    // bloodType: req.body.bloodType,
+    allergy: req.body.allergy,
+    bloodType: req.body.bloodType,
   });
   patient = await patient.save();
 

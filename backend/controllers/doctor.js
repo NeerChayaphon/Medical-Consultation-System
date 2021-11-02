@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const APIFeatures = require('../helpers/apiFeatures');
 const AppError = require('../helpers/appErrors')
 
+
 // multer
 const multer = require('multer');
 
@@ -16,8 +17,8 @@ const multerStorage = multer.diskStorage({
   },
   filename : (req,file,cb) => {
     const ext = file.mimetype.split('/')[1];
-    let filename = req.body.name
-    cb(null,`${filename.split(' ').join('_')}.${ext}`)
+    const filename = file.originalname.split(' ').join('-');
+    cb(null,`${filename}-${Date.now()}.${ext}`)
   }
 });
 
@@ -83,6 +84,8 @@ exports.createDoctor = asyncHandler(async (req, res) => {
   const specialization = await Specialization.findById(req.body.specialization);
   if (!specialization) return res.status(400).send('Invalid specialization');
 
+
+
   let doctor = new Doctor({
     name: req.body.name,
     email: req.body.email,
@@ -92,10 +95,13 @@ exports.createDoctor = asyncHandler(async (req, res) => {
     specializationDetail: req.body.specializationDetail,
     backgroud: req.body.backgroud,
     hospital: req.body.hospital,
+    gender: req.body.gender
   });
 
   if (req.file) {
-    doctor['photo'] = req.file.filename;
+    const fileName = req.file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
+    doctor['photo'] = `${basePath}${fileName}`;
   }
 
   console.log(req.file);

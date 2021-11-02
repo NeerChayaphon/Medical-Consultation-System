@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './page/Patient/Home';
-import Landing from './page/Patient/Landing';
+import Landing from './page/All/Landing';
 import Login from './page/Patient/Login';
 import Register from './page/Patient/Register';
 import Navbar from './components/Navbar';
@@ -12,6 +12,9 @@ import UserNavbar from './components/UserNavbar';
 // import {useFetchUser} from './context/userContext';
 
 import './App.css';
+import UserLogin from './page/Patient/authPage/UserLogin';
+import PatientRegister from './page/Patient/authPage/PatientRegister';
+import MRdashboard from './page/Patient/MR/MRdashboard';
 
 function App() {
   // const {state} = useFetchUser();
@@ -19,8 +22,8 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/' component={Landing} />
-        <Route path='/signup' component={Register} />
-        <Route path='/login' component={Login} />
+        <Route path='/register' component={PatientRegister} />
+        <Route path='/login' component={UserLogin} />
         <Route path='/call/:id' component={Call} />
         <Route component={DefaultContainer} />
       </Switch>
@@ -33,6 +36,7 @@ function DefaultContainer() {
     <>
       <UserNavbar />
       <Route path='/home' component={Home} />
+      <Route path='/patient/medicalRecord' component={MRdashboard} />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
       <Route path='/doctor/:id' component={DoctorDashboard} />
     </>

@@ -3,30 +3,18 @@ import {Fragment} from 'react';
 import {Popover, Transition} from '@headlessui/react';
 import {Link} from 'react-router-dom';
 import {
-  BookmarkAltIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
   MenuIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
-  ShieldCheckIcon,
-  SupportIcon,
   UserIcon,
   HeartIcon,
-  ViewGridIcon,
-  LogoutIcon,
   AdjustmentsIcon,
-  PlusCircleIcon,
   XIcon,
 } from '@heroicons/react/outline';
-import {ChevronDownIcon} from '@heroicons/react/solid';
+// import {ChevronDownIcon} from '@heroicons/react/solid';
 import ReactLogo from '../img/logo.svg';
 const dropdown = [
   {
     name: "As Patient",
-    href: '#',
+    href: '/login',
     icon: UserIcon,
   },
   {
@@ -50,10 +38,10 @@ export default function UserNavbar() {
       <div className='max-w-7xl mx-auto px-4 sm:px-6'>
         <div className='flex justify-between items-center py-3 md:justify-start md:space-x-10'>
           <div className='flex justify-start lg:w-0 lg:flex-1'>
-          <img className="w-24" src={ReactLogo} alt="logo" />
+          <img className="h-16 w-16" src={ReactLogo} alt="logo" />
             <Link
               className='text-3xl font-fontPro leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-gray-800'
-              to='#'
+              to='/'
             >
               Harmore
             </Link>
@@ -93,9 +81,9 @@ export default function UserNavbar() {
                         <div className='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden'>
                           <div className='relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8'>
                             {dropdown.map((item) => (
-                              <a
+                              <Link
                                 key={item.name}
-                                href={item.href}
+                                to={item.href}
                                 className='-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50'
                               >
                                 <item.icon
@@ -107,7 +95,7 @@ export default function UserNavbar() {
                                     {item.name}
                                   </p>
                                 </div>
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </div>

@@ -21,10 +21,12 @@ const connectDB = require('./config/db');
 connectDB();
 
 // app.set('view engine', 'ejs');
-// app.use(express.static('public'));
+// app.use('/public/img', express.static(__dirname + '/public/img'));
 
 app.use(express.json());
 app.use(morgan('tiny'));
+app.use('/public/img/doctor', express.static(__dirname + '/public/img/doctor'));
+
 
 // 2. Route
 const doctorRoute = require('./routes/doctorRoute');

@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import '../styles/DoctorCard.css';
 
-const DoctorCard = ({doctor}) => {
+const CardDoctor = ({doctor}) => {
   return (
     <Link className='card' to={`/doctorinfo/${doctor._id}`}>
       <div className='bg-white rounded-lg px-6 py-3 shadow-md'>
         <div className='flex items-start space-x-6'>
           <img
             className='border border-gray-200 ml-2 h-16 w-16 object-cover object-center rounded-full'
-            src={doctor.photo}
+            src='https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortWaved&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Light'
             alt='description of '
           />
           <div>
@@ -38,4 +37,4 @@ const DoctorCard = ({doctor}) => {
   );
 };
 
-export default DoctorCard;
+export default CardDoctor;
