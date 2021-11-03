@@ -21,7 +21,7 @@ router
     doctor.getDoctor
   )
   .put(
-    [jwt.userVerify(['doctor', 'staff']), jwt.userVerifyId(['doctor'])],
+    [jwt.userVerify(['doctor', 'staff']), jwt.userVerifyId(['doctor']),doctor.uploadDoctorPhoto],
     doctor.updateDoctor
   )
   .delete(jwt.userVerify(['staff']), doctor.deleteDoctor);

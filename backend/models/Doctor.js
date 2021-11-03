@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config({path: '../config.env'})
 
 const doctorSchema = new mongoose.Schema({
   name: {
@@ -26,7 +28,7 @@ const doctorSchema = new mongoose.Schema({
     required: true,
     enum: ['Male', 'Female'],
   },
-  photo: {type: String, default: 'default.jpg'},
+  photo: {type: String, default: `http://127.0.0.1:${process.env.PORT}/public/img/doctor/default.png`},
   specialization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Specialization',

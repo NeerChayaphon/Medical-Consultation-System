@@ -122,6 +122,11 @@ exports.updateDoctor = asyncHandler(async (req, res) => {
   if (req.body.password) {
     req.body.passwordHash = bcrypt.hashSync(req.body.password, 10)
   }
+  if (req.file) {
+    const fileName = req.file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
+    req.body.photo = `${basePath}${fileName}`;
+  }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
