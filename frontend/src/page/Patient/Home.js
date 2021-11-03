@@ -20,14 +20,21 @@ function Home() {
     isPending: true,
     error: null,
   });
+  const [type,setType] = useState("All")
 
   useEffect(() => {
     const newSocket = io('localhost:5000/');
     setSocket(newSocket);
-    getOnlineDoc(newSocket, setOnlineDoc);
-  }, [setSocket]);
+    getOnlineDoc(newSocket, setOnlineDoc,type);
+  }, [setSocket,type]);
 
   console.log(onlineDoc.data);
+
+
+  //fillter 
+
+  // }
+
 
   return (
     <div className='antialiased flex flex-col mt-10'>
@@ -61,11 +68,12 @@ function Home() {
               <select
                 id='type'
                 className='block appearance-none w-full pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none '
+                onChange={(e) => setType(e.target.value)}
               >
                 <option value='All'>All</option>
-                <option value='1'>type 1</option>
-                <option value='2'>type 2</option>
-                <option value='3'>type 3</option>
+                <option value='Otolaryngology'>Otolaryngology</option>
+                <option value='Cardiologist'>Cardiologist</option>
+                <option value='3'>type ...</option>
               </select>
               <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
                 <svg
@@ -85,7 +93,7 @@ function Home() {
       {state.isLoading && <div>loading</div>}
       {!onlineDoc.isPending && onlineDoc.data ? (
         onlineDoc.data.map((data) => (
-          <DoctorCard doctor={data} />
+          <DoctorCard key={data.name} doctor={data}/>
         ))
       ) : (
         <div></div>
@@ -111,7 +119,7 @@ function Home() {
   );
 }
 
-const getOnlineDoc = (socket, setOnlineDoc) => {
+const getOnlineDoc = (socket, setOnlineDoc,type) => {
   socket.on('connect', () => {
     socket.emit('get-online-doctor', socket.id);
   });
@@ -124,14 +132,29 @@ const getOnlineDoc = (socket, setOnlineDoc) => {
       });
     } else {
       //setOnlineDoc(doctor);
-      fetchDoctorData(Object.keys(doctor), setOnlineDoc);
+      fetchDoctorData(Object.keys(doctor), setOnlineDoc,type);
     }
     disconnectSocket(socket);
     //console.log(Object.keys(doctor));
     //console.log(doctor);
   });
 };
-const fetchDoctorData = (doctorId, setOnlineDoc) => {
+// const typeFillter = (type,data) => {
+//   if (type != "All") {
+//     data = data.filter(function (el) {
+//       return el.specialization.specialization == type;
+//     });
+//   }
+
+//   return data
+// }
+
+// const filterByValue = (array, string) => {
+//   return array.filter(o =>
+//       Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
+// }
+
+const fetchDoctorData = (doctorId, setOnlineDoc,type) => {
   const id = doctorId.toString();
   const fetchDoctor = async () => {
     try {
@@ -141,7 +164,22 @@ const fetchDoctorData = (doctorId, setOnlineDoc) => {
         },
       });
 
+      // if (type != 'All') {
+      //   console.log(res.data.data.filter(function (el) {
+      //     return el.specialization.specialization == "Otolaryngology";
+      //   }))
+      // }
       let data = res.data.data;
+
+      //filtter
+      if (type != 'All' ) {
+        console.log(type)
+        let fDoc = data.filter(function (el) {
+          return el.specialization.specialization == type;
+        })
+        data = fDoc
+      }
+  
       if (!Array.isArray(data)) {
         data = [data];
       }

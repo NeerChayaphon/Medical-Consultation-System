@@ -4,7 +4,7 @@ import '../styles/DoctorCard.css';
 
 const DoctorCard = ({doctor}) => {
   return (
-    <Link className='card' to={`/doctorinfo/${doctor._id}`}>
+    <Link className='card' key={doctor.name} to={`/doctorinfo/${doctor._id}`}>
       <div className='bg-white rounded-lg px-6 py-3 shadow-md'>
         <div className='flex items-start space-x-6'>
           <img
