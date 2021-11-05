@@ -4,11 +4,21 @@ const {Patient} = require('../models/Patient');
 const {MedicalRecord} = require('../models/MedicalRecord');
 const asyncHandler = require('express-async-handler');
 const {FollowUp} = require('../models/FollowUp');
+const APIFeatures = require('../helpers/apiFeatures');
 
 exports.getAllMedicalRecord = asyncHandler(async (req, res) => {
-  const medicalRecord = await MedicalRecord.find()
-    .populate('doctor', 'name')
-    .populate('patient', 'name');
+  const feature = new APIFeatures(
+    MedicalRecord.find().populate('doctor', ['name','photo']).populate('patient', 'name'),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const medicalRecord = await feature.query;
+  // const medicalRecord = await MedicalRecord.find()
+  //   .populate('doctor', 'name')
+  //   .populate('patient', 'name');
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const mrSchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   doctor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Doctor',
@@ -44,10 +48,6 @@ const mrSchema = new mongoose.Schema({
   },
   // 3
   peDiagnosis: {
-    examDate: {
-      type: Date,
-      default: Date.now,
-    },
     PE: {
       type: String,
       required: true,

@@ -1,5 +1,8 @@
-
-import {Link} from 'react-router-dom';
+import useTokenCheck from '../../../helper/tokenCheck';
+import {useFetchUser} from '../../../context/userContext';
+import {useEffect, useState} from 'react';
+import Axios from 'axios';
+import {Link,useHistory} from 'react-router-dom';
 const people = [
   {
     name: 'Jane Cooper',
@@ -33,12 +36,36 @@ const people = [
 ];
 
 export default function Example() {
+  const history = useHistory();
+  useTokenCheck(); // ***** Don't forget
+  const {state} = useFetchUser(); // User data
+
+  const [mr, setMr] = useState({
+    data: [],
+    isPending: true,
+    error: null,
+  });
+
+  // console.log(mr)
+  console.log(state.data)
+
+  useEffect(() => {
+    if(state.data){
+      fetchMR(setMr,state.data.id)
+    }
+    
+      
+  }, [setMr,state.data]);
+
+  
+
+
   return (
     <div className='font-fontPro'>
       <div className='p-5'>
-        <a className='text-base' href='#'>
-          <i class='fas fa-chevron-left'></i> Back
-        </a>
+        <button className='text-base' onClick={history.goBack}>
+          <i className='fas fa-chevron-left'></i> Back
+        </button>
       </div>
       <div className='mb-5 mx-auto max-w-7xl w-full px-10 flex flex-col space-y-4'>
         <div className='mx-auto max-w-7xl w-full flex justify-between mb-3'>
@@ -51,7 +78,7 @@ export default function Example() {
               <div className='shadow overflow-hidden border-b border-gray-200 sm:rounded-lg'>
                 <table className='min-w-full divide-y divide-gray-200'>
                   <thead className='bg-gray-50'>
-                    <tr>
+                    <tr key="">
                       <th
                         scope='col'
                         className='px-6 py-3 text-left text-base font-medium  text-gray-500 uppercase tracking-wider'
@@ -73,36 +100,36 @@ export default function Example() {
                     </tr>
                   </thead>
                   <tbody className='bg-white divide-y divide-gray-200'>
-                    {people.map((person) => (
-                      <tr key={person.email}>
+                    {mr.data && mr.data.map((data) => (
+                      <tr key={data.id ? data.id : Math.random()}>
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <div className='flex items-center'>
                             <div className='flex-shrink-0 h-10 w-10'>
                               <img
                                 className='h-10 w-10 rounded-full'
-                                src={person.image}
+                                src={data.doctor.photo}
                                 alt=''
                               />
                             </div>
                             <div className='ml-4'>
                               <div className='text-base font-medium text-gray-900'>
-                                {person.name}
+                                {data.doctor.name}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-base text-gray-900'>
-                            {person.date}
+                            {data.date.split("T")[0]}
                           </div>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <span className='px-2 inline-flex text-base leading-5 '>
-                            {person.illness}
+                            {data.illness}
                           </span>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-base font-bold text-purple-500'>
-                          <Link>View</Link>
+                          <Link to="/">View</Link>
                         </td>
                       </tr>
                     ))}
@@ -116,3 +143,32 @@ export default function Example() {
     </div>
   );
 }
+
+const fetchMR = (setMr,id) => {
+  const fetchData = async () => {
+    try {
+      let res = await Axios.get(`http://localhost:5000/api/v1/medicalRecord/?patient=${id}`,{
+        headers: {
+          'x-acess-token': localStorage.getItem('token'),
+        },
+      });
+      let data = res.data.data;
+
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
+      setMr({
+        data: data,
+        isPending: false,
+        error: null,
+      });
+    } catch (error) {
+      setMr({
+        data: null,
+        isPending: false,
+        error: error,
+      });
+    }
+  };
+  fetchData();
+};

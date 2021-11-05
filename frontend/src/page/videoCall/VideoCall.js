@@ -159,9 +159,9 @@ const Call = ({match}) => {
           </div>
           <div className='w-1/4'>
             <div className='flex justify-end gap-2'>
-              <button className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'>
+              <a href="/" className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'>
                 <img src={endCallIcon} />
-              </button>
+              </a>
             </div>
           </div>
         </div>

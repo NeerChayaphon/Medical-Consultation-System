@@ -47,16 +47,19 @@ export const useFetchUser = () => {
           'x-acess-token': localStorage.getItem('token'),
         },
       });
+      let type = res.data.type
       res = await Axios.get(`http://localhost:5000/api/v1/patient/${res.data.id}`, {
         headers: {
           'x-acess-token': localStorage.getItem('token'),
         },
       });
+      let result = res.data.data
+      result.type = type
       setState({
         isLoading: false,
         isUpdating: false,
         error: null,
-        data: res.data.data,
+        data: result,
       });
     } catch (error) {
       setState({

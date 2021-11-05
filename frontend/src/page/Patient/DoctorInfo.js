@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import {useHistory,useLocation} from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Axios from 'axios';
+// import { Link } from 'react-router-dom';
+// import Axios from 'axios';
 import HospitalIcon from '../../img/hospital.png';
 import StudyIcon from '../../img/graduation-cap.png'
 import PhoneIcon from '../../img/phone.png'
@@ -32,7 +32,7 @@ const DoctorInfo = ({match}) => {
       }
     });
     // fetchDoctor(setDoctor,match.params.id)
-  }, [setSocket]);
+  }, [setSocket,history,match.params.id]);
 
   // console.log(doctor.data)
   console.log(data)
@@ -111,7 +111,7 @@ const DoctorInfo = ({match}) => {
     <div className="font-fontPro">
       <div className='p-3'>
         <button className='text-lg text-gray-700' onClick={history.goBack}>
-        <i class="fas fa-chevron-left"></i>
+        <i className="fas fa-chevron-left"></i>
           <span> Back</span>
         </button>
       </div>
@@ -121,6 +121,7 @@ const DoctorInfo = ({match}) => {
             <img
               className='object-cover object-center rounded-full w-full border-solid border-white border-4'
               src={data.photo}
+              alt="docpic"
             />
           </div>
           <div className='text-center text-xl p-5'>
@@ -138,13 +139,13 @@ const DoctorInfo = ({match}) => {
         >
           <div className='w-full py-10 px-5 md:px-10'>
             <div className='flex py-2'>
-              <img className='h-10 w-10' src={HospitalIcon} />
+              <img className='h-10 w-10' src={HospitalIcon}  alt="Hospital"/>
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>Hospital : {data.hospital}</h1>
               </div>
             </div>
             <div className='flex py-2 mt-2'>
-              <img className='h-10 w-10' src={StudyIcon} />
+              <img className='h-10 w-10' src={StudyIcon} alt="Education" />
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>
                 Backgroud : {data.backgroud}
@@ -152,7 +153,7 @@ const DoctorInfo = ({match}) => {
               </div>
             </div>
             <div className='flex py-2'>
-              <img className='h-10 w-10' src={PhoneIcon} />
+              <img className='h-10 w-10' src={PhoneIcon} alt="Phone"/>
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>
                 Phone number : {data.phone}
@@ -161,7 +162,7 @@ const DoctorInfo = ({match}) => {
               </div>
             </div>
             <div className='flex py-2'>
-              <img className='h-10 w-10' src={Medicalreport}/>
+              <img className='h-10 w-10' src={Medicalreport} alt="Medical record"/>
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>Specialization Detail :  </h1>
               </div>
@@ -170,14 +171,13 @@ const DoctorInfo = ({match}) => {
               <p className='ml-16 p-1 text-l break-words'>
               {data.specializationDetail}
               </p>
-              <h1 className='p-2 text-l' />
             </div>
             <div className='flex justify-center'>
               <button
                 onClick={callDoctor}
                 className='bg-green-400 hover:bg-green-500 font-bold py-2 px-4 mt-10 rounded inline-flex'
               >
-                <img className='h-10 w-10' src={VideoCameraIcon} />
+                <img className='h-10 w-10' src={VideoCameraIcon} alt=""/>
                 <div className='flex flex-col ml-5'>
                   <h1 className='py-1.5 text-xl text-white -ml-3'>Call</h1>
                 </div>

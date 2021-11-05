@@ -19,7 +19,7 @@ const dropdown = [
   },
   {
     name: 'Medical Record',
-    href: '#',
+    href: '/patient/medicalRecord',
     icon: CollectionIcon,
   },
   {
@@ -41,7 +41,7 @@ export default function UserNavbar() {
           <img className="h-16 w-16" src={ReactLogo} alt="logo" />
             <Link
               className='text-3xl font-fontPro leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-gray-800'
-              to='#'
+              to='/home'
             >
               Harmore
             </Link>
