@@ -138,13 +138,13 @@ const DoctorInfo = ({match}) => {
         >
           <div className='w-full py-10 px-5 md:px-10'>
             <div className='flex py-2'>
-              <img className='w-10' src={HospitalIcon} />
+              <img className='h-10 w-10' src={HospitalIcon} />
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>Hospital : {data.hospital}</h1>
               </div>
             </div>
             <div className='flex py-2 mt-2'>
-              <img className='w-10' src={StudyIcon} />
+              <img className='h-10 w-10' src={StudyIcon} />
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>
                 Backgroud : {data.backgroud}
@@ -152,7 +152,7 @@ const DoctorInfo = ({match}) => {
               </div>
             </div>
             <div className='flex py-2'>
-              <img className='w-10' src={PhoneIcon} />
+              <img className='h-10 w-10' src={PhoneIcon} />
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>
                 Phone number : {data.phone}
@@ -161,7 +161,7 @@ const DoctorInfo = ({match}) => {
               </div>
             </div>
             <div className='flex py-2'>
-              <img className='w-10' src={Medicalreport}/>
+              <img className='h-10 w-10' src={Medicalreport}/>
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>Specialization Detail :  </h1>
               </div>
@@ -177,7 +177,7 @@ const DoctorInfo = ({match}) => {
                 onClick={callDoctor}
                 className='bg-green-400 hover:bg-green-500 font-bold py-2 px-4 mt-10 rounded inline-flex'
               >
-                <img className='w-10' src={VideoCameraIcon} />
+                <img className='h-10 w-10' src={VideoCameraIcon} />
                 <div className='flex flex-col ml-5'>
                   <h1 className='py-1.5 text-xl text-white -ml-3'>Call</h1>
                 </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import './Call.css';
 import {useEffect, useState, useRef} from 'react';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
+import endCallIcon from '../../img/endcall.png';
 
 const Call = ({match}) => {
   const [socket, setSocket] = useState(null);
@@ -72,11 +72,26 @@ const Call = ({match}) => {
 
   let UserVideo;
   if (stream) {
-    UserVideo = <video playsInline muted ref={userVideo} autoPlay />;
+    UserVideo = (
+      <video
+        className='w-auto rounded-3xl'
+        playsInline
+        muted
+        ref={userVideo}
+        autoPlay
+      />
+    );
   }
   let PartnerVideo;
   if (callAccepted) {
-    PartnerVideo = <video playsInline ref={otherVideo} autoPlay />;
+    PartnerVideo = (
+      <video
+        className='w-full rounded-3xl'
+        playsInline
+        ref={otherVideo}
+        autoPlay
+      />
+    );
   }
 
   const mute = () => {
@@ -102,19 +117,54 @@ const Call = ({match}) => {
 
   return (
     <div>
-      {UserVideo}
-      {PartnerVideo ? PartnerVideo : <div></div>}
-      <div className='options__left'>
-        <button onClick={videoControl} id='stopVideo' className='options__button'>
-          {isVideoOff ? <i className='fas fa-video-slash'></i> : <i className='fas fa-video'></i>}
-        </button>
-        <button onClick={mute} id='muteButton' className='options__button'>
-          {isMute ? (
-            <i className='fas fa-microphone-slash'></i>
-          ) : (
-            <i className='fa fa-microphone'></i>
-          )}
-        </button>
+      <div className='h-screen overflow-auto bg-gray-100 p-4'>
+        <div className='flex content-center mx-6 my-2 h-5/6'>
+          <div
+            className='w-1/2 h- lg:shadow-lg rounded-lg flex lg:border-r border-gray-200 p-4 '
+            style={{backgroundColor: '#B5E3FE'}}
+          >
+            {UserVideo}
+          </div>
+          <div
+            className='w-1/2 h-full lg:shadow-lg rounded-lg flex lg:border-r border-gray-200 p-4 ml-4'
+            style={{backgroundColor: '#FFCCD0'}}
+          >
+            {PartnerVideo ? PartnerVideo : <div></div>}
+          </div>
+        </div>
+        <div className='flex mx-2 p-4 gap-2 mt-8'>
+          <div className='w-3/4'>
+            <div className='flex justify-start gap-2'>
+              <button
+                onClick={mute}
+                className='h-12 w-12 items-center lg:shadow-sm rounded-lg bg-purple-500 hover:bg-purple-700 mr-1'
+              >
+                {isMute ? (
+                  <i className='text-white fas fa-microphone-slash'></i>
+                ) : (
+                  <i className='text-white  fa fa-microphone'></i>
+                )}
+              </button>
+              <button
+                onClick={videoControl}
+                className='h-12 w-12 items-center lg:shadow-sm rounded-lg bg-purple-500 hover:bg-purple-700'
+              >
+                {isVideoOff ? (
+                  <i className='text-white fas fa-video-slash'></i>
+                ) : (
+                  <i className='text-white fas fa-video'></i>
+                )}
+              </button>
+            </div>
+          </div>
+          <div className='w-1/4'>
+            <div className='flex justify-end gap-2'>
+              <button className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'>
+                <img src={endCallIcon} />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
