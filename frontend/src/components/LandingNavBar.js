@@ -64,7 +64,7 @@ export default function UserNavbar() {
                         'font-fontPro'
                       )}
                     >
-                      <span className="text-lg font-fontPro text-gray-800 hover:text-gray-500"> Profile <i className="fas fa-chevron-down text-sm"></i></span>
+                      <span className="text-lg font-fontPro text-gray-800 hover:text-gray-500"> Login <i className="fas fa-chevron-down text-sm"></i></span>
                      
                     </Popover.Button>
 
