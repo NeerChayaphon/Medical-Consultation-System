@@ -17,45 +17,13 @@ const mrSchema = new mongoose.Schema({
   },
   // 2
   history: {
-    chiefComplaint: {
-      symptom: {type: String, required: true},
-      symptomPeriod: {type: String, required: true},
-    },
-    presentIllness: {
-      type: String,
-      required: true,
-    },
-    underlyingDisease: {
-      type: String,
-      required: true,
-    },
-    passIllness: {
-      type: String,
-      required: true,
-    },
-    drugAllergy: {
-      type: String,
-      required: true,
-    },
-    historyFactor: {
-      type: String,
-      required: true,
-    },
-    drug: {
-      smoke: {type: Boolean, required: true},
-      alcoho: {type: Boolean, required: true},
-    },
+    type: String,
+    required:true
   },
   // 3
   peDiagnosis: {
-    PE: {
-      type: String,
-      required: true,
-    },
-    Diagnosis: {
-      type: String,
-      required: true,
-    },
+    type: String,
+    required:true
   },
   illness: {
     type: String,

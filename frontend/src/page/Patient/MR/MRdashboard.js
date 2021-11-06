@@ -129,7 +129,7 @@ export default function Example() {
                           </span>
                         </td>
                         <td className='px-6 py-4 whitespace-nowrap text-base font-bold text-purple-500'>
-                          <Link to="/">View</Link>
+                          <Link to={`/patient/medicalRecord/${data.id}`}>View</Link>
                         </td>
                       </tr>
                     ))}

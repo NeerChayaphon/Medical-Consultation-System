@@ -73,6 +73,7 @@ exports.createMedicalRecord = asyncHandler(async (req, res) => {
       peDiagnosis: req.body.peDiagnosis,
       treatment: req.body.treatment,
       followUp: followUp._id,
+      illness: req.body.illness,
     });
     medicalRecord = await medicalRecord.save();
   } else {

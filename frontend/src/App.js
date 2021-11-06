@@ -15,6 +15,7 @@ import './App.css';
 import UserLogin from './page/Patient/authPage/UserLogin';
 import PatientRegister from './page/Patient/authPage/PatientRegister';
 import MRdashboard from './page/Patient/MR/MRdashboard';
+import EachMR from './page/Patient/MR/EachMR';
 
 function App() {
   // const {state} = useFetchUser();
@@ -36,7 +37,8 @@ function DefaultContainer() {
     <>
       <UserNavbar />
       <Route path='/home' component={Home} />
-      <Route path='/patient/medicalRecord' component={MRdashboard} />
+      <Route exact path='/patient/medicalRecord' component={MRdashboard} />
+      <Route path='/patient/medicalRecord/:id' component={EachMR} />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
       <Route path='/doctor/:id' component={DoctorDashboard} />
     </>
