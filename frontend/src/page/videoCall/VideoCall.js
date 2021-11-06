@@ -3,8 +3,17 @@ import {useEffect, useState, useRef} from 'react';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
 import endCallIcon from '../../img/endcall.png';
+import useTokenCheck from '../../helper/tokenCheck';
+import {useLocation} from 'react-router-dom';
 
 const Call = ({match}) => {
+  // User auth
+  useTokenCheck(); // ***** Don't forget
+  const location = useLocation();
+  const {type} = location.state;
+  console.log(type)
+
+
   const [socket, setSocket] = useState(null);
   const [stream, setStream] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
@@ -159,7 +168,10 @@ const Call = ({match}) => {
           </div>
           <div className='w-1/4'>
             <div className='flex justify-end gap-2'>
-              <a href="/" className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'>
+              <a
+                href={type === "patient" ? "/patient/medicalRecord" : "/"}
+                className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'
+              >
                 <img src={endCallIcon} />
               </a>
             </div>

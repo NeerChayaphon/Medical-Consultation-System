@@ -14,7 +14,7 @@ import ReactLogo from '../img/logo.svg';
 const dropdown = [
   {
     name: "User's profile",
-    href: '#',
+    href: '/patient/profile',
     icon: UserIcon,
   },
   {

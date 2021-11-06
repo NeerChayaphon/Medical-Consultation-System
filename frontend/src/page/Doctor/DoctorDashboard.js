@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
-import {useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 const DoctorDashboard = ({match}) => {
   const [socket, setSocket] = useState(null);
@@ -33,9 +33,9 @@ const DoctorDashboard = ({match}) => {
   return (
     <div>
       {call && (
-        <a onClick={answerCall} href={`/call/${call.url}`}>
+        <Link onClick={answerCall} to={{pathname : `/call/${call.url}`,state : {type:'doctor'}}}>
           Answer call
-        </a>
+        </Link>
       )}
     </div>
   );

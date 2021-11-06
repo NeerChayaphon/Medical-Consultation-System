@@ -26,7 +26,7 @@ const DoctorInfo = ({match}) => {
     newSocket.on('availableCall', (status) => {
       if (status) {
         newSocket.disconnect();
-        history.push(`/call/${match.params.id}`);
+        history.push({pathname :`/call/${match.params.id}`,state : {type:'patient'}});
       } else {
         setFetchFail(true);
       }
@@ -110,8 +110,8 @@ const DoctorInfo = ({match}) => {
   return (
     <div className="font-fontPro">
       <div className='p-3'>
-        <button className='text-lg text-gray-700' onClick={history.goBack}>
-        <i className="fas fa-chevron-left"></i>
+        <button className='text-base text-gray-700' onClick={history.goBack}>
+        <i className="fas fa-chevron-left text-gray-700"></i>
           <span> Back</span>
         </button>
       </div>

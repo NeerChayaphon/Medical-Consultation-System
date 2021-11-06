@@ -63,8 +63,8 @@ export default function Example() {
   return (
     <div className='font-fontPro'>
       <div className='p-5'>
-        <button className='text-base' onClick={history.goBack}>
-          <i className='fas fa-chevron-left'></i> Back
+        <button className='text-base text-gray-700' onClick={history.goBack}>
+          <i className='fas fa-chevron-left text-gray-700'></i> Back
         </button>
       </div>
       <div className='mb-5 mx-auto max-w-7xl w-full px-10 flex flex-col space-y-4'>
