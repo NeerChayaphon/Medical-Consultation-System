@@ -169,7 +169,7 @@ const Call = ({match}) => {
           <div className='w-1/4'>
             <div className='flex justify-end gap-2'>
               <a
-                href={type === "patient" ? "/patient/medicalRecord" : "/"}
+                href={type === "patient" ? "/patient/medicalRecord" : "/doctor"}
                 className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'
               >
                 <img src={endCallIcon} />

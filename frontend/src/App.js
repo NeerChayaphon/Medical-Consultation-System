@@ -18,6 +18,8 @@ import MRdashboard from './page/Patient/MR/MRdashboard';
 import EachMR from './page/Patient/MR/EachMR';
 import PatientProfile from './page/Patient/PatientProfile';
 import EditPatientProfile from './page/Patient/EditPatientProfile';
+import DoctorLogin from './page/Doctor/authPage/DoctorLogin';
+import EditMR from './page/Doctor/MR/EditMR';
 
 function App() {
   // const {state} = useFetchUser();
@@ -27,6 +29,7 @@ function App() {
         <Route exact path='/' component={Landing} />
         <Route path='/register' component={PatientRegister} />
         <Route path='/login' component={UserLogin} />
+        <Route path='/doctorLogin' component={DoctorLogin} />
         <Route path='/call/:id' component={Call} />
         <Route component={DefaultContainer} />
       </Switch>
@@ -44,7 +47,9 @@ function DefaultContainer() {
       <Route exact path='/patient/profile' component={PatientProfile} />
       <Route exact path='/patient/profile/edit' component={EditPatientProfile} />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
-      <Route path='/doctor/:id' component={DoctorDashboard} />
+      <Route exact path='/doctor' component={DoctorDashboard} />
+      <Route exact path='/doctor/medicalRecord/:id' component={EachMR} />
+      <Route path='/doctor/medicalRecord/:id/edit' component={EditMR} />
     </>
   );
 }

@@ -178,7 +178,7 @@ const PatientProfile = () => {
                         state: {data: state.data},
                       }}
                     >
-                      <img className='w-8 py-1 -mr-3' src={EditIcon} />
+                      <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
                       <div className='flex flex-col ml-5'>
                         <h1 className='py-2 text-xl text-white'>Edit</h1>
                       </div>

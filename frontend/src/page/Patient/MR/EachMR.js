@@ -1,10 +1,13 @@
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import useTokenCheck from '../../../helper/tokenCheck';
+import {useFetchUser} from '../../../context/userContext';
+import EditIcon from '../../../img/edit.png';
 
 const EachMR = ({match}) => {
   useTokenCheck(); // ***** Don't forget
+  const {state} = useFetchUser(); // User data
   const history = useHistory();
   const [Mr, setMr] = useState({
     data: null,
@@ -48,12 +51,19 @@ const EachMR = ({match}) => {
                   <div className='flex w-full -mx-3'>
                     <div className='w-2/4 px-3 mb-2'>
                       <label htmlFor='true' className='text-xs px-1 text-black'>
-                        Doctor
+                        {state.data &&
+                          (state.data.type === 'patient'
+                            ? 'Doctor'
+                            : 'Paitent')}
                       </label>
                       <div className='flex'>
                         <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                         <p className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-gray-200'>
-                          {Mr.data && Mr.data.doctor.name}
+                          {state.data &&
+                            Mr.data &&
+                            (state.data.type === 'patient'
+                              ? Mr.data.doctor.name
+                              : Mr.data.patient.name)}
                         </p>
                       </div>
                     </div>
@@ -117,6 +127,22 @@ const EachMR = ({match}) => {
                       </div>
                     </div>
                   </div>
+                  {state.data && state.data.type === 'doctor' && (
+                    <div className='flex justify-end'>
+                      <Link
+                        className='bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 mt-10 rounded inline-flex'
+                        to={{
+                          pathname: `/doctor/medicalRecord/${match.params.id}/edit`,
+                          state: {data: Mr.data},
+                        }}
+                      >
+                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                        <div className='flex flex-col ml-5'>
+                          <h1 className='py-2 text-xl text-white'>Edit</h1>
+                        </div>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

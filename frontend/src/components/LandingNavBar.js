@@ -19,7 +19,7 @@ const dropdown = [
   },
   {
     name: 'As Doctor',
-    href: '#',
+    href: '/doctorLogin',
     icon: HeartIcon,
   },
   {

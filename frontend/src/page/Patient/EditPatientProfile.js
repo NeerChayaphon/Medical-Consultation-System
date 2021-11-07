@@ -286,7 +286,7 @@ const EditPatientProfile = () => {
                     <div className='flex justify-end'>
                       <button
                         type='submit'
-                        className='bg-green-500 hover:bg-green-600 font-bold py-2 px-4 mt-10 rounded inline-flex'
+                        className='bg-green-600 hover:bg-green-700 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
                         <img className='w-8 py-1 -mr-3' src={EditIcon} />
                         <div className='flex flex-col ml-5'>
