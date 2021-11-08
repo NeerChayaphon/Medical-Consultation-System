@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {useHistory, Link} from 'react-router-dom';
-import useTokenCheck from '../../../helper/tokenCheck';
+import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import EditIcon from '../../../img/edit.png';
 

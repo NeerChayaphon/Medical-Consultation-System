@@ -23,6 +23,8 @@ import EditMR from './page/Doctor/MR/EditMR';
 import ViewMRdashboard from './page/videoCall/MR/ViewMRdashboard';
 import ViewEachMR from './page/videoCall/MR/ViewEachMR';
 import AddMR from './page/videoCall/MR/AddMR';
+import DoctorProfile from './page/Doctor/DoctorProfile';
+import EditDoctorProfile from './page/Doctor/EditDoctorProfile';
 
 function App() {
   // const {state} = useFetchUser();
@@ -62,6 +64,9 @@ function DefaultContainer() {
       />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
       <Route exact path='/doctor' component={DoctorDashboard} />
+      <Route exact path='/doctor/profile' component={DoctorProfile} />
+      <Route exact path='/doctor/profile/edit' component={EditDoctorProfile} />
+      
       <Route exact path='/doctor/medicalRecord/:id' component={EachMR} />
       <Route path='/doctor/medicalRecord/:id/edit' component={EditMR} />
 

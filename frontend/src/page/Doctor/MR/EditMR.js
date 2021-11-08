@@ -1,8 +1,7 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Axios from 'axios';
 import {useHistory, Link, useLocation} from 'react-router-dom';
-import useTokenCheck from '../../../helper/tokenCheck';
-import {useFetchUser} from '../../../context/userContext';
+import useTokenCheck from '../../../helper/doctorTokenCheck';
 import EditIcon from '../../../img/edit.png';
 
 const EditMR = () => {
@@ -205,33 +204,6 @@ const EditMR = () => {
   );
 };
 
-const fetchMR = (setMr, id) => {
-  const fetchData = async () => {
-    try {
-      let res = await Axios.get(
-        `http://localhost:5000/api/v1/medicalRecord/${id}`,
-        {
-          headers: {
-            'x-acess-token': localStorage.getItem('token'),
-          },
-        }
-      );
-      let data = res.data.data;
 
-      setMr({
-        data: data,
-        isPending: false,
-        error: null,
-      });
-    } catch (error) {
-      setMr({
-        data: null,
-        isPending: false,
-        error: error,
-      });
-    }
-  };
-  fetchData();
-};
 
 export default EditMR;

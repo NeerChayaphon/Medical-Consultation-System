@@ -39,7 +39,7 @@ const doctorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  backgroud: {
+  background: {
     type: String,
     required: true,
   },

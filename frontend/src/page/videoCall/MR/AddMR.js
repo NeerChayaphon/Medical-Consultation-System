@@ -20,13 +20,15 @@ const AddMR = () => {
       console.log(patient.name)
   }
 
-  console.log(Date.now)
-  const [date, setDate] = useState();
+  
   const [illness, setIllness] = useState();
   const [pHistory, setPHistory] = useState();
   const [peDiagnosis, setPeDiagnosis] = useState();
   const [treatment, setTreatment] = useState();
   const [error, setError] = useState(false);
+
+  const currentDate = new Date().toLocaleDateString();
+
 
   const config = {
     headers: {
@@ -37,7 +39,7 @@ const AddMR = () => {
   const bodyParameters = {
     patient: patient.id,
     doctor: state.data.id,
-    date: date,
+    // date: date,
     illness: illness,
     history: pHistory,
     peDiagnosis: peDiagnosis,
@@ -111,12 +113,12 @@ const AddMR = () => {
                         </label>
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
-                          <input
+                          <p
                             type='date'
-                            required
-                            onChange={(e) => setDate(e.target.value)}
+                            // required
+                            // onChange={(e) => setDate(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
-                          />
+                          >{currentDate}</p>
                         </div>
                       </div>
                       <div className='w-1/4 px-3 mb-2'>

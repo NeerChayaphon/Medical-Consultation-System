@@ -152,7 +152,7 @@ const DoctorInfo = ({match}) => {
               <img className='h-10 w-10' src={StudyIcon} alt="Education" />
               <div id='body' className='flex flex-col ml-5'>
                 <h1 className='p-2 text-xl'>
-                Backgroud : {data.backgroud}
+                background : {data.background}
                 </h1>
               </div>
             </div>

@@ -283,6 +283,13 @@ const EditPatientProfile = () => {
                         </div>
                       </div>
                     </div>
+                    <div className='text-center'>
+                    {error && (
+                      <h1 className='text-base text-red-700 font-normal'>
+                        {error.message}
+                      </h1>
+                    )}
+                  </div>
                     <div className='flex justify-end'>
                       <button
                         type='submit'
