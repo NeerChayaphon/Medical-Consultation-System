@@ -8,6 +8,7 @@ import StudyIcon from '../../img/graduation-cap.png'
 import PhoneIcon from '../../img/phone.png'
 import Medicalreport from '../../img/medical-report.png'
 import VideoCameraIcon from '../../img/video-camera.png'
+import {useFetchUser} from '../../context/userContext';
 
 
 const DoctorInfo = ({match}) => {
@@ -18,6 +19,9 @@ const DoctorInfo = ({match}) => {
   const history = useHistory();
   const location = useLocation();
   const {data} = location.state;
+  const {state} = useFetchUser(); // User data
+
+ 
 
   useEffect(() => {
     const newSocket = io('localhost:5000/');
@@ -26,7 +30,7 @@ const DoctorInfo = ({match}) => {
     newSocket.on('availableCall', (status) => {
       if (status) {
         newSocket.disconnect();
-        history.push({pathname :`/call/${match.params.id}`,state : {type:'patient'}});
+        history.push({pathname :`/call/${match.params.id}`,state : {type:'patient',user:'Not a doctor'}});
       } else {
         setFetchFail(true);
       }
@@ -49,7 +53,7 @@ const DoctorInfo = ({match}) => {
   const callDoctor = () => {
     let socketList = onlineDoc[match.params.id];
     socketList.forEach((socketId) => {
-      socket.emit('call', socketId, {from: socket.id, url: match.params.id});
+      socket.emit('call', socketId, {from: socket.id, url: match.params.id, patient:state.data});
     });
     // console.log(socket.id);
     // socket.disconnect();

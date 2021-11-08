@@ -20,6 +20,9 @@ import PatientProfile from './page/Patient/PatientProfile';
 import EditPatientProfile from './page/Patient/EditPatientProfile';
 import DoctorLogin from './page/Doctor/authPage/DoctorLogin';
 import EditMR from './page/Doctor/MR/EditMR';
+import ViewMRdashboard from './page/videoCall/MR/ViewMRdashboard';
+import ViewEachMR from './page/videoCall/MR/ViewEachMR';
+import AddMR from './page/videoCall/MR/AddMR';
 
 function App() {
   // const {state} = useFetchUser();
@@ -31,6 +34,13 @@ function App() {
         <Route path='/login' component={UserLogin} />
         <Route path='/doctorLogin' component={DoctorLogin} />
         <Route path='/call/:id' component={Call} />
+        {/* <Route
+          exact
+          path='/manageMedicalRecord/:id'
+          component={ViewMRdashboard}
+        />
+        <Route path='/view/medicalRecord/:id' component={ViewEachMR} />
+        <Route path='/add/medicalRecord/' component={AddMR} /> */}
         <Route component={DefaultContainer} />
       </Switch>
     </Router>
@@ -45,11 +55,23 @@ function DefaultContainer() {
       <Route exact path='/patient/medicalRecord' component={MRdashboard} />
       <Route path='/patient/medicalRecord/:id' component={EachMR} />
       <Route exact path='/patient/profile' component={PatientProfile} />
-      <Route exact path='/patient/profile/edit' component={EditPatientProfile} />
+      <Route
+        exact
+        path='/patient/profile/edit'
+        component={EditPatientProfile}
+      />
       <Route path='/doctorInfo/:id' component={DoctorInfo} />
       <Route exact path='/doctor' component={DoctorDashboard} />
       <Route exact path='/doctor/medicalRecord/:id' component={EachMR} />
       <Route path='/doctor/medicalRecord/:id/edit' component={EditMR} />
+
+      <Route
+        exact
+        path='/manageMedicalRecord/:id'
+        component={ViewMRdashboard}
+      />
+      <Route path='/view/medicalRecord/:id' component={ViewEachMR} />
+      <Route path='/add/medicalRecord/' component={AddMR} />
     </>
   );
 }

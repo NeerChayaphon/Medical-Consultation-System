@@ -3,15 +3,17 @@ import {useEffect, useState, useRef} from 'react';
 import Peer from 'peerjs';
 import io from 'socket.io-client';
 import endCallIcon from '../../img/endcall.png';
+import medicalIcon from '../../img/medical-report-white.png'
 import useTokenCheck from '../../helper/tokenCheck';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 const Call = ({match}) => {
   // User auth
   useTokenCheck(); // ***** Don't forget
   const location = useLocation();
-  const {type} = location.state;
+  const {type,user} = location.state;
   console.log(type)
+  console.log(user)
 
 
   const [socket, setSocket] = useState(null);
@@ -156,7 +158,7 @@ const Call = ({match}) => {
               </button>
               <button
                 onClick={videoControl}
-                className='h-12 w-12 items-center lg:shadow-sm rounded-lg bg-purple-500 hover:bg-purple-700'
+                className='h-12 w-12 items-center lg:shadow-sm rounded-lg bg-purple-500 hover:bg-purple-700 mr-1'
               >
                 {isVideoOff ? (
                   <i className='text-white fas fa-video-slash'></i>
@@ -164,6 +166,16 @@ const Call = ({match}) => {
                   <i className='text-white fas fa-video'></i>
                 )}
               </button>
+              { type==='doctor' && <Link
+                to={ {pathname : `/manageMedicalRecord/${user.id}`}}
+                target="_blank" rel="noopener noreferrer"
+                className='h-12 py-1 px-4 items-center inline-flex lg:shadow-sm rounded-lg bg-indigo-500 hover:bg-indigo-600'
+              >
+                <img className='w-8 py-1 -mr-3' src={medicalIcon} />
+                <h1 className='ml-5 py-2 text-base text-white'>Medical Record</h1>
+              </Link>
+              }
+
             </div>
           </div>
           <div className='w-1/4'>

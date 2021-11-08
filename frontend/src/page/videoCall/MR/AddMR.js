@@ -1,26 +1,31 @@
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
-import {useHistory, Link, useLocation} from 'react-router-dom';
-import useTokenCheck from '../../../helper/tokenCheck';
+import {useHistory, Link,useLocation} from 'react-router-dom';
+import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import EditIcon from '../../../img/edit.png';
 
-const EditMR = () => {
+const AddMR = () => {
   useTokenCheck(); // ***** Don't forget
+  const {state} = useFetchUser()
   const location = useLocation();
-  const {data} = location.state;
+  const {patient} = location.state;
 
   const history = useHistory();
 
-  if (data) {
-    console.log(data);
+  if (state.data) {
+    console.log(state.data);
+  }
+  if (patient) {
+      console.log(patient.name)
   }
 
-  const [date, setDate] = useState(data.date);
-  const [illness, setIllness] = useState(data.illness);
-  const [pHistory, setPHistory] = useState(data.history);
-  const [peDiagnosis, setPeDiagnosis] = useState(data.peDiagnosis);
-  const [treatment, setTreatment] = useState(data.treatment);
+  console.log(Date.now)
+  const [date, setDate] = useState();
+  const [illness, setIllness] = useState();
+  const [pHistory, setPHistory] = useState();
+  const [peDiagnosis, setPeDiagnosis] = useState();
+  const [treatment, setTreatment] = useState();
   const [error, setError] = useState(false);
 
   const config = {
@@ -30,7 +35,8 @@ const EditMR = () => {
   };
 
   const bodyParameters = {
-    patient: data.patient.id,
+    patient: patient.id,
+    doctor: state.data.id,
     date: date,
     illness: illness,
     history: pHistory,
@@ -40,8 +46,8 @@ const EditMR = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    Axios.put(
-      `http://localhost:5000/api/v1/medicalRecord/${data.id}`,
+    Axios.post(
+      `http://localhost:5000/api/v1/medicalRecord/`,
       bodyParameters,
       config
     )
@@ -65,12 +71,12 @@ const EditMR = () => {
           <span> Back</span>
         </button>
       </div>
-      {data && (
+      {state.data && patient && (
         <div className='flex-col'>
           <div className='text-center'>
             {' '}
             <h1 className='text-2xl font-bold'>
-              (Edit) {data && data.illness} ({data && data.date.split('T')[0]})
+              Add Medical Record
             </h1>
           </div>
           <form onSubmit={handleSubmit}>
@@ -92,7 +98,7 @@ const EditMR = () => {
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <p className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-gray-200'>
-                            {data.patient.name}
+                            {patient.name}
                           </p>
                         </div>
                       </div>
@@ -107,7 +113,7 @@ const EditMR = () => {
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <input
                             type='date'
-                            defaultValue={data && data.date.split('T')[0]}
+                            required
                             onChange={(e) => setDate(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
                           />
@@ -123,7 +129,7 @@ const EditMR = () => {
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <input
-                            defaultValue={data && data.illness}
+                            required
                             onChange={(e) => setIllness(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
                           />
@@ -141,7 +147,7 @@ const EditMR = () => {
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <textarea
-                            defaultValue={data && data.history}
+                            required
                             onChange={(e) => setPHistory(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
                           />
@@ -157,7 +163,7 @@ const EditMR = () => {
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <textarea
-                            defaultValue={data && data.peDiagnosis}
+                            required
                             onChange={(e) => setPeDiagnosis(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
                           />
@@ -175,7 +181,7 @@ const EditMR = () => {
                         <div className='flex'>
                           <div className='w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center' />
                           <textarea
-                            defaultValue={data && data.treatment}
+                            required
                             onChange={(e) => setTreatment(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
                           />
@@ -190,7 +196,7 @@ const EditMR = () => {
                       >
                         <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
                         <div className='flex flex-col ml-5'>
-                          <h1 className='py-2 text-xl text-white'>Confirm</h1>
+                          <h1 className='py-2 text-xl text-white'>Add</h1>
                         </div>
                       </button>
                     </div>
@@ -205,33 +211,5 @@ const EditMR = () => {
   );
 };
 
-const fetchMR = (setMr, id) => {
-  const fetchData = async () => {
-    try {
-      let res = await Axios.get(
-        `http://localhost:5000/api/v1/medicalRecord/${id}`,
-        {
-          headers: {
-            'x-acess-token': localStorage.getItem('token'),
-          },
-        }
-      );
-      let data = res.data.data;
 
-      setMr({
-        data: data,
-        isPending: false,
-        error: null,
-      });
-    } catch (error) {
-      setMr({
-        data: null,
-        isPending: false,
-        error: error,
-      });
-    }
-  };
-  fetchData();
-};
-
-export default EditMR;
+export default AddMR;

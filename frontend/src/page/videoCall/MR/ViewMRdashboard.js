@@ -1,74 +1,46 @@
+import useTokenCheck from '../../../helper/doctorTokenCheck';
+import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
-import io from 'socket.io-client';
-import {Link,useHistory} from 'react-router-dom';
-import {useFetchUser} from '../../context/userContext';
-import useTokenCheck from '../../helper/doctorTokenCheck';
 import Axios from 'axios';
-import IncommingCall from '../../components/IncommingCall';
+import {Link, useHistory} from 'react-router-dom';
 
-const DoctorDashboard = () => {
-  useTokenCheck(); // ***** Don't forget
-  const [socket, setSocket] = useState(null);
-  const [call, setCall] = useState(null);
+export default function ViewMRdashboard({match}) {
   const history = useHistory();
-  const {state} = useFetchUser();
-  // console.log(state.data)
+  useTokenCheck(); // ***** Don't forget
+  const {state} = useFetchUser(); // User data
 
-  // Medical Record
   const [mr, setMr] = useState({
     data: [],
     isPending: true,
     error: null,
   });
+  const [patient, setPatient] = useState({
+    data: [],
+    isPending: true,
+    error: null,
+  });
 
-  console.log(mr);
+
+  // console.log(mr)
+  console.log(state.data);
 
   useEffect(() => {
-    const newSocket = io('localhost:5000/');
     if (state.data) {
-      fetchMR(setMr, state.data.id);
-      setSocket(newSocket);
-      connectUser(newSocket, state.data.id, setCall);
+      fetchMR(setMr, match.params.id);
+      fetchPatient(setPatient,match.params.id)
     }
-  }, [setSocket, state.data, setMr]);
-
-  if (call != null) {
-    console.log(call);
-  }
-
-  if (socket) {
-    socket.on('retrieve', (message) => {
-      setCall(message);
-      console.log(message)
-    });
-  }
-
-  const answerCall = () => {
-    var delayInMilliseconds = 1000; //2 second
-    socket.emit('answerCall', call.from, true);
-    setTimeout(function () {
-      history.push({pathname :`/call/${call.url}`,state : {type:'doctor',user:call.patient}});
-    }, delayInMilliseconds);
-  };
+  }, [setMr, state.data]);
 
   return (
     <div className='font-fontPro'>
-      <div>
-        {/* {call && (
-          <Link
-            onClick={answerCall}
-            to={{pathname: `/call/${call.url}`, state: {type: 'doctor'}}}
-          >
-            Answer call
-          </Link>
-        )} */}
-        {call && <IncommingCall answerCall={answerCall}/>}
-      </div>
-
-      <div className='mt-10 mb-5 mx-auto max-w-7xl w-full px-10 flex flex-col space-y-4'>
+      
+      <div className='mb-5 mt-10 mx-auto max-w-7xl w-full px-10 flex flex-col space-y-4'>
+        
         <div className='mx-auto max-w-7xl w-full flex justify-between mb-3'>
-          <h1 className='text-3xl'>Past Appointment</h1>
-          {/* { <button className="px-4 py-2 rounded-md bg-blue-400 text-white">Add</button>} */}
+          <h1 className='text-3xl'>Medical Record</h1>
+          <div>
+          {patient && <Link to={{pathname :'/add/medicalRecord/',state : {patient : patient.data}}} className="px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white">Add</Link>}
+          </div>
         </div>
         <div className='flex flex-col'>
           <div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -81,7 +53,7 @@ const DoctorDashboard = () => {
                         scope='col'
                         className='px-6 py-3 text-left text-base font-medium  text-gray-500 uppercase tracking-wider'
                       >
-                        Patient
+                        Doctor
                       </th>
                       <th
                         scope='col'
@@ -102,8 +74,19 @@ const DoctorDashboard = () => {
                       mr.data.map((data) => (
                         <tr key={data.id ? data.id : Math.random()}>
                           <td className='px-6 py-4 whitespace-nowrap'>
-                            <div className='text-base font-medium text-gray-900'>
-                              {data.patient.name}
+                            <div className='flex items-center'>
+                              <div className='flex-shrink-0 h-10 w-10'>
+                                <img
+                                  className='h-10 w-10 rounded-full'
+                                  src={data.doctor.photo}
+                                  alt=''
+                                />
+                              </div>
+                              <div className='ml-4'>
+                                <div className='text-base font-medium text-gray-900'>
+                                  {data.doctor.name}
+                                </div>
+                              </div>
                             </div>
                           </td>
                           <td className='px-6 py-4 whitespace-nowrap'>
@@ -119,7 +102,7 @@ const DoctorDashboard = () => {
                           <td className='px-6 py-4 whitespace-nowrap '>
                             <Link
                               className='text-base font-bold text-purple-500 hover:text-pink-500'
-                              to={`/doctor/medicalRecord/${data.id}`}
+                              to={`/view/medicalRecord/${data.id}`}
                             >
                               View
                             </Link>
@@ -135,21 +118,13 @@ const DoctorDashboard = () => {
       </div>
     </div>
   );
-};
-const connectUser = (socket, userid, setCall) => {
-  socket.on('connect', () => {
-    socket.emit('online-user', socket.id, userid);
-  });
-  // socket.on('updateuserList', (users) => {
-  //   console.log(users);
-  // });
-};
+}
 
 const fetchMR = (setMr, id) => {
   const fetchData = async () => {
     try {
       let res = await Axios.get(
-        `http://localhost:5000/api/v1/medicalRecord/?sort=-date&doctor=${id}`,
+        `http://localhost:5000/api/v1/medicalRecord/?sort=-date&patient=${id}`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),
@@ -177,4 +152,30 @@ const fetchMR = (setMr, id) => {
   fetchData();
 };
 
-export default DoctorDashboard;
+const fetchPatient = (setPatient, id) => {
+  const fetchData = async () => {
+    try {
+      let res = await Axios.get(
+        `http://localhost:5000/api/v1/patient/${id}`,
+        {
+          headers: {
+            'x-acess-token': localStorage.getItem('token'),
+          },
+        }
+      );
+      let data = res.data.data;
+      setPatient({
+        data: data,
+        isPending: false,
+        error: null,
+      });
+    } catch (error) {
+      setPatient({
+        data: null,
+        isPending: false,
+        error: error,
+      });
+    }
+  };
+  fetchData();
+};
