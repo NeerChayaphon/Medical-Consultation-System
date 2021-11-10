@@ -70,7 +70,7 @@ const DoctorCard = ({doctor}) => {
             </p>
             <p className='text-xs text-gray-700 font-fontPro mb-2'>
               <i className='fas fa-graduation-cap fa-fw'></i>
-              <span> {doctor.backgroud}</span>
+              <span> {doctor.background}</span>
             </p>
             <p className='text-xs text-gray-700 font-fontPro mb-2'>
               <i className='fas fa-map-marker-alt fa-fw'></i>

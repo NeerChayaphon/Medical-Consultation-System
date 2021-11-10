@@ -51,9 +51,7 @@ exports.getAllDoctor = asyncHandler(async (req, res) => {
     status: 'sucess',
     DateTime: req.requestTime,
     result: doctors.length,
-    data: {
-      doctors,
-    },
+    data: doctors,
   });
 });
 
@@ -93,7 +91,7 @@ exports.createDoctor = asyncHandler(async (req, res) => {
     phone: req.body.phone,
     specialization: req.body.specialization,
     specializationDetail: req.body.specializationDetail,
-    backgroud: req.body.backgroud,
+    background: req.body.background,
     hospital: req.body.hospital,
     gender: req.body.gender
   });

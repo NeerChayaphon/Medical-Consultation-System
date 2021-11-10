@@ -25,6 +25,15 @@ import ViewEachMR from './page/videoCall/MR/ViewEachMR';
 import AddMR from './page/videoCall/MR/AddMR';
 import DoctorProfile from './page/Doctor/DoctorProfile';
 import EditDoctorProfile from './page/Doctor/EditDoctorProfile';
+import StaffLogin from './page/Staff/authPage/StaffLogin';
+import DoctorManagement from './page/Staff/doctorManagement/DoctorManagement';
+import EachDoctor from './page/Staff/doctorManagement/EachDoctor';
+import AddDoctor from './page/Staff/doctorManagement/AddDoctor';
+import StaffManagement from './page/Staff/staffManagement/StaffManagement';
+import EachStaff from './page/Staff/staffManagement/EachStaff';
+import EditStaffProfile from './page/Staff/EditStaffProfile';
+import AddStaff from './page/Staff/staffManagement/AddStaff';
+import StaffProfile from './page/Staff/StaffProfile';
 
 function App() {
   // const {state} = useFetchUser();
@@ -35,6 +44,7 @@ function App() {
         <Route path='/register' component={PatientRegister} />
         <Route path='/login' component={UserLogin} />
         <Route path='/doctorLogin' component={DoctorLogin} />
+        <Route path='/staffLogin' component={StaffLogin} />
         <Route path='/call/:id' component={Call} />
         {/* <Route
           exact
@@ -77,6 +87,19 @@ function DefaultContainer() {
       />
       <Route path='/view/medicalRecord/:id' component={ViewEachMR} />
       <Route path='/add/medicalRecord/' component={AddMR} />
+
+      <Route exact path="/staff/doctorManagement" component={DoctorManagement}/>
+      <Route exact path="/add/doctorManagement" component={AddDoctor}/>
+      <Route exact path="/staff/doctorManagement/:id" component={EachDoctor}></Route>
+      <Route path="/staff/doctorManagement/:id/edit" component={EditDoctorProfile}></Route>
+
+      <Route exact path="/staff/staffManagement" component={StaffManagement}/>
+      <Route exact path="/add/staffManagement" component={AddStaff}/>
+      <Route exact path="/staff/staffManagement/:id" component={EachStaff}></Route>
+      <Route path="/staff/staffManagement/:id/edit" component={EditStaffProfile}></Route>
+
+      <Route exact path="/staff/profile" component={StaffProfile}></Route>
+      <Route exact path="/staff/profile/edit" component={EditStaffProfile}></Route>
     </>
   );
 }

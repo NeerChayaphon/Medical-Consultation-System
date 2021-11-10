@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import useTokenCheck from '../../helper/tokenCheck';
 import {useHistory, useLocation} from 'react-router-dom';
-import EditIcon from '../../img/edit.png';
+import ConfirmIcon from '../../img/confirm.png';
 import axios from 'axios';
 
 const EditPatientProfile = () => {
@@ -295,7 +295,7 @@ const EditPatientProfile = () => {
                         type='submit'
                         className='bg-green-600 hover:bg-green-700 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
-                        <img className='w-8 py-1 -mr-3' src={EditIcon} />
+                        <img className='w-8 py-1 -mr-3' src={ConfirmIcon} />
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Confirm</h1>
                         </div>

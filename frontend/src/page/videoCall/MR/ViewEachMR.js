@@ -4,11 +4,13 @@ import {useHistory, Link} from 'react-router-dom';
 import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import EditIcon from '../../../img/edit.png';
+import BinIcon from '../../../img/bin.png';
 
 const ViewEachMR = ({match}) => {
   useTokenCheck(); // ***** Don't forget
   const {state} = useFetchUser(); // User data
   const history = useHistory();
+  const [error, setError] = useState(false);
   const [Mr, setMr] = useState({
     data: null,
     isPending: true,
@@ -22,6 +24,27 @@ const ViewEachMR = ({match}) => {
   if (Mr.data) {
     console.log(Mr.data);
   }
+
+  const config = {
+    headers: {
+      'x-acess-token': localStorage.getItem('token'),
+    },
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    Axios.delete(
+      `http://localhost:5000/api/v1/medicalRecord/${Mr.data.id}`,
+      config
+    )
+      .then(() => {
+        history.goBack();
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setError(err.response.data);
+      });
+  };
 
   return (
     <div className='font-fontPro'>
@@ -122,6 +145,15 @@ const ViewEachMR = ({match}) => {
                   </div>
                   {Mr.data && Mr.data.doctor.id === state.data.id && (
                     <div className='flex justify-end'>
+                      <button
+                        className='bg-red-500 hover:bg-red-600 font-bold py-2 px-4 mt-10 mr-3 rounded inline-flex'
+                        onClick={handleDelete}
+                      >
+                        <img className='w-8 h-10 py-1 -mr-3' src={BinIcon} />
+                        <div className='flex flex-col ml-5'>
+                          <h1 className='py-2 text-xl text-white'>Delete</h1>
+                        </div>
+                      </button>
                       <Link
                         className='bg-yellow-300 hover:bg-yellow-400 font-bold py-2 px-4 mt-10 rounded inline-flex'
                         to={{

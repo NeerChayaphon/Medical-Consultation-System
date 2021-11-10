@@ -46,6 +46,32 @@ const doctorDropDown = [
   },
 ];
 
+const staffDropDown = [
+  {
+    name: "Staff's profile",
+    href: '/staff/profile',
+    icon: UserIcon,
+  },
+  {
+    name: 'Sign out',
+    href: '/staffLogin',
+    icon: LogoutIcon,
+  },
+];
+
+const managementDropDown = [
+  {
+    name: "Staff",
+    href: '/staff/staffManagement',
+    icon: UserIcon,
+  },
+  {
+    name: 'Doctor',
+    href: '/staff/doctorManagement',
+    icon: UserIcon,
+  },
+];
+
 export default function UserNavbar() {
   const {state} = useFetchUser();
   const signOut = () => {
@@ -61,6 +87,9 @@ export default function UserNavbar() {
     } else if (state.data.type === 'doctor') {
       dropdown = doctorDropDown
       home = "/doctor"
+    } else if (state.data.type === 'staff') {
+      dropdown = staffDropDown
+      home = "/staff/doctorManagement"
     }
   }
   
@@ -85,7 +114,67 @@ export default function UserNavbar() {
               </Popover.Button>
             </div>
 
-            <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0'>
+            <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0 gap-6'>
+            {state.data && state.data.type == "staff" && <Popover.Group
+                as='nav'
+                className='hidden md:flex space-x-10 mr-3'
+              >
+                <Popover className='relative'>
+                  {({open}) => (
+                    <>
+                      <Popover.Button
+                        className={classNames(
+                          open ? 'text-gray-900' : 'text-gray-500',
+                          'font-fontPro'
+                        )}
+                      >
+                        <span className='text-lg font-fontPro text-gray-800 hover:text-gray-500'>
+                          {' '}
+                          User Management{' '}
+                          <i className='fas fa-chevron-down text-sm'></i>
+                        </span>
+                      </Popover.Button>
+
+                      <Transition
+                        as={Fragment}
+                        enter='transition ease-out duration-200'
+                        enterFrom='opacity-0 translate-y-1'
+                        enterTo='opacity-100 translate-y-0'
+                        leave='transition ease-in duration-150'
+                        leaveFrom='opacity-100 translate-y-0'
+                        leaveTo='opacity-0 translate-y-1'
+                      >
+                        {state && <Popover.Panel className='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white'>
+                          <div className='rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden'>
+                            <div className='relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8'>
+                              {managementDropDown.map((item) => (
+                                <a
+                                  key={item.name}
+                                  href={item.href}
+                                  onClick={
+                                    item.name === 'Sign out' ? signOut : null
+                                  }
+                                  className='-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50'
+                                >
+                                  <item.icon
+                                    className='flex-shrink-0 h-6 w-6 text-indigo-600'
+                                    aria-hidden='true'
+                                  />
+                                  <div className='ml-4'>
+                                    <p className='text-base font-fontPro text-gray-900'>
+                                      {item.name}
+                                    </p>
+                                  </div>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        </Popover.Panel>}
+                      </Transition>
+                    </>
+                  )}
+                </Popover>
+              </Popover.Group>}
               <Popover.Group
                 as='nav'
                 className='hidden md:flex space-x-10 mr-3'

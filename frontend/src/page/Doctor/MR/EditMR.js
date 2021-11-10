@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Axios from 'axios';
 import {useHistory, Link, useLocation} from 'react-router-dom';
 import useTokenCheck from '../../../helper/doctorTokenCheck';
-import EditIcon from '../../../img/edit.png';
+import ConfirmIcon from '../../../img/confirm.png';
 
 const EditMR = () => {
   useTokenCheck(); // ***** Don't forget
@@ -187,7 +187,7 @@ const EditMR = () => {
                         type='submit'
                         className='bg-green-300 hover:bg-green-400 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                        <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} />
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Confirm</h1>
                         </div>

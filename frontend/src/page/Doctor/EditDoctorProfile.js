@@ -1,12 +1,9 @@
 import {useState} from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
-import {useFetchUser} from '../../context/userContext';
-import EditIcon from '../../img/edit.png';
+import ConfirmIcon from '../../img/confirm.png';
 import Axios from 'axios';
-import useTokenCheck from '../../helper/doctorTokenCheck';
 
 const EditDoctorProfile = () => {
-  useTokenCheck(); // ***** Don't forget
   const history = useHistory();
   const location = useLocation();
   const {data} = location.state;
@@ -232,7 +229,7 @@ const EditDoctorProfile = () => {
                       type='submit'
                       className='bg-green-400 hover:bg-green-500 font-bold py-2 px-4 mt-5 rounded inline-flex'
                     >
-                      <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                      <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} />
                       <div className='flex flex-col ml-5'>
                         <h1 className='py-2 text-xl text-white'>Confirm</h1>
                       </div>
