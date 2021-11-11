@@ -4,8 +4,10 @@ import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../../img/edit.png';
 import BinIcon from '../../../img/bin.png';
 import Axios from 'axios';
+import useTokenCheck from '../../../helper/staffTokenCheck';
 
 const StaffProfile = ({match}) => {
+  useTokenCheck()
   const [error, setError] = useState(false);
   const history = useHistory();
 
