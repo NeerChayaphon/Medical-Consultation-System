@@ -1,9 +1,19 @@
 const express = require('express');
 const {Specialization} = require('../models/Specialization');
 const asyncHandler = require('express-async-handler');
+const APIFeatures = require('../helpers/apiFeatures');
 
 exports.getAllSp = asyncHandler(async (req, res) => {
-  const specialization = await Specialization.find();
+  const feature = new APIFeatures(
+    Specialization.find(),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const specialization = await feature.query;
+
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,

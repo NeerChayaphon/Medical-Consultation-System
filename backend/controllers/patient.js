@@ -4,9 +4,19 @@ const {Patient} = require('../models/Patient');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const APIFeatures = require('../helpers/apiFeatures');
 
 exports.getAllPatient = asyncHandler(async (req, res) => {
-  const patient = await Patient.find().select('-passwordHash');
+  const feature = new APIFeatures(
+    Patient.find().select('-passwordHash'),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const patient = await feature.query;
+
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,

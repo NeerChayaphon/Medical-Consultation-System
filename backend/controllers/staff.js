@@ -4,9 +4,19 @@ const {Staff} = require('../models/Staff');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const APIFeatures = require('../helpers/apiFeatures');
 
 exports.getAllStaff = asyncHandler(async (req, res) => {
-  const staff = await Staff.find().select('-passwordHash');
+  const feature = new APIFeatures(
+    Staff.find().select('-passwordHash'),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const staff = await feature.query;
+  
   res.status(200).json({
     status: 'sucess',
     DateTime: req.requestTime,
