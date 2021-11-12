@@ -98,7 +98,7 @@ exports.createDoctor = asyncHandler(async (req, res) => {
 
   if (req.file) {
     const fileName = req.file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
+    const basePath = `https://harmore.herokuapp.com/public/img/doctor/`;
     doctor['photo'] = `${basePath}${fileName}`;
   }
 
