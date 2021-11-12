@@ -28,7 +28,7 @@ const doctorSchema = new mongoose.Schema({
     required: true,
     enum: ['Male', 'Female'],
   },
-  photo: {type: String, default: `http://127.0.0.1:${process.env.PORT}/public/img/doctor/default.png`},
+  photo: {type: String, default: 'https://harmore.herokuapp.com/public/img/doctor/default.png',
   specialization: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Specialization',
