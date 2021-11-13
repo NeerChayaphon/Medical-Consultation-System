@@ -1,9 +1,6 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './page/Patient/Home';
 import Landing from './page/All/Landing';
-import Login from './page/Patient/Login';
-import Register from './page/Patient/Register';
-import Navbar from './components/Navbar';
 import DoctorInfo from './page/Patient/DoctorInfo';
 import DoctorDashboard from './page/Doctor/DoctorDashboard';
 import Call from './page/videoCall/VideoCall';

@@ -2,7 +2,7 @@ import React from 'react';
 import useTokenCheck from '../../../helper/staffTokenCheck';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const DoctorManagement = () => {
   useTokenCheck(); // ***** Don't forget

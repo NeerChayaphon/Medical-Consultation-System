@@ -35,7 +35,7 @@ const AddStaff = () => {
   };
 
   const handleSubmit = async (e) => {
-    if (password != confirmPass) {
+    if (password !== confirmPass) {
       setError("Password Doesn't match");
     } else {
       e.preventDefault();
@@ -188,7 +188,7 @@ const AddStaff = () => {
                     onClick={handleSubmit}
                     className='bg-green-400 hover:bg-green-500 font-bold py-2 px-4 mt-5 rounded inline-flex'
                   >
-                    <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} />
+                    <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} alt=""/>
                     <div className='flex flex-col ml-5'>
                       <h1 className='py-2 text-xl text-white'>Confirm</h1>
                     </div>

@@ -14,6 +14,7 @@ function Home() {
   const {state} = useFetchUser();
   //const {data: doctor} = useDoctorAPI('http://localhost:5000/api/v1/doctor');
 
+  // eslint-disable-next-line
   const [socket, setSocket] = useState(null);
   const [onlineDoc, setOnlineDoc] = useState({
     data: [],

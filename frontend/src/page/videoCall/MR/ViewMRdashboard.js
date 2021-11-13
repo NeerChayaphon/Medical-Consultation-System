@@ -2,10 +2,9 @@ import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default function ViewMRdashboard({match}) {
-  const history = useHistory();
   useTokenCheck(); // ***** Don't forget
   const {state} = useFetchUser(); // User data
 
@@ -29,7 +28,7 @@ export default function ViewMRdashboard({match}) {
       fetchMR(setMr, match.params.id);
       fetchPatient(setPatient,match.params.id)
     }
-  }, [setMr, state.data]);
+  }, [setMr, state.data,match.params.id]);
 
   return (
     <div className='font-fontPro'>
@@ -70,7 +69,7 @@ export default function ViewMRdashboard({match}) {
                     </tr>
                   </thead>
                   <tbody className='bg-white divide-y divide-gray-200'>
-                    {mr.data &&
+                    {mr.data.length !== 0 &&
                       mr.data.map((data) => (
                         <tr key={data.id ? data.id : Math.random()}>
                           <td className='px-6 py-4 whitespace-nowrap'>
@@ -78,13 +77,13 @@ export default function ViewMRdashboard({match}) {
                               <div className='flex-shrink-0 h-10 w-10'>
                                 <img
                                   className='h-10 w-10 rounded-full'
-                                  src={data.doctor.photo}
+                                  src={data.doctor && data.doctor.photo}
                                   alt=''
                                 />
                               </div>
                               <div className='ml-4'>
                                 <div className='text-base font-medium text-gray-900'>
-                                  {data.doctor.name}
+                                {data.doctor && data.doctor.name}
                                 </div>
                               </div>
                             </div>

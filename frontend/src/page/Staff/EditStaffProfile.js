@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Axios from 'axios';
-import {useHistory, Link, useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import useTokenCheck from '../../helper/staffTokenCheck';
 import ConfirmIcon from '../../img/confirm.png';
 
@@ -175,7 +175,7 @@ const EditStaffProfile = () => {
                       type='submit'
                       className='bg-green-400 hover:bg-green-500 font-bold py-2 px-4 mt-5 rounded inline-flex'
                     >
-                      <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} />
+                      <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} alt=""/>
                       <div className='flex flex-col ml-5'>
                         <h1 className='py-2 text-xl text-white'>Confirm</h1>
                       </div>

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Axios from 'axios';
-import {useHistory, Link, useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import useTokenCheck from '../../../helper/doctorTokenCheck';
 import ConfirmIcon from '../../../img/confirm.png';
 
@@ -181,13 +181,25 @@ const EditMR = () => {
                         </div>
                       </div>
                     </div>
+                    <div className='text-center'>
+                      {error ? (
+                        <h1 className='text-base text-red-700 font-normal'>
+                          {error.message}
+                        </h1>
+                      ) : (
+                        <span> </span>
+                      )}
+                    </div>
 
                     <div className='flex justify-end'>
                       <button
                         type='submit'
                         className='bg-green-300 hover:bg-green-400 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={ConfirmIcon} />
+                        <img
+                          className='w-8 h-10 py-1 -mr-3'
+                          src={ConfirmIcon} alt=""
+                        />
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Confirm</h1>
                         </div>
@@ -203,7 +215,5 @@ const EditMR = () => {
     </div>
   );
 };
-
-
 
 export default EditMR;

@@ -15,7 +15,7 @@ const Call = ({match}) => {
   console.log(type)
   console.log(user)
 
-
+// eslint-disable-next-line
   const [socket, setSocket] = useState(null);
   const [stream, setStream] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
@@ -171,7 +171,7 @@ const Call = ({match}) => {
                 target="_blank" rel="noopener noreferrer"
                 className='h-12 py-1 px-4 items-center inline-flex lg:shadow-sm rounded-lg bg-indigo-500 hover:bg-indigo-600'
               >
-                <img className='w-8 py-1 -mr-3' src={medicalIcon} />
+                <img className='w-8 py-1 -mr-3' src={medicalIcon} alt=""/>
                 <h1 className='ml-5 py-2 text-base text-white'>Medical Record</h1>
               </Link>
               }
@@ -184,7 +184,7 @@ const Call = ({match}) => {
                 href={type === "patient" ? "/patient/medicalRecord" : "/doctor"}
                 className='flex-col justify-center h-12 w-12 bg-red-400 hover:bg-red-500 font-bold py-2 px-2 rounded-lg inline-flex'
               >
-                <img src={endCallIcon} />
+                <img src={endCallIcon} alt=""/>
               </a>
             </div>
           </div>
