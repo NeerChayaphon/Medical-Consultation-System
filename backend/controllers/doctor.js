@@ -122,7 +122,7 @@ exports.updateDoctor = asyncHandler(async (req, res) => {
   }
   if (req.file) {
     const fileName = req.file.filename;
-    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
+    const basePath = 'https://harmore.herokuapp.com/public/img/doctor/';
     req.body.photo = `${basePath}${fileName}`;
   }
   const doctors = await Doctor.findByIdAndUpdate(req.params.id, req.body, {
