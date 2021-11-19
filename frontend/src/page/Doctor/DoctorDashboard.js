@@ -24,7 +24,7 @@ const DoctorDashboard = () => {
   console.log(mr);
 
   useEffect(() => {
-    const newSocket = io('localhost:5000/');
+    const newSocket = io('harmore.herokuapp.com/');
     if (state.data) {
       fetchMR(setMr, state.data.id);
       setSocket(newSocket);
@@ -149,7 +149,7 @@ const fetchMR = (setMr, id) => {
   const fetchData = async () => {
     try {
       let res = await Axios.get(
-        `http://localhost:5000/api/v1/medicalRecord/?sort=-date&doctor=${id}`,
+        `https://harmore.herokuapp.com/api/v1/medicalRecord/?sort=-date&doctor=${id}`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),

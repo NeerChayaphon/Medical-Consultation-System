@@ -30,7 +30,7 @@ const PatientRegister = () => {
     e.preventDefault();
     console.log(validation());
     axios
-      .post('http://localhost:5000/api/v1/patient/register', {
+      .post('https://harmore.herokuapp.com/api/v1/patient/register', {
         name: name,
         email: email,
         password: password,

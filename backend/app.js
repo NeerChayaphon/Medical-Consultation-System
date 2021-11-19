@@ -11,7 +11,7 @@ const AppError = require('./helpers/appErrors');
 const globalErrorHandler = require('./helpers/error-handler');
 
 const io = require('socket.io')(server, {
-  cors: 'localhost:3000',
+  cors: 'https://harmore.netlify.app',
 });
 
 const cors = require('cors');

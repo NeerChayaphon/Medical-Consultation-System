@@ -9,10 +9,10 @@ import Axios from 'axios';
 import DoctorCard from '../../components/DoctorCard';
 
 function Home() {
-  //const {data: user, isPending, error} = useAuthCheck('http://localhost:5000/api/v1/auth/patient/');
+  //const {data: user, isPending, error} = useAuthCheck('https://harmore.herokuapp.com/api/v1/auth/patient/');
   useTokenCheck(); // ***** Don't forget
   const {state} = useFetchUser();
-  //const {data: doctor} = useDoctorAPI('http://localhost:5000/api/v1/doctor');
+  //const {data: doctor} = useDoctorAPI('https://harmore.herokuapp.com/api/v1/doctor');
 
   // eslint-disable-next-line
   const [socket, setSocket] = useState(null);
@@ -30,7 +30,7 @@ function Home() {
   })
 
   useEffect(() => {
-    const newSocket = io('localhost:5000/');
+    const newSocket = io('harmore.herokuapp.com/');
     setSocket(newSocket);
     getOnlineDoc(newSocket, setOnlineDoc, type, search);
     fetchSpecialization(setSpec)
@@ -162,7 +162,7 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
   const id = doctorId.toString();
   const fetchDoctor = async () => {
     try {
-      let res = await Axios.get(`http://localhost:5000/api/v1/doctor/${id}`, {
+      let res = await Axios.get(`https://harmore.herokuapp.com/api/v1/doctor/${id}`, {
         headers: {
           'x-acess-token': localStorage.getItem('token'),
         },
@@ -221,7 +221,7 @@ const disconnectSocket = (socket) => {
 const fetchSpecialization = (setSpec) => {
   const fetchType = async () => {
     try {
-      let res = await Axios.get(`http://localhost:5000/api/v1/specialization/`);
+      let res = await Axios.get(`https://harmore.herokuapp.com/api/v1/specialization/`);
       let data = res.data.data;
 
       if (!Array.isArray(data)) {

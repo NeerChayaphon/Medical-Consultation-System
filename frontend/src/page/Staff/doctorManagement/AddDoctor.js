@@ -66,7 +66,7 @@ const AddDoctor = () => {
       setError("Password Doesn't match");
     } else {
     e.preventDefault();
-    Axios.post(`http://localhost:5000/api/v1/doctor/`, formData, config)
+    Axios.post(`https://harmore.herokuapp.com/api/v1/doctor/`, formData, config)
       .then((res) => {
         return res.data;
       })
@@ -275,7 +275,7 @@ const AddDoctor = () => {
 const fetchSpecialization = (setSpec) => {
   const fetchType = async () => {
     try {
-      let res = await Axios.get(`http://localhost:5000/api/v1/specialization/`);
+      let res = await Axios.get(`https://harmore.herokuapp.com/api/v1/specialization/`);
       let data = res.data.data;
 
       if (!Array.isArray(data)) {

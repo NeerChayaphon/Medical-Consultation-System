@@ -24,7 +24,7 @@ const DoctorInfo = ({match}) => {
  
 
   useEffect(() => {
-    const newSocket = io('localhost:5000/');
+    const newSocket = io('harmore.herokuapp.com/');
     setSocket(newSocket);
     getOnlineDoc(newSocket, setOnlineDoc, setFetchFail);
     newSocket.on('availableCall', (status) => {

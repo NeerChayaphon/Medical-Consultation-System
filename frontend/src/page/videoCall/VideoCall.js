@@ -25,7 +25,7 @@ const Call = ({match}) => {
   const [isMute, setMute] = useState(false);
   const [isVideoOff, setVideoOff] = useState(false);
   useEffect(() => {
-    const newSocket = io('localhost:5000/');
+    const newSocket = io('harmore.herokuapp.com/');
     setSocket(newSocket);
 
     const myPeer = new Peer();

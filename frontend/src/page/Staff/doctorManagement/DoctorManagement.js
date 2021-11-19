@@ -109,7 +109,7 @@ const fetchDoctor = (setDoctor) => {
   const fetchData = async () => {
     try {
       let res = await Axios.get(
-        `http://localhost:5000/api/v1/doctor/?sort=name`,
+        `https://harmore.herokuapp.com/api/v1/doctor/?sort=name`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),

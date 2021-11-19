@@ -40,7 +40,7 @@ const EditMR = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     Axios.put(
-      `http://localhost:5000/api/v1/medicalRecord/${data.id}`,
+      `https://harmore.herokuapp.com/api/v1/medicalRecord/${data.id}`,
       bodyParameters,
       config
     )
