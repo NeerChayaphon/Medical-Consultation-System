@@ -3,6 +3,8 @@ import useTokenCheck from '../../../helper/staffTokenCheck';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import Spinner from '../../../components/Spinner';
+
 
 
 const StaffManagement = () => {
@@ -19,6 +21,9 @@ const StaffManagement = () => {
 
   console.log(staff.data);
 
+  if (staff.isPending) {
+    return <Spinner />;
+  } else {
   return (
     <div className='font-fontPro'>
       <div className='mb-5 mt-10 mx-auto max-w-7xl w-full px-10 flex flex-col space-y-4'>
@@ -94,7 +99,7 @@ const StaffManagement = () => {
     </div>
   );
 };
-
+}
 const fetchDoctor = (setStaff) => {
   const fetchData = async () => {
     try {

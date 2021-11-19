@@ -3,16 +3,16 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors : {
-        plightBlue : '#E8F5FF'
+      colors: {
+        plightBlue: '#E8F5FF',
       },
-      fontFamily : {
-        fontPro : ['Fira Sans']
-      }
+      fontFamily: {
+        fontPro: ['Fira Sans'],
+      },
     },
   },
   variants: {
     extend: {},
   },
   plugins: [],
-}
+};

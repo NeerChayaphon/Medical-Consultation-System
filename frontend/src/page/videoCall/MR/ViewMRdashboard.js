@@ -3,6 +3,7 @@ import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import Spinner from '../../../components/Spinner';
 
 export default function ViewMRdashboard({match}) {
   useTokenCheck(); // ***** Don't forget
@@ -30,6 +31,9 @@ export default function ViewMRdashboard({match}) {
     }
   }, [setMr, state.data,match.params.id]);
 
+  if (mr.isPending) {
+    return <Spinner />;
+  } else {
   return (
     <div className='font-fontPro'>
       
@@ -118,6 +122,7 @@ export default function ViewMRdashboard({match}) {
     </div>
   );
 }
+}
 
 const fetchMR = (setMr, id) => {
   const fetchData = async () => {
@@ -155,7 +160,7 @@ const fetchPatient = (setPatient, id) => {
   const fetchData = async () => {
     try {
       let res = await Axios.get(
-        `https://harmore.herokuapp.com/api/v1/patient/${id}`,
+        `http://localhost:5000/api/v1/patient/${id}`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),

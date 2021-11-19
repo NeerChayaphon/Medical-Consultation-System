@@ -4,6 +4,7 @@ import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../../img/edit.png';
 import BinIcon from '../../../img/bin.png';
 import Axios from 'axios';
+import Spinner from '../../../components/Spinner';
 
 const EachDoctor = ({match}) => {
   const [error, setError] = useState(false);
@@ -40,6 +41,11 @@ const EachDoctor = ({match}) => {
       });
   };
 
+  if (doctor.isPending) {
+    return (
+      <Spinner/>
+    );
+  } else {
   return (
     <div className='font-fontPro'>
       <div className='p-3'>
@@ -192,6 +198,7 @@ const EachDoctor = ({match}) => {
     </div>
   );
 };
+}
 
 const fetchDoctor = (setDoctor, id) => {
   const fetchData = async () => {

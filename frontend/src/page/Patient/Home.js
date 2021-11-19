@@ -7,6 +7,7 @@ import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import Axios from 'axios';
 import DoctorCard from '../../components/DoctorCard';
+import Spinner from '../../components/Spinner';
 
 function Home() {
   //const {data: user, isPending, error} = useAuthCheck('https://harmore.herokuapp.com/api/v1/auth/patient/');
@@ -43,6 +44,9 @@ function Home() {
   // }
   console.log(specialization.data)
 
+  if (onlineDoc.isPending) {
+    return <Spinner />;
+  } else {
   return (
     <div className='antialiased flex flex-col mt-10'>
       <form
@@ -121,6 +125,7 @@ function Home() {
       {/* {onlineDoc != null && <div>{Object.keys(onlineDoc)}</div>} */}
     </div>
   );
+}
 }
 
 const getOnlineDoc = (socket, setOnlineDoc, type, search) => {

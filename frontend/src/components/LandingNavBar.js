@@ -23,7 +23,7 @@ const dropdown = [
     icon: HeartIcon,
   },
   {
-    name: 'As Admin',
+    name: 'As Staff',
     href: '/staffLogin',
     icon: AdjustmentsIcon,
   },
