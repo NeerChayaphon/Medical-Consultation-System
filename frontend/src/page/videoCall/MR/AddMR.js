@@ -34,15 +34,18 @@ const AddMR = () => {
     },
   };
 
-  const bodyParameters = {
-    patient: patient.id,
-    doctor: state.data.id,
-    // date: date,
-    illness: illness,
-    history: pHistory,
-    peDiagnosis: peDiagnosis,
-    treatment: treatment,
-  };
+  let bodyParameters = {};
+  if (state.data !== null && patient !== null) {
+    bodyParameters = {
+      patient: patient.id,
+      doctor: state.data.id,
+      // date: date,
+      illness: illness,
+      history: pHistory,
+      peDiagnosis: peDiagnosis,
+      treatment: treatment,
+    };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
