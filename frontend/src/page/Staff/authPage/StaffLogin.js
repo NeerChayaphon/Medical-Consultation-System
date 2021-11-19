@@ -2,7 +2,7 @@ import React from 'react';
 import LogoPic from '../../../img/Medical_research.svg';
 import axios from 'axios';
 import {useState} from 'react';
-import {useHistory, Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useFetchUser} from '../../../context/userContext';
 
 

@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Axios from 'axios';
-import {useHistory, Link,useLocation} from 'react-router-dom';
+import {useHistory, useLocation} from 'react-router-dom';
 import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import EditIcon from '../../../img/edit.png';
 
 const AddMR = () => {
   useTokenCheck(); // ***** Don't forget
-  const {state} = useFetchUser()
+  const {state} = useFetchUser();
   const location = useLocation();
   const {patient} = location.state;
 
@@ -17,10 +17,9 @@ const AddMR = () => {
     console.log(state.data);
   }
   if (patient) {
-      console.log(patient.name)
+    console.log(patient.name);
   }
 
-  
   const [illness, setIllness] = useState();
   const [pHistory, setPHistory] = useState();
   const [peDiagnosis, setPeDiagnosis] = useState();
@@ -28,7 +27,6 @@ const AddMR = () => {
   const [error, setError] = useState(false);
 
   const currentDate = new Date().toLocaleDateString();
-
 
   const config = {
     headers: {
@@ -77,9 +75,7 @@ const AddMR = () => {
         <div className='flex-col'>
           <div className='text-center'>
             {' '}
-            <h1 className='text-2xl font-bold'>
-              Add Medical Record
-            </h1>
+            <h1 className='text-2xl font-bold'>Add Medical Record</h1>
           </div>
           <form onSubmit={handleSubmit}>
             <div className='flex items-center justify-center pt-5 pb-10'>
@@ -118,7 +114,9 @@ const AddMR = () => {
                             // required
                             // onChange={(e) => setDate(e.target.value)}
                             className='w-full -ml-10 pl-4 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500 bg-white'
-                          >{currentDate}</p>
+                          >
+                            {currentDate}
+                          </p>
                         </div>
                       </div>
                       <div className='w-1/4 px-3 mb-2'>
@@ -190,13 +188,25 @@ const AddMR = () => {
                         </div>
                       </div>
                     </div>
-
+                    <div className='text-center mt-1'>
+                      {error ? (
+                        <h1 className='text-base text-red-700 font-normal'>
+                          {error}
+                        </h1>
+                      ) : (
+                        <span> </span>
+                      )}
+                    </div>
                     <div className='flex justify-end'>
                       <button
                         type='submit'
                         className='bg-green-300 hover:bg-green-400 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                        <img
+                          className='w-8 h-10 py-1 -mr-3'
+                          src={EditIcon}
+                          alt=''
+                        />
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Add</h1>
                         </div>
@@ -212,6 +222,5 @@ const AddMR = () => {
     </div>
   );
 };
-
 
 export default AddMR;

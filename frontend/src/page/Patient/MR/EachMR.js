@@ -151,13 +151,20 @@ const EachMR = ({match}) => {
                       </div>
                     </div>
                   </div>
+                  <div className='text-center'>
+                      {error && (
+                        <h1 className='text-base text-red-700 font-normal'>
+                          {error.message}
+                        </h1>
+                      )}
+                    </div>
                   {state.data && state.data.type === 'doctor' && (
                     <div className='flex justify-end'>
                       <button
                         className='bg-red-500 hover:bg-red-600 font-bold py-2 px-4 mt-10 mr-3 rounded inline-flex'
                         onClick={handleDelete}
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={BinIcon} />
+                        <img className='w-8 h-10 py-1 -mr-3' src={BinIcon} alt=""/>
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Delete</h1>
                         </div>
@@ -169,7 +176,7 @@ const EachMR = ({match}) => {
                           state: {data: Mr.data},
                         }}
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} alt=""/>
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Edit</h1>
                         </div>

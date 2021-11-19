@@ -143,13 +143,22 @@ const ViewEachMR = ({match}) => {
                       </div>
                     </div>
                   </div>
+                  <div className='text-center mt-1'>
+                      {error ? (
+                        <h1 className='text-base text-red-700 font-normal'>
+                          {error}
+                        </h1>
+                      ) : (
+                        <span> </span>
+                      )}
+                    </div>
                   {Mr.data && Mr.data.doctor.id === state.data.id && (
                     <div className='flex justify-end'>
                       <button
                         className='bg-red-500 hover:bg-red-600 font-bold py-2 px-4 mt-10 mr-3 rounded inline-flex'
                         onClick={handleDelete}
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={BinIcon} />
+                        <img className='w-8 h-10 py-1 -mr-3' src={BinIcon} alt=""/>
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Delete</h1>
                         </div>
@@ -161,7 +170,7 @@ const ViewEachMR = ({match}) => {
                           state: {data: Mr.data},
                         }}
                       >
-                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                        <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} alt=""/>
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Edit</h1>
                         </div>

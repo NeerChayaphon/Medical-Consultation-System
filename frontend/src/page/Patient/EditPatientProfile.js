@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import useTokenCheck from '../../helper/tokenCheck';
 import {useHistory, useLocation} from 'react-router-dom';
 import ConfirmIcon from '../../img/confirm.png';
@@ -14,7 +14,6 @@ const EditPatientProfile = () => {
   // if (data !== null) {
   //   console.log(data);
   // }
-  
 
   const [name, setName] = useState(data.name);
   const [gender, setGender] = useState(data.gender);
@@ -30,9 +29,7 @@ const EditPatientProfile = () => {
   const [currentAddress, setCurrentAddress] = useState(data.currentAddress);
   const [error, setError] = useState(false);
 
-  console.log(name)
-
-
+  console.log(name);
 
   const config = {
     headers: {
@@ -284,18 +281,22 @@ const EditPatientProfile = () => {
                       </div>
                     </div>
                     <div className='text-center'>
-                    {error && (
-                      <h1 className='text-base text-red-700 font-normal'>
-                        {error.message}
-                      </h1>
-                    )}
-                  </div>
+                      {error && (
+                        <h1 className='text-base text-red-700 font-normal'>
+                          {error.message}
+                        </h1>
+                      )}
+                    </div>
                     <div className='flex justify-end'>
                       <button
                         type='submit'
                         className='bg-green-600 hover:bg-green-700 font-bold py-2 px-4 mt-10 rounded inline-flex'
                       >
-                        <img className='w-8 py-1 -mr-3' src={ConfirmIcon} />
+                        <img
+                          className='w-8 py-1 -mr-3'
+                          src={ConfirmIcon}
+                          alt=''
+                        />
                         <div className='flex flex-col ml-5'>
                           <h1 className='py-2 text-xl text-white'>Confirm</h1>
                         </div>

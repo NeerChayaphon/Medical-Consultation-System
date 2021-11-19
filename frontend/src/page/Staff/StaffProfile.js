@@ -1,8 +1,6 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../img/edit.png';
-import Axios from 'axios';
 import {useFetchUser} from '../../context/userContext';
 import useTokenCheck from '../../helper/staffTokenCheck';
 
@@ -108,7 +106,7 @@ const StaffProfile = ({match}) => {
                       state: {data: state.data},
                     }}
                   >
-                    <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} />
+                    <img className='w-8 h-10 py-1 -mr-3' src={EditIcon} alt=""/>
                     <div className='flex flex-col ml-5'>
                       <h1 className='py-2 text-xl text-white'>Edit</h1>
                     </div>

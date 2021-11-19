@@ -115,7 +115,7 @@ export default function UserNavbar() {
             </div>
 
             <div className='hidden md:flex items-center justify-end md:flex-1 lg:w-0 gap-6'>
-            {state.data && state.data.type == "staff" && <Popover.Group
+            {state.data && state.data.type === "staff" && <Popover.Group
                 as='nav'
                 className='hidden md:flex space-x-10 mr-3'
               >

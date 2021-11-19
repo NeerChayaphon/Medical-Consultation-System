@@ -3,37 +3,7 @@ import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {Link, useHistory} from 'react-router-dom';
-const people = [
-  {
-    name: 'Jane Cooper',
-    date: '12/10/2021',
-    illness: 'Insomnia',
-    image:
-      'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortWaved&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Light',
-  },
-  {
-    name: 'Example 2',
-    date: '10/10/2021',
-    illness: 'fewer',
-    image:
-      'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortWaved&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Light',
-  },
-  {
-    name: 'Example 3',
-    date: '21/10/2022',
-    illness: 'Cancer',
-    image:
-      'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortWaved&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Light',
-  },
-  {
-    name: 'Example 4',
-    date: '21/10/2022',
-    illness: 'Sample',
-    image:
-      'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortWaved&accessoriesType=Prescription01&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Light',
-  },
-  // More people...
-];
+
 
 export default function Example() {
   const history = useHistory();
@@ -47,7 +17,7 @@ export default function Example() {
   });
 
   // console.log(mr)
-  console.log(state.data);
+  // console.log(state.data);
 
   useEffect(() => {
     if (state.data) {
@@ -103,13 +73,13 @@ export default function Example() {
                               <div className='flex-shrink-0 h-10 w-10'>
                                 <img
                                   className='h-10 w-10 rounded-full'
-                                  src={data.doctor.photo}
+                                  src={data.doctor && data.doctor.photo}
                                   alt=''
                                 />
                               </div>
                               <div className='ml-4'>
                                 <div className='text-base font-medium text-gray-900'>
-                                  {data.doctor.name}
+                                  {data.doctor && data.doctor.name}
                                 </div>
                               </div>
                             </div>

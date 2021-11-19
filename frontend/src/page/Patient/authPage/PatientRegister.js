@@ -62,7 +62,7 @@ const PatientRegister = () => {
               <div className='w-full px-3 py-40'>
                 <img
                   className='object-cover object-center rounded'
-                  src={DoctorPic}
+                  src={DoctorPic} alt=""
                 />
               </div>
             </div>
