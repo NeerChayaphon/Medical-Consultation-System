@@ -31,12 +31,13 @@ import EachStaff from './page/Staff/staffManagement/EachStaff';
 import EditStaffProfile from './page/Staff/EditStaffProfile';
 import AddStaff from './page/Staff/staffManagement/AddStaff';
 import StaffProfile from './page/Staff/StaffProfile';
+import NotFound from './page/All/NotFound';
 
 function App() {
   // const {state} = useFetchUser();
   return (
     <Router>
-      <Switch>
+     
         <Route exact path='/' component={Landing} />
         <Route path='/register' component={PatientRegister} />
         <Route path='/login' component={UserLogin} />
@@ -51,7 +52,7 @@ function App() {
         <Route path='/view/medicalRecord/:id' component={ViewEachMR} />
         <Route path='/add/medicalRecord/' component={AddMR} /> */}
         <Route component={DefaultContainer} />
-      </Switch>
+      
     </Router>
   );
 }
@@ -60,6 +61,7 @@ function DefaultContainer() {
   return (
     <>
       <UserNavbar />
+      <Switch>
       <Route path='/home' component={Home} />
       <Route exact path='/patient/medicalRecord' component={MRdashboard} />
       <Route path='/patient/medicalRecord/:id' component={EachMR} />
@@ -97,6 +99,8 @@ function DefaultContainer() {
 
       <Route exact path="/staff/profile" component={StaffProfile}></Route>
       <Route exact path="/staff/profile/edit" component={EditStaffProfile}></Route>
+      <Route path="*" component={NotFound}></Route>
+      </Switch>
     </>
   );
 }
