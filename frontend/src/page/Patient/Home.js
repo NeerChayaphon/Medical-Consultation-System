@@ -30,6 +30,8 @@ function Home() {
     error: null,
   });
 
+  console.log(onlineDoc.error)
+
   useEffect(() => {
     const newSocket = io('harmore.herokuapp.com/');
     setSocket(newSocket);
@@ -42,11 +44,11 @@ function Home() {
   //fillter
 
   // }
-  console.log(specialization.data);
+  console.log(onlineDoc.data);
 
   if (onlineDoc.isPending) {
     return <Spinner />;
-  } else if (!onlineDoc.isPending && onlineDoc.data.length === 0) {
+  } else if (!onlineDoc.isPending && onlineDoc.data !== null && onlineDoc.data.length === 0 && type === 'All' && search === '') {
     return (
       <div className='flex justify-center items-center mt-52'>
         <h1 className='font-fontPro text-4xl text-gray-700'>There is no online doctor at this moment.</h1>
@@ -112,9 +114,12 @@ function Home() {
           </div>
         </form>
 
+        {onlineDoc.data.length === 0 && <div className='flex justify-center items-center mt-32'>
+        <h1 className='font-fontPro text-3xl text-gray-700'>Can't find any doctor that you are looking for</h1>
+      </div>}
         <div className='my-10 mx-auto max-w-7xl w-full px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
-          {state.isLoading && <div>loading</div>}
-          {!onlineDoc.isPending && onlineDoc.data ? (
+          
+          {!onlineDoc.isPending && onlineDoc.data !== null ? (
             onlineDoc.data.map((data) => (
               <DoctorCard key={data.name} doctor={data} />
             ))
@@ -178,8 +183,10 @@ const getOnlineDoc = (socket, setOnlineDoc, type, search) => {
 
 const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
   const id = doctorId.toString();
+  console.log(id)
   const fetchDoctor = async () => {
     try {
+      console.log(`https://harmore.herokuapp.com/api/v1/doctor/${id}`)
       let res = await Axios.get(
         `https://harmore.herokuapp.com/api/v1/doctor/${id}`,
         {
@@ -196,6 +203,11 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
       // }
       let data = res.data.data;
 
+      console.log(data);
+
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
       //filtter by type
       if (type !== 'All') {
         //console.log(type)
@@ -214,19 +226,16 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
         data = fDoc;
       }
 
-      console.log(data);
-
-      if (!Array.isArray(data)) {
-        data = [data];
-      }
+      
       setOnlineDoc({
         data: data,
         isPending: false,
         error: null,
       });
     } catch (error) {
+      console.log('err')
       setOnlineDoc({
-        data: null,
+        data: [],
         isPending: false,
         error: error,
       });
