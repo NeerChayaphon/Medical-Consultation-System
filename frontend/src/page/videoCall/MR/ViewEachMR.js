@@ -1,3 +1,4 @@
+// view medical record while having consultation with patient
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {useHistory, Link} from 'react-router-dom';
@@ -8,30 +9,28 @@ import BinIcon from '../../../img/bin.png';
 import Spinner from '../../../components/Spinner';
 
 const ViewEachMR = ({match}) => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const {state} = useFetchUser(); // User data
   const history = useHistory();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); // error
   const [Mr, setMr] = useState({
     data: null,
     isPending: true,
     error: null,
-  });
+  }); // medical record information
 
   useEffect(() => {
-    fetchMR(setMr, match.params.id);
+    fetchMR(setMr, match.params.id); // get medical record
   }, [setMr, match]);
 
-  if (Mr.data) {
-    console.log(Mr.data);
-  }
-
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
+  // delete
   const handleDelete = async (e) => {
     e.preventDefault();
     Axios.delete(
@@ -217,6 +216,8 @@ const ViewEachMR = ({match}) => {
     );
   }
 };
+
+// get medical record
 const fetchMR = (setMr, id) => {
   const fetchData = async () => {
     try {

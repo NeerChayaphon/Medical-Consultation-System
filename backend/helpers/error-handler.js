@@ -1,10 +1,17 @@
+/* error-handler.js use to create custom error handler for production and development 
+ This will handle most of the error type and display error message in an easy to understand way
+ for development and production */
+
+// Extend custom error from app error
 const AppError = require('./appErrors');
 
+// Handleing Cast Error
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new AppError(message, 400);
 };
 
+// Handleing Duplicate Fields from DB
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg.match(/([""'])(\\?.)*?\1/)[0];
   console.log(value);
@@ -13,12 +20,14 @@ const handleDuplicateFieldsDB = (err) => {
   return new AppError(message, 400);
 };
 
+// Handleing Validation Error from DB
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message); // create new object by maping message
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 
+// If in development, set this type of error
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -28,6 +37,7 @@ const sendErrorDev = (err, res) => {
   });
 };
 
+// If in production, set this type of error
 const sendErrorProd = (err, res) => {
   if (err.isOperational) {
     res.status(err.statusCode).json({
@@ -44,6 +54,8 @@ const sendErrorProd = (err, res) => {
     });
   }
 };
+
+// Check for error type
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500; //500 because of mongoose or something else. (unknown)
   err.status = err.status || 'error';

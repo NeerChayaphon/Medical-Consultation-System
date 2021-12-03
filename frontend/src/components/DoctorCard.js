@@ -1,8 +1,9 @@
+/* reuseable card component for homepage */
 import React from 'react';
 import {Link} from 'react-router-dom';
 
 const DoctorCard = ({doctor}) => {
-  const colorDoc = (doctor) => {
+  const colorDoc = (doctor) => { // color of the specialization
     let color = ""
     switch (doctor.specialization.specialization) {
       case "Physician":

@@ -1,3 +1,4 @@
+/* Edit medical record for doctor */
 import {useState} from 'react';
 import Axios from 'axios';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -5,7 +6,7 @@ import useTokenCheck from '../../../helper/doctorTokenCheck';
 import ConfirmIcon from '../../../img/confirm.png';
 
 const EditMR = () => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); 
   const location = useLocation();
   const {data} = location.state;
 
@@ -15,6 +16,7 @@ const EditMR = () => {
     console.log(data);
   }
 
+  // informatino
   const [date, setDate] = useState(data.date);
   const [illness, setIllness] = useState(data.illness);
   const [pHistory, setPHistory] = useState(data.history);
@@ -22,6 +24,7 @@ const EditMR = () => {
   const [treatment, setTreatment] = useState(data.treatment);
   const [error, setError] = useState(false);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
@@ -37,6 +40,7 @@ const EditMR = () => {
     treatment: treatment,
   };
 
+  // edit submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     Axios.put(

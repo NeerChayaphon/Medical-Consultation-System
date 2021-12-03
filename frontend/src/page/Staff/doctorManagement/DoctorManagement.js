@@ -1,3 +1,4 @@
+// doctor management page for staff
 import React from 'react';
 import useTokenCheck from '../../../helper/staffTokenCheck';
 import {useEffect, useState} from 'react';
@@ -6,18 +7,16 @@ import {Link} from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
 
 const DoctorManagement = () => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const [doctor, setDoctor] = useState({
     data: [],
     isPending: true,
     error: null,
-  });
+  }); // doctor in the database
 
   useEffect(() => {
-    fetchDoctor(setDoctor);
+    fetchDoctor(setDoctor); // get doctor
   }, [setDoctor]);
-
-  console.log(doctor.data);
 
   if (doctor.isPending) {
     return (

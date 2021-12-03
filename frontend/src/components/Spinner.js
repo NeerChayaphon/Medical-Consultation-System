@@ -1,3 +1,4 @@
+// reuseable spinner component for all page
 import React from 'react';
 
 const Spinner = () => {

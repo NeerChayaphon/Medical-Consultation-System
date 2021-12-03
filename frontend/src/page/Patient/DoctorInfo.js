@@ -1,8 +1,7 @@
+// Doctor infomation page. Page for patient to view doctor information
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import {useHistory, useLocation} from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-// import Axios from 'axios';
 import HospitalIcon from '../../img/hospital.png';
 import StudyIcon from '../../img/graduation-cap.png';
 import PhoneIcon from '../../img/phone.png';
@@ -11,20 +10,20 @@ import VideoCameraIcon from '../../img/video-camera.png';
 import {useFetchUser} from '../../context/userContext';
 
 const DoctorInfo = ({match}) => {
-  const [socket, setSocket] = useState(null);
-  const [onlineDoc, setOnlineDoc] = useState(null);
-  const [fetchFail, setFetchFail] = useState(false);
+  const [socket, setSocket] = useState(null); // socket.io
+  const [onlineDoc, setOnlineDoc] = useState(null); // doctor information
+  const [fetchFail, setFetchFail] = useState(false); // condition of fectching doctor data
 
   const history = useHistory();
   const location = useLocation();
-  const {data} = location.state;
+  const {data} = location.state; // doctor data from the home page
   const {state} = useFetchUser(); // User data
 
   useEffect(() => {
-    const newSocket = io('harmore.herokuapp.com/');
+    const newSocket = io('harmore.herokuapp.com/'); // connect socket
     setSocket(newSocket);
-    getOnlineDoc(newSocket, setOnlineDoc, setFetchFail);
-    newSocket.on('availableCall', (status) => {
+    getOnlineDoc(newSocket, setOnlineDoc, setFetchFail); // get list of avaliable doctor
+    newSocket.on('availableCall', (status) => { // listen for doctor to answer call
       if (status) {
         newSocket.disconnect();
         history.push({
@@ -35,12 +34,10 @@ const DoctorInfo = ({match}) => {
         setFetchFail(true);
       }
     });
-    // fetchDoctor(setDoctor,match.params.id)
+    
   }, [setSocket, history, match.params.id]);
 
-  // console.log(doctor.data)
-  console.log(data);
-
+  // doctor is not avaliable
   if (fetchFail) {
     return (
       <>
@@ -63,12 +60,9 @@ const DoctorInfo = ({match}) => {
         });
       });
     }
-    // console.log(socket.id);
-    // socket.disconnect();
-    // history.push(`/call/${match.params.id}`);
   };
 
-  // color
+  // color of specialization
   const colorDoc = (doctor) => {
     let color = '';
     switch (doctor.specialization.specialization) {
@@ -207,6 +201,8 @@ const DoctorInfo = ({match}) => {
     </div>
   );
 };
+
+// get the doctor information
 const getOnlineDoc = (socket, setOnlineDoc, setFetchFail) => {
   socket.on('connect', () => {
     socket.emit('get-online-doctor', socket.id);

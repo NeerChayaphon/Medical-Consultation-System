@@ -1,4 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
+/*  navbar component for landing page */
 import {Fragment} from 'react';
 import {Popover, Transition} from '@headlessui/react';
 import {Link} from 'react-router-dom';
@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/outline';
 // import {ChevronDownIcon} from '@heroicons/react/solid';
 import ReactLogo from '../img/logo.svg';
-const dropdown = [
+const dropdown = [ // drowdown menu
   {
     name: "As Patient",
     href: '/login',

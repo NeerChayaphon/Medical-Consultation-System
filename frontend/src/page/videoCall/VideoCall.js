@@ -1,3 +1,4 @@
+// Video consultation page
 import React from 'react';
 import {useEffect, useState, useRef} from 'react';
 import Peer from 'peerjs';
@@ -16,19 +17,21 @@ const Call = ({match}) => {
   console.log(user)
 
 // eslint-disable-next-line
-  const [socket, setSocket] = useState(null);
-  const [stream, setStream] = useState();
+  const [socket, setSocket] = useState(null); // socket
+  const [stream, setStream] = useState(); // video WebRTC
   const [callAccepted, setCallAccepted] = useState(false);
-  const userVideo = useRef();
-  const otherVideo = useRef();
+  const userVideo = useRef(); // your video
+  const otherVideo = useRef(); // other video
 
+  // video feature
   const [isMute, setMute] = useState(false);
   const [isVideoOff, setVideoOff] = useState(false);
+
   useEffect(() => {
-    const newSocket = io('harmore.herokuapp.com/');
+    const newSocket = io('harmore.herokuapp.com/'); // connect socket
     setSocket(newSocket);
 
-    const myPeer = new Peer();
+    const myPeer = new Peer(); // create peer
     const peers = {};
     navigator.mediaDevices
       .getUserMedia({
@@ -40,10 +43,12 @@ const Call = ({match}) => {
         if (userVideo.current) {
           userVideo.current.srcObject = stream;
         }
+        // call
         myPeer.on('call', (call) => {
           call.answer(stream);
           setCallAccepted(true);
 
+          // sent user's video to other
           call.on('stream', (userVideoStream) => {
             if (otherVideo.current) {
               otherVideo.current.srcObject = userVideoStream;
@@ -51,16 +56,19 @@ const Call = ({match}) => {
           });
         });
 
+        // user connection
         newSocket.on('user-connected', (userId) => {
           connectToNewUser(userId, stream);
         });
       });
 
+    // other user disconnect
     newSocket.on('user-disconnected', (userId) => {
       if (peers[userId]) peers[userId].close();
       setCallAccepted(false);
     });
 
+    // join doctor consultation room
     myPeer.on('open', (id) => {
       newSocket.emit('join-room', match.params.id, id);
     });
@@ -68,7 +76,7 @@ const Call = ({match}) => {
     function connectToNewUser(userId, stream) {
       const call = myPeer.call(userId, stream);
       setCallAccepted(true);
-
+      // sent user's video to other
       call.on('stream', (userVideoStream) => {
         if (otherVideo.current) {
           otherVideo.current.srcObject = userVideoStream;

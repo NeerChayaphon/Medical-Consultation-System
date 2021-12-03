@@ -1,3 +1,4 @@
+// add doctor to database
 import {useState,useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import ConfirmIcon from '../../../img/confirm.png';
@@ -6,13 +7,14 @@ import Axios from 'axios';
 const AddDoctor = () => {
   const history = useHistory();
 
+  // specialization
   const [specialization, setSpec] = useState({
     data: [],
     isPending: true,
     error: null,
   });
 
-
+  // doctor information
   const [name, setName] = useState();
   const [gender, setGender] = useState();
   const [SP, setSP] = useState();
@@ -27,26 +29,17 @@ const AddDoctor = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchSpecialization(setSpec);
+    fetchSpecialization(setSpec); // get specialization
   }, [setSpec]);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
-  // const bodyParameters = {
-  //   name: name,
-  //   gender: gender,
-  //   email: email,
-  //   phone: phone,
-  //   hospital: hospital,
-  //   background: background,
-  //   specializationDetail: SD,
-  // };
-  console.log(background)
-
+  // add doctor
   const handleSubmit = async (e) => {
     let formData = new FormData();
     formData.append('name', name);

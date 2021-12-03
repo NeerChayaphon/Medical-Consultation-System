@@ -1,3 +1,4 @@
+// Edit doctor profile page
 import {useState} from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import ConfirmIcon from '../../img/confirm.png';
@@ -6,9 +7,9 @@ import Axios from 'axios';
 const EditDoctorProfile = () => {
   const history = useHistory();
   const location = useLocation();
-  const {data} = location.state;
-  console.log(data);
+  const {data} = location.state; // old data
 
+  // all the information
   const [name, setName] = useState(data.name);
   const [gender, setGender] = useState(data.gender);
   const [email, setEmail] = useState(data.email);
@@ -19,24 +20,14 @@ const EditDoctorProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [error, setError] = useState(false);
 
-  console.log(photo);
-
+ // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
-  // const bodyParameters = {
-  //   name: name,
-  //   gender: gender,
-  //   email: email,
-  //   phone: phone,
-  //   hospital: hospital,
-  //   background: background,
-  //   specializationDetail: SD,
-  // };
-
+  // edit submit with API
   const handleSubmit = async (e) => {
     let formData = new FormData();
     formData.append('name', name);

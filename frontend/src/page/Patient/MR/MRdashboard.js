@@ -1,3 +1,4 @@
+// Medical Record Dashboard page
 import useTokenCheck from '../../../helper/tokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
@@ -7,7 +8,7 @@ import Spinner from '../../../components/Spinner';
 
 export default function Example() {
   const history = useHistory();
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const {state} = useFetchUser(); // User data
 
   const [mr, setMr] = useState({
@@ -16,12 +17,9 @@ export default function Example() {
     error: null,
   });
 
-  // console.log(mr)
-  // console.log(state.data);
-
   useEffect(() => {
     if (state.data) {
-      fetchMR(setMr, state.data.id);
+      fetchMR(setMr, state.data.id); // get medical record
     }
   }, [setMr, state.data]);
 
@@ -118,8 +116,8 @@ export default function Example() {
     );
   }
 }
-
-const fetchMR = (setMr, id) => {
+// fetch user's medical record
+const fetchMR = (setMr, id) => { 
   const fetchData = async () => {
     try {
       let res = await Axios.get(

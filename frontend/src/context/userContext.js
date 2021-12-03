@@ -1,8 +1,10 @@
+/* React conntext API */
 import {createContext, useContext, useState, useEffect} from 'react';
 import Axios from 'axios';
 
 export const UserContext = createContext();
 
+// Give user information
 const UserContextProvider = (props) => {
   const [state, setState] = useState({
     isLoading: true,
@@ -21,6 +23,8 @@ const UserContextProvider = (props) => {
     </UserContext.Provider>
   );
 };
+
+// fetch data
 export const useFetchUser = () => {
   const {state, setState} = useContext(UserContext);
   useEffect(() => {
@@ -40,6 +44,7 @@ export const useFetchUser = () => {
     fetchUser(setState);
   };
 
+  // fetch data from API
   const fetchUser = async (setState) => {
     try {
       let res = await Axios.get('https://harmore.herokuapp.com/api/v1/auth/', {

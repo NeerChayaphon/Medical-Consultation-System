@@ -1,8 +1,4 @@
-// import useAuthCheck from '../../hooks/useAuthCheck';
-import {useFetchUser} from '../../context/userContext';
 import useTokenCheck from '../../helper/tokenCheck';
-// import useDoctorAPI from '../../hooks/useDoctorAPI';
-// import CardDoctor from '../../components/CardDoctor';
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import Axios from 'axios';
@@ -10,18 +6,16 @@ import DoctorCard from '../../components/DoctorCard';
 import Spinner from '../../components/Spinner';
 
 function Home() {
-  //const {data: user, isPending, error} = useAuthCheck('https://harmore.herokuapp.com/api/v1/auth/patient/');
-  useTokenCheck(); // ***** Don't forget
-  const {state} = useFetchUser();
-  //const {data: doctor} = useDoctorAPI('https://harmore.herokuapp.com/api/v1/doctor');
-
-  // eslint-disable-next-line
+  useTokenCheck(); // token check
+  // eslint-disable-next-line 
   const [socket, setSocket] = useState(null);
+  //online doctor list
   const [onlineDoc, setOnlineDoc] = useState({
     data: [],
     isPending: true,
     error: null,
   });
+  // search
   const [type, setType] = useState('All');
   const [search, setSearch] = useState('');
   const [specialization, setSpec] = useState({
@@ -30,21 +24,14 @@ function Home() {
     error: null,
   });
 
-  console.log(onlineDoc.error)
 
   useEffect(() => {
-    const newSocket = io('harmore.herokuapp.com/');
+    const newSocket = io('harmore.herokuapp.com/'); // socket connect
     setSocket(newSocket);
-    getOnlineDoc(newSocket, setOnlineDoc, type, search);
-    fetchSpecialization(setSpec);
+    getOnlineDoc(newSocket, setOnlineDoc, type, search); // get online doctor
+    fetchSpecialization(setSpec); // get specialization
   }, [setSocket, type, search, setSpec]);
 
-  //console.log(onlineDoc.data);
-
-  //fillter
-
-  // }
-  console.log(onlineDoc.data);
 
   if (onlineDoc.isPending) {
     return <Spinner />;
@@ -127,25 +114,12 @@ function Home() {
             <div></div>
           )}
         </div>
-
-        {/* <div>Home</div>
-      {state.isLoading && <div>loading</div>}
-      {state.data && <div>{state.data.name}</div>}
-      {!onlineDoc.isPending && onlineDoc.data ? (
-        onlineDoc.data.map((data) => (
-          <div key={data._id}>
-            <DoctorCard doctor={data} />
-          </div>
-        ))
-      ) : (
-        <div></div>
-      )} */}
-        {/* {onlineDoc != null && <div>{Object.keys(onlineDoc)}</div>} */}
       </div>
     );
   }
 }
 
+// get all avaliable doctors
 const getOnlineDoc = (socket, setOnlineDoc, type, search) => {
   socket.on('connect', () => {
     socket.emit('get-online-doctor', socket.id);
@@ -158,29 +132,13 @@ const getOnlineDoc = (socket, setOnlineDoc, type, search) => {
         error: 'No doctor Online',
       });
     } else {
-      //setOnlineDoc(doctor);
       fetchDoctorData(Object.keys(doctor), setOnlineDoc, type, search);
     }
     disconnectSocket(socket);
-    //console.log(Object.keys(doctor));
-    //console.log(doctor);
   });
 };
-// const typeFillter = (type,data) => {
-//   if (type != "All") {
-//     data = data.filter(function (el) {
-//       return el.specialization.specialization == type;
-//     });
-//   }
 
-//   return data
-// }
-
-// const filterByValue = (array, string) => {
-//   return array.filter(o =>
-//       Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
-// }
-
+// get doctor data by id
 const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
   const id = doctorId.toString();
   console.log(id)
@@ -195,12 +153,6 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
           },
         }
       );
-
-      // if (type != 'All') {
-      //   console.log(res.data.data.filter(function (el) {
-      //     return el.specialization.specialization == "Otolaryngology";
-      //   }))
-      // }
       let data = res.data.data;
 
       console.log(data);
@@ -210,7 +162,6 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
       }
       //filtter by type
       if (type !== 'All') {
-        //console.log(type)
         let fDoc = data.filter(function (el) {
           return el.specialization.specialization === type;
         });
@@ -219,14 +170,12 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
 
       //filtter by type
       if (search !== '') {
-        //console.log(type)
         let fDoc = data.filter(function (el) {
           return el.name.toLowerCase().includes(search.toLowerCase());
         });
         data = fDoc;
       }
 
-      
       setOnlineDoc({
         data: data,
         isPending: false,
@@ -248,6 +197,7 @@ const disconnectSocket = (socket) => {
   socket.disconnect();
 };
 
+// get specialization
 const fetchSpecialization = (setSpec) => {
   const fetchType = async () => {
     try {

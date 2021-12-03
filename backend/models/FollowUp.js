@@ -1,3 +1,6 @@
+/* ** This is part of future development and not part of this project** */
+/* followUp data model for mongodb and mongoose */
+
 const mongoose = require('mongoose');
 const followUpSchema = new mongoose.Schema({
   date: {

@@ -1,3 +1,4 @@
+// staff management page
 import React from 'react';
 import useTokenCheck from '../../../helper/staffTokenCheck';
 import {useEffect, useState} from 'react';
@@ -5,10 +6,9 @@ import Axios from 'axios';
 import {Link} from 'react-router-dom';
 import Spinner from '../../../components/Spinner';
 
-
-
 const StaffManagement = () => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
+  // All the staff in the database
   const [staff, setStaff] = useState({
     data: [],
     isPending: true,
@@ -16,10 +16,9 @@ const StaffManagement = () => {
   });
 
   useEffect(() => {
-    fetchDoctor(setStaff);
+    fetchDoctor(setStaff); // get staffs
   }, [setStaff]);
 
-  console.log(staff.data);
 
   if (staff.isPending) {
     return <Spinner />;

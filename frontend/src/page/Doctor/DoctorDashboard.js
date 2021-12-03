@@ -1,3 +1,4 @@
+/* Doctor dashboard page */
 import {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import {Link, useHistory} from 'react-router-dom';
@@ -8,12 +9,12 @@ import IncommingCall from '../../components/IncommingCall';
 import Spinner from '../../components/Spinner'
 
 const DoctorDashboard = () => {
-  useTokenCheck(); // ***** Don't forget
-  const [socket, setSocket] = useState(null);
+  useTokenCheck(); // check for token
+  const [socket, setSocket] = useState(null); // socket
   const [call, setCall] = useState(null);
   const history = useHistory();
-  const {state} = useFetchUser();
-  // console.log(state.data)
+  const {state} = useFetchUser(); // user information
+  
 
   // Medical Record
   const [mr, setMr] = useState({
@@ -28,15 +29,12 @@ const DoctorDashboard = () => {
     const newSocket = io('harmore.herokuapp.com/');
     if (state.data) {
       fetchMR(setMr, state.data.id);
-      setSocket(newSocket);
-      connectUser(newSocket, state.data.id, setCall);
+      setSocket(newSocket); // set doctor socket
+      connectUser(newSocket, state.data.id, setCall); // for answering call
     }
   }, [setSocket, state.data, setMr]);
 
-  if (call != null) {
-    console.log(call);
-  }
-
+  // retrieve call from patient
   if (socket) {
     socket.on('retrieve', (message) => {
       setCall(message);
@@ -44,6 +42,7 @@ const DoctorDashboard = () => {
     });
   }
 
+  // answer call 
   const answerCall = () => {
     var delayInMilliseconds = 1000; //2 second
     socket.emit('answerCall', call.from, true);
@@ -61,14 +60,6 @@ const DoctorDashboard = () => {
     return (
       <div className='font-fontPro'>
         <div>
-          {/* {call && (
-          <Link
-            onClick={answerCall}
-            to={{pathname: `/call/${call.url}`, state: {type: 'doctor'}}}
-          >
-            Answer call
-          </Link>
-        )} */}
           {call && <IncommingCall answerCall={answerCall} />}
         </div>
 

@@ -1,3 +1,6 @@
+/* apiFeature.js is use for implimenting All the api feature such as
+Filtter, sort,Field limiting and Pagination  */
+
 class APIFeatures {
   constructor(query, queryString) {
     this.query = query;

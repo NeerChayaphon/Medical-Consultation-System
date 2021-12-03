@@ -1,3 +1,4 @@
+// Doctor profile page
 import React from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import {useFetchUser} from '../../context/userContext';
@@ -6,9 +7,9 @@ import useTokenCheck from '../../helper/doctorTokenCheck';
 import Spinner from '../../components/Spinner';
 
 const DoctorProfile = () => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const history = useHistory();
-  const {state} = useFetchUser();
+  const {state} = useFetchUser(); // user informarion
 
   if (state.data === null) {
     return <Spinner />;

@@ -1,3 +1,4 @@
+// edit patient profile page
 import {useState} from 'react';
 import useTokenCheck from '../../helper/tokenCheck';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -8,13 +9,10 @@ const EditPatientProfile = () => {
   const history = useHistory();
   const location = useLocation();
   const {data} = location.state;
-  useTokenCheck();
+  useTokenCheck(); // token check
 
-  // const {state} = useFetchUser(); // User data
-  // if (data !== null) {
-  //   console.log(data);
-  // }
 
+  // patient personal information
   const [name, setName] = useState(data.name);
   const [gender, setGender] = useState(data.gender);
   const [birthdate, setBirthdate] = useState(data.birthdate);
@@ -27,16 +25,16 @@ const EditPatientProfile = () => {
   const [relativeType, setRelativeType] = useState(data.relative.relativeType);
   const [relativePhone, setRelativePhone] = useState(data.relative.phoneNumber);
   const [currentAddress, setCurrentAddress] = useState(data.currentAddress);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); // error message
 
-  console.log(name);
-
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
+  // parameter for API request
   const bodyParameters = {
     name: name,
     email: email,
@@ -54,6 +52,7 @@ const EditPatientProfile = () => {
     currentAddress: currentAddress,
   };
 
+  // submit edit
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios

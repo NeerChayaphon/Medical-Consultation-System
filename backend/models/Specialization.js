@@ -1,3 +1,5 @@
+/* Specialization data model for mongodb and mongoose */
+
 const mongoose = require('mongoose');
 
 const scSchema = new mongoose.Schema({

@@ -1,3 +1,4 @@
+// Patient register page
 import React from 'react';
 import DoctorPic from '../../../img/Doctor.svg';
 import axios from 'axios';
@@ -5,6 +6,7 @@ import {useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
 
 const PatientRegister = () => {
+  // patient's data
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -15,17 +17,18 @@ const PatientRegister = () => {
   const [birthdate, setBirthdate] = useState();
   const [bloodType,setBloodType] = useState();
   const [allergy,setAllergy] = useState();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); // Error 
 
   const history = useHistory();
 
-  const validation = () => {
+  const validation = () => { // password validation
     if (password !== confirmPass) {
       return "password doesn't match";
     }
     return null;
   };
 
+  // register with API
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(validation());
@@ -48,7 +51,6 @@ const PatientRegister = () => {
         history.push('/login');
       })
       .catch((err) => {
-        console.log(err.response.data);
         setError(err.response.data);
       });
   };

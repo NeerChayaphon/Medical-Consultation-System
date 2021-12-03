@@ -1,4 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
+/* resuable navigation bar for ever user type */
 import {Fragment} from 'react';
 import {Popover, Transition} from '@headlessui/react';
 import {Link} from 'react-router-dom';

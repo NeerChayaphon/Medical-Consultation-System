@@ -1,5 +1,6 @@
+/* Landing page */
 import { Link } from 'react-router-dom';
-import LandingNavBar from '../../components/LandingNavBar';
+import LandingNavBar from '../../components/LandingNavBar'; // nav bare
 import HomeImage from '../../img/Home.svg';
 const Landing = () => {
   return (

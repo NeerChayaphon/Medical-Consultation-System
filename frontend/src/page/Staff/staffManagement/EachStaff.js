@@ -1,3 +1,4 @@
+// Each staff information page
 import React from 'react';
 import {useEffect, useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
@@ -8,10 +9,11 @@ import useTokenCheck from '../../../helper/staffTokenCheck';
 import Spinner from '../../../components/Spinner';
 
 const StaffProfile = ({match}) => {
-  useTokenCheck();
-  const [error, setError] = useState(false);
+  useTokenCheck(); // token check
+  const [error, setError] = useState(false); // error
   const history = useHistory();
 
+  // staff information
   const [staff, setStaff] = useState({
     data: null,
     isPending: true,
@@ -19,9 +21,10 @@ const StaffProfile = ({match}) => {
   });
 
   useEffect(() => {
-    fetchStaff(setStaff, match.params.id);
+    fetchStaff(setStaff, match.params.id); // get staff
   }, [setStaff, match.params.id]);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),

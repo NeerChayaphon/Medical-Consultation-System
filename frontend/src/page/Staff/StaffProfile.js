@@ -1,3 +1,4 @@
+// staff profile page
 import React from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../img/edit.png';
@@ -6,8 +7,8 @@ import useTokenCheck from '../../helper/staffTokenCheck';
 import Spinner from '../../components/Spinner';
 
 const StaffProfile = ({match}) => {
-  useTokenCheck(); // ***** Don't forget
-  const {state} = useFetchUser();
+  useTokenCheck(); // token check
+  const {state} = useFetchUser(); // staff data
   const history = useHistory();
 
   if (state.data === null) {
