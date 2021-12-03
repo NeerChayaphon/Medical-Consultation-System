@@ -26,7 +26,7 @@ function Home() {
 
 
   useEffect(() => {
-    const newSocket = io('harmore.herokuapp.com/'); // socket connect
+    const newSocket = io('localhost:5000/'); // socket connect
     setSocket(newSocket);
     getOnlineDoc(newSocket, setOnlineDoc, type, search); // get online doctor
     fetchSpecialization(setSpec); // get specialization
@@ -144,9 +144,8 @@ const fetchDoctorData = (doctorId, setOnlineDoc, type, search) => {
   console.log(id)
   const fetchDoctor = async () => {
     try {
-      console.log(`https://harmore.herokuapp.com/api/v1/doctor/${id}`)
       let res = await Axios.get(
-        `https://harmore.herokuapp.com/api/v1/doctor/${id}`,
+        `http://localhost:5000/api/v1/doctor/${id}`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),
@@ -201,9 +200,7 @@ const disconnectSocket = (socket) => {
 const fetchSpecialization = (setSpec) => {
   const fetchType = async () => {
     try {
-      let res = await Axios.get(
-        `https://harmore.herokuapp.com/api/v1/specialization/`
-      );
+      let res = await Axios.get(`http://localhost:5000/api/v1/specialization/`);
       let data = res.data.data;
 
       if (!Array.isArray(data)) {

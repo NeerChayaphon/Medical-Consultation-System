@@ -19,7 +19,7 @@ const StaffLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
-      .post('https://harmore.herokuapp.com/api/v1/staff/login', {
+      .post('http://localhost:5000/api/v1/staff/login', {
         email: email,
         password: password,
       })

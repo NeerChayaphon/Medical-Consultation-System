@@ -47,7 +47,7 @@ const AddMR = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     Axios.post(
-      `https://harmore.herokuapp.com/api/v1/medicalRecord/`,
+      `http://localhost:5000/api/v1/medicalRecord/`,
       bodyParameters,
       config
     )

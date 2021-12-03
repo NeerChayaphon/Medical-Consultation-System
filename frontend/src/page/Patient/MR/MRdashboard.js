@@ -121,7 +121,7 @@ const fetchMR = (setMr, id) => {
   const fetchData = async () => {
     try {
       let res = await Axios.get(
-        `https://harmore.herokuapp.com/api/v1/medicalRecord/?sort=-date&patient=${id}`,
+        `http://localhost:5000/api/v1/medicalRecord/?sort=-date&patient=${id}`,
         {
           headers: {
             'x-acess-token': localStorage.getItem('token'),

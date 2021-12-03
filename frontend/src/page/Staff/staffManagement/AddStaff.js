@@ -44,7 +44,7 @@ const AddStaff = () => {
       setError("Password Doesn't match");
     } else {
       e.preventDefault();
-      Axios.post(`https://harmore.herokuapp.com/api/v1/staff`, bodyParameters, config)
+      Axios.post(`http://localhost:5000/api/v1/staff`, bodyParameters, config)
         .then((res) => {
           return res.data;
         })

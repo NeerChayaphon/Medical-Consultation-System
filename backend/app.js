@@ -9,7 +9,7 @@ const globalErrorHandler = require('./helpers/error-handler');
 
 // socket.io connection
 const io = require('socket.io')(server, {
-  cors: 'https://harmore.netlify.app',
+  cors: 'localhost:3000',
 });
 
 // cor

@@ -33,7 +33,7 @@ const EachDoctor = ({match}) => {
   const handleDelete = async (e) => {
     e.preventDefault();
     Axios.delete(
-      `https://harmore.herokuapp.com/api/v1/doctor/${match.params.id}`,
+      `http://localhost:5000/api/v1/doctor/${match.params.id}`,
       config
     )
       .then(() => {
@@ -208,7 +208,7 @@ const EachDoctor = ({match}) => {
 const fetchDoctor = (setDoctor, id) => {
   const fetchData = async () => {
     try {
-      let res = await Axios.get(`https://harmore.herokuapp.com/api/v1/doctor/${id}`, {
+      let res = await Axios.get(`http://localhost:5000/api/v1/doctor/${id}`, {
         headers: {
           'x-acess-token': localStorage.getItem('token'),
         },

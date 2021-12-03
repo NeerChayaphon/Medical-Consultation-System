@@ -119,7 +119,7 @@ exports.createDoctor = asyncHandler(async (req, res) => {
   // check for image file
   if (req.file) {
     const fileName = req.file.filename;
-    const basePath = `https://harmore.herokuapp.com/public/img/doctor/`;
+    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
     doctor['photo'] = `${basePath}${fileName}`;
   }
 
@@ -146,7 +146,7 @@ exports.updateDoctor = asyncHandler(async (req, res) => {
   // find file from HTTP request
   if (req.file) {
     const fileName = req.file.filename;
-    const basePath = 'https://harmore.herokuapp.com/public/img/doctor/';
+    const basePath = `${req.protocol}://${req.get('host')}/public/img/doctor/`;
     req.body.photo = `${basePath}${fileName}`;
   }
 

@@ -19,7 +19,7 @@ const DoctorLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios
-      .post('https://harmore.herokuapp.com/api/v1/doctor/login', {
+      .post('http://localhost:5000/api/v1/doctor/login', {
         email: email,
         password: password,
       })

@@ -57,7 +57,7 @@ const EditPatientProfile = () => {
     e.preventDefault();
     axios
       .put(
-        `https://harmore.herokuapp.com/api/v1/patient/${data.id}`,
+        `http://localhost:5000/api/v1/patient/${data.id}`,
         bodyParameters,
         config
       )
