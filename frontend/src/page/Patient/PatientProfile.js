@@ -1,16 +1,18 @@
+// patient profile
 import useTokenCheck from '../../helper/tokenCheck';
 import {useFetchUser} from '../../context/userContext';
 import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../img/edit.png';
+import Spinner from '../../components/Spinner';
 
 const PatientProfile = () => {
   const history = useHistory();
-  useTokenCheck();
+  useTokenCheck(); // token check
   const {state} = useFetchUser(); // User data
-  // if (state !== null) {
-  //   console.log(state.data);
-  // }
 
+  if (state.data === null) {
+    return <Spinner />;
+  } else {
   return (
     <div className='font-fontPro'>
       <div className='px-5 pt-5'>
@@ -192,5 +194,6 @@ const PatientProfile = () => {
     </div>
   );
 };
+}
 
 export default PatientProfile;

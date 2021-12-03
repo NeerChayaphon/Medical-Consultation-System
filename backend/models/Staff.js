@@ -1,3 +1,5 @@
+/* Staff data model for mongodb and mongoose */
+
 const mongoose = require('mongoose');
 
 const staffSchema = new mongoose.Schema({

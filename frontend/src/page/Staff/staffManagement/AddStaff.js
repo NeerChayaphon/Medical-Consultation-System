@@ -1,3 +1,4 @@
+// Add staff to the database
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import ConfirmIcon from '../../../img/confirm.png';
@@ -5,9 +6,10 @@ import useTokenCheck from '../../../helper/staffTokenCheck';
 import Axios from 'axios';
 
 const AddStaff = () => {
-  useTokenCheck()
+  useTokenCheck() // token check
   const history = useHistory();
 
+  // staff information
   const [name, setName] = useState();
   const [gender, setGender] = useState();
   const [email, setEmail] = useState();
@@ -18,12 +20,14 @@ const AddStaff = () => {
   const [salary, setSalary] = useState();
   const [error, setError] = useState(null);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
+  // parameter for API
   const bodyParameters = {
     name: name,
     password: password,
@@ -34,6 +38,7 @@ const AddStaff = () => {
     salary: salary,
   };
 
+  // add staff
   const handleSubmit = async (e) => {
     if (password !== confirmPass) {
       setError("Password Doesn't match");

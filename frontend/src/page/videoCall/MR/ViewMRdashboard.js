@@ -1,35 +1,37 @@
+// medical record dashboard for doctor while having consultation with patient
 import useTokenCheck from '../../../helper/doctorTokenCheck';
 import {useFetchUser} from '../../../context/userContext';
 import {useEffect, useState} from 'react';
 import Axios from 'axios';
 import {Link} from 'react-router-dom';
+import Spinner from '../../../components/Spinner';
 
 export default function ViewMRdashboard({match}) {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const {state} = useFetchUser(); // User data
 
   const [mr, setMr] = useState({
     data: [],
     isPending: true,
     error: null,
-  });
+  }); // patient medical record
   const [patient, setPatient] = useState({
     data: [],
     isPending: true,
     error: null,
-  });
+  });// patient information
 
-
-  // console.log(mr)
-  console.log(state.data);
 
   useEffect(() => {
     if (state.data) {
-      fetchMR(setMr, match.params.id);
-      fetchPatient(setPatient,match.params.id)
+      fetchMR(setMr, match.params.id); // get medical record
+      fetchPatient(setPatient,match.params.id) // get patient information
     }
   }, [setMr, state.data,match.params.id]);
 
+  if (mr.isPending) {
+    return <Spinner />;
+  } else {
   return (
     <div className='font-fontPro'>
       
@@ -117,6 +119,7 @@ export default function ViewMRdashboard({match}) {
       </div>
     </div>
   );
+}
 }
 
 const fetchMR = (setMr, id) => {

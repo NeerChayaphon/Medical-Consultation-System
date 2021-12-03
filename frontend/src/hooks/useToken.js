@@ -1,3 +1,4 @@
+// react custom hook for getting token
 import {useState} from 'react';
 
 export default function useToken() {

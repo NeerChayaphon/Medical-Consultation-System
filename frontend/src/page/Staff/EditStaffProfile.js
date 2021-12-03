@@ -1,3 +1,4 @@
+// edit staff information page
 import {useState} from 'react';
 import Axios from 'axios';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -5,16 +6,13 @@ import useTokenCheck from '../../helper/staffTokenCheck';
 import ConfirmIcon from '../../img/confirm.png';
 
 const EditStaffProfile = () => {
-  useTokenCheck(); // ***** Don't forget
+  useTokenCheck(); // token check
   const location = useLocation();
   const {data} = location.state;
 
   const history = useHistory();
 
-  if (data) {
-    console.log(data);
-  }
-
+  // staff information
   const [name, setName] = useState(data.name);
   const [gender, setGender] = useState(data.gender);
   const [email, setEmail] = useState(data.email);
@@ -23,12 +21,14 @@ const EditStaffProfile = () => {
   const [salary, setSalary] = useState(data.salary);
   const [error, setError] = useState(false);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
+  // API parameters
   const bodyParameters = {
     name: name,
     gender: gender,
@@ -38,6 +38,7 @@ const EditStaffProfile = () => {
     salary: salary,
   };
 
+  // submit edit
   const handleSubmit = async (e) => {
     e.preventDefault();
     Axios.put(

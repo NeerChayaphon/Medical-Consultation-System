@@ -1,14 +1,17 @@
+// each doctor is a page to show each doctor information
 import React from 'react';
 import {useEffect, useState} from 'react';
 import {useHistory, Link} from 'react-router-dom';
 import EditIcon from '../../../img/edit.png';
 import BinIcon from '../../../img/bin.png';
 import Axios from 'axios';
+import Spinner from '../../../components/Spinner';
 
 const EachDoctor = ({match}) => {
   const [error, setError] = useState(false);
   const history = useHistory();
 
+  // doctor
   const [doctor, setDoctor] = useState({
     data: null,
     isPending: true,
@@ -16,15 +19,17 @@ const EachDoctor = ({match}) => {
   });
 
   useEffect(() => {
-    fetchDoctor(setDoctor, match.params.id);
+    fetchDoctor(setDoctor, match.params.id); // get doctor
   }, [setDoctor,match.params.id]);
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
+  // delete
   const handleDelete = async (e) => {
     e.preventDefault();
     Axios.delete(
@@ -40,6 +45,11 @@ const EachDoctor = ({match}) => {
       });
   };
 
+  if (doctor.isPending) {
+    return (
+      <Spinner/>
+    );
+  } else {
   return (
     <div className='font-fontPro'>
       <div className='p-3'>
@@ -192,7 +202,9 @@ const EachDoctor = ({match}) => {
     </div>
   );
 };
+}
 
+// get doctor information
 const fetchDoctor = (setDoctor, id) => {
   const fetchData = async () => {
     try {

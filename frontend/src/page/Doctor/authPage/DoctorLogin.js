@@ -1,3 +1,4 @@
+/* Doctor login page */
 import React from 'react';
 import LogoPic from '../../../img/Medical_research.svg';
 import axios from 'axios';
@@ -7,12 +8,14 @@ import {useFetchUser} from '../../../context/userContext';
 
 
 const DoctorLogin = () => {
+  // login data
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false); // error
   const history = useHistory();
   const {refetch} = useFetchUser();
 
+  // summit login function
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios

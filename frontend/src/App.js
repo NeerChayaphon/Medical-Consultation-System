@@ -1,3 +1,4 @@
+// All route
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Home from './page/Patient/Home';
 import Landing from './page/All/Landing';
@@ -5,8 +6,6 @@ import DoctorInfo from './page/Patient/DoctorInfo';
 import DoctorDashboard from './page/Doctor/DoctorDashboard';
 import Call from './page/videoCall/VideoCall';
 import UserNavbar from './components/UserNavbar';
-
-// import {useFetchUser} from './context/userContext';
 
 import './App.css';
 import UserLogin from './page/Patient/authPage/UserLogin';
@@ -43,13 +42,6 @@ function App() {
         <Route path='/doctorLogin' component={DoctorLogin} />
         <Route path='/staffLogin' component={StaffLogin} />
         <Route path='/call/:id' component={Call} />
-        {/* <Route
-          exact
-          path='/manageMedicalRecord/:id'
-          component={ViewMRdashboard}
-        />
-        <Route path='/view/medicalRecord/:id' component={ViewEachMR} />
-        <Route path='/add/medicalRecord/' component={AddMR} /> */}
         <Route component={DefaultContainer} />
       </Switch>
     </Router>
@@ -102,3 +94,9 @@ function DefaultContainer() {
 }
 
 export default App;
+
+
+
+
+
+

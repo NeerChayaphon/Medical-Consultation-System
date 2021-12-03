@@ -1,5 +1,8 @@
+// db.js is config file for database
+
 const mongoose = require('mongoose');
 
+//  connectDB() is use for mongodb database confic
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
@@ -15,4 +18,5 @@ const connectDB = async () => {
   }
 };
 
+// Export module as connectDB
 module.exports = connectDB;

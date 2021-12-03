@@ -1,18 +1,23 @@
-const jwt = require('jsonwebtoken');
-const secret = process.env.secret;
+/* jwt.js this file is use for impliment JWT Authentication 
+these function is a re-useable function as a middleware for all controller */
 
+const jwt = require('jsonwebtoken');
+const secret = process.env.secret; // secret key for hashing
+
+// userVerify(userList) is use for verify in the correct user from the userList
 exports.userVerify = (userList) => {
   return (req, res, next) => {
-    const token = req.headers['x-acess-token'];
-    console.log(token);
+    const token = req.headers['x-acess-token']; // token
+    
+    // No token
     if (!token) {
       res.status(400).json({message: 'you need token'});
-    } else {
+    } else { // have token
       jwt.verify(token, secret, (err, decoded) => {
         if (err) {
-          res.status(400).json({message: 'fail'});
+          res.status(400).json({message: 'fail'}); // fail to check
         } else {
-          if (userList.includes(decoded.type)) {
+          if (userList.includes(decoded.type)) { // check to matching user type
             //req.body = decoded;
             res.locals = decoded;
             next();
@@ -25,6 +30,7 @@ exports.userVerify = (userList) => {
   };
 }
 
+// userVerifyId(userList) is use to check that the userID of the user match the userID in the data
 exports.userVerifyId = (userList) => {
   return (req,res,next) => {
     if (userList.includes(res.locals.type)) {
@@ -38,6 +44,8 @@ exports.userVerifyId = (userList) => {
     }
   }
 }
+
+// Other way that can be impliment
 
 // exports.patientVerify = (req, res, next) => {
 //   const token = req.headers['x-acess-token'];

@@ -1,3 +1,5 @@
+/* Medical record model for mongodb and mongoose */
+
 const mongoose = require('mongoose');
 
 const mrSchema = new mongoose.Schema({

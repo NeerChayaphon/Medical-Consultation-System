@@ -1,3 +1,4 @@
+// add medical record for doctor
 import {useState} from 'react';
 import Axios from 'axios';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -6,44 +7,43 @@ import {useFetchUser} from '../../../context/userContext';
 import EditIcon from '../../../img/edit.png';
 
 const AddMR = () => {
-  useTokenCheck(); // ***** Don't forget
-  const {state} = useFetchUser();
+  useTokenCheck(); // token check
+  const {state} = useFetchUser(); // doctor data
   const location = useLocation();
-  const {patient} = location.state;
+  const {patient} = location.state; // patient data
 
   const history = useHistory();
 
-  if (state.data) {
-    console.log(state.data);
-  }
-  if (patient) {
-    console.log(patient.name);
-  }
-
+  // medical record information
   const [illness, setIllness] = useState();
   const [pHistory, setPHistory] = useState();
   const [peDiagnosis, setPeDiagnosis] = useState();
   const [treatment, setTreatment] = useState();
   const [error, setError] = useState(false);
-
   const currentDate = new Date().toLocaleDateString();
 
+  // token
   const config = {
     headers: {
       'x-acess-token': localStorage.getItem('token'),
     },
   };
 
-  const bodyParameters = {
-    patient: patient.id,
-    doctor: state.data.id,
-    // date: date,
-    illness: illness,
-    history: pHistory,
-    peDiagnosis: peDiagnosis,
-    treatment: treatment,
-  };
+  // API parameters
+  let bodyParameters = {};
+  if (state.data !== null && patient !== null) {
+    bodyParameters = {
+      patient: patient.id,
+      doctor: state.data.id,
+      // date: date,
+      illness: illness,
+      history: pHistory,
+      peDiagnosis: peDiagnosis,
+      treatment: treatment,
+    };
+  }
 
+  // adding new record
   const handleSubmit = async (e) => {
     e.preventDefault();
     Axios.post(
