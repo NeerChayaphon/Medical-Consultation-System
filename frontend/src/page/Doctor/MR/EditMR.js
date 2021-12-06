@@ -16,7 +16,7 @@ const EditMR = () => {
     console.log(data);
   }
 
-  // informatino
+  // information
   const [date, setDate] = useState(data.date);
   const [illness, setIllness] = useState(data.illness);
   const [pHistory, setPHistory] = useState(data.history);
