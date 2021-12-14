@@ -23,10 +23,6 @@ This project is part of my Software Engineering course's final project in my 3rd
   4. WebRTC and PeerJS are use to create a video consultation feature. WebRTC is for video and media transfer and PeerJS is use for Peer-to-Peer connection.
   5. MongoDB is use for the NoSQL Database and use with Mongoose library.
 
-## Website and API of this projetc
-  1. Website url : https://harmore.netlify.app
-  2. API url : https://harmore.herokuapp.com/api/v1/
-
 ## To run this project
   1. First you need to add config.env file that store the environment variables to use with the backend in the backend directory.
   ```
