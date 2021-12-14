@@ -19,13 +19,28 @@ This project is part of my Software Engineering course's final project in my 3rd
   4. Socket.io
   5. PeerJS/WebRTC
   6. MongoDB and Mongoose 
+  
+  React and TailwindCSS are use to build the client Frontend of the website. Node.js/Express is use to ca
 
 ## To run this project
-  1.First your need config.env file that store the environment variables to use with the backend.
+  1.First you need to add config.env file that store the environment variables to use with the backend in the backend directory.
   ```
   NODE_ENV=development
   PORT=5000
   MONGO_URI= <Your MongoDB Url>
   API_URL = /api/v1
   secret = <Your secret code for JWT>
+  ```
+  2.Install dependencies for the Backend and Run the backend REST API by typing the following command.
+  ```
+  $ cd backend
+  $ npm install
+  $ npm start
+  ```
+  3.Install dependencies for the Frontend and Run the React frontend by typing the following command.
+  ```
+  $ cd ..
+  $ cd frontend
+  $ npm install
+  $ npm start
   ```
