@@ -18,3 +18,14 @@ This project is part of my Software Engineering course's final project in my 3rd
   3. Node.js/Express
   4. Socket.io
   5. PeerJS/WebRTC
+  6. MongoDB and Mongoose 
+
+## To run this project
+  1.First your need config.env file that store the environment variables to use with the backend.
+  ```
+  NODE_ENV=development
+  PORT=5000
+  MONGO_URI= <Your MongoDB Url>
+  API_URL = /api/v1
+  secret = <Your secret code for JWT>
+  ```
