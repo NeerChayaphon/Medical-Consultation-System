@@ -9,3 +9,5 @@ This project is part of my Software Engineering course's final project in my 3rd
   4. During the consultation, the doctor can view their patient’s recent medical records and use them for diagnosis. Medical record is a document that explains all details about the patient's history.
   5. After the consultation, patient will get the medical record that involve advisement or treatment from the doctor that have consult with.
   6. The doctor can view, edit and delete past medical records for only the patient that they have consulted with. 
+  7. All registered user can view and edit their profile.
+  8. Staff role is to manage the doctor in the system.
