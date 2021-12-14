@@ -28,7 +28,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   2. API url : https://harmore.herokuapp.com/api/v1/
 
 ## To run this project
-  1.First you need to add config.env file that store the environment variables to use with the backend in the backend directory.
+  1. First you need to add config.env file that store the environment variables to use with the backend in the backend directory.
   ```
   NODE_ENV=development
   PORT=5000
@@ -36,13 +36,13 @@ This project is part of my Software Engineering course's final project in my 3rd
   API_URL = /api/v1
   secret = <Your secret code for JWT>
   ```
-  2.Install dependencies for the Backend and Run the backend REST API by typing the following command.
+  2. Install dependencies for the Backend and Run the backend REST API by typing the following command.
   ```
   $ cd backend
   $ npm install
   $ npm start
   ```
-  3.Install dependencies for the Frontend and Run the React frontend by typing the following command.
+  3. Install dependencies for the Frontend and Run the React frontend by typing the following command.
   ```
   $ cd ..
   $ cd frontend
