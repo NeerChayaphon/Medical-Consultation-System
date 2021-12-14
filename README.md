@@ -11,3 +11,10 @@ This project is part of my Software Engineering course's final project in my 3rd
   6. The doctor can view, edit and delete past medical records for only the patient that they have consulted with. 
   7. All registered user can view and edit their profile.
   8. Staff role is to manage the doctor in the system.
+
+## Technology
+  1. React
+  2. TailwindCss
+  3. Node.js/Express
+  4. Socket.io
+  5. PeerJS/WebRTC
