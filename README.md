@@ -15,7 +15,10 @@ This project is part of my Software Engineering course's final project in my 3rd
 ## Technology
   1. React and TailwindCSS are use to build the client Frontend of the website. 
   2. Node.js and Express are use for the backend server and RESTful API
-  3. Socket.io is use to implement an Online/Offline feature for doctor. Doctor that have login to the system and doesn't have a consultation at the moment will be consider Online (available for patient). Doctor that have sign out, close the brower tab or in a current consultation will consider offline (not available for patient). These features are implement by socket.io room that use to manage the room for consultation.
+  3. Socket.io is use to implement an Online/Offline feature for doctor. Doctor that have login to the system and doesn't have a consultation at the moment will be consider as Online (available for patient). Doctor that have sign out, close the brower tab or in a current consultation will be consider as offline (not available for patient). These features are implement by socket.io room that use to manage the room for consultation. 
+     They are 2 main socket.io room.
+      1. General doctor room (Doctors that are in this room mean that the doctor is Online and available for patient)
+      2. Individual doctor room (Room for consultation)
 
 
 ## To run this project
