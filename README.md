@@ -13,14 +13,10 @@ This project is part of my Software Engineering course's final project in my 3rd
   8. Staff role is to manage the doctor in the system.
 
 ## Technology
-  1. React
-  2. TailwindCss
-  3. Node.js/Express
-  4. Socket.io
-  5. PeerJS/WebRTC
-  6. MongoDB and Mongoose 
-  
-  React and TailwindCSS are use to build the client Frontend of the website. Node.js/Express is use to ca
+  1. React and TailwindCSS are use to build the client Frontend of the website. 
+  2. Node.js and Express are use for the backend server and RESTful API
+  3. Socket.io is use to implement an Online/Offline feature for doctor. Doctor that have login to the system and doesn't have a consultation at the moment will be consider Online (available for patient). Doctor that have sign out, close the brower tab or in a current consultation will consider offline (not available for patient). These features are implement by socket.io room that use to manage the room for consultation.
+
 
 ## To run this project
   1.First you need to add config.env file that store the environment variables to use with the backend in the backend directory.
