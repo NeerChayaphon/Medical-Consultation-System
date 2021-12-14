@@ -1,6 +1,6 @@
 # Medical Consultation System
 
-This project is part of my Software Engineering course's final project in my 3rd year. This is a website that enables patients to have a consultation with doctors remotely. The patient can choose a doctor to have a consultation by name and specialization and get the medical record that involve advisement or treatment from the doctor that have consult with because some of the case can be treat without going to the hospital. In the time of Covid 19 situation, hospital has become one of the most dangerous places. This website will be suitable for "New Normal" because it prevent oneself from having close contact with others.
+This project is part of my Software Engineering course's final project in my 3rd year. This is a website that enables patients to have a consultation with doctors remotely. The patient can choose a doctor to have a consultation by name and specialization and get the medical record that involves advisement or treatment from the doctor that has consulted with because some of the cases can be treated without going to the hospital. In the time of the Covid 19 situation, the hospital has become one of the most dangerous places. This website will be suitable for "New Normal" because it prevents oneself from having close contact with others.
 
 ## Functionality
   1. There are 3 user type, patient, doctor and staff. All registered user can login to the system and unregistered user can register as patient.
