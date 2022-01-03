@@ -45,3 +45,14 @@ This project is part of my Software Engineering course's final project in my 3rd
   $ npm install
   $ npm start
   ```
+  ## API Documentation
+  API url : https://stark-shore-47287.herokuapp.com
+  
+  ### Patient Route
+  | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
+  | ----------- | ----------- | ---------| -------| --------------|
+  | /api/v1/patient | GET | READ | Get all patients | Doctor, Staff |
+  | /api/v1/patient/:id | GET | READ | Get a single patient | Doctor, Staff, Patient(with matching id) |
+  | /api/v1/patient | POST | CREATE | Add a patient | Staff |
+  | /api/v1/patient/:id | PUT | UPDATE | Update a patient | Patient(with matching id) |
+  | /api/v1/patient/:id | DELETE | DELETE | Delete a patient | Staff |
