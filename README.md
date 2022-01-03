@@ -46,7 +46,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   $ npm start
   ```
   ## API Documentation
-  API url : https://stark-shore-47287.herokuapp.com
+  API url : https://harmore.herokuapp.com
   
   ### Patient Route
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
