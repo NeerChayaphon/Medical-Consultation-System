@@ -74,3 +74,21 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/staff | POST | CREATE | Add a staff | Staff |
   | /api/v1/staff/:id | PUT | UPDATE | Update a staff | staff |
   | /api/v1/staff/:id | DELETE | DELETE | Delete a staff | Staff |
+
+  ### Medical Record Route
+  | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
+  | ----------- | ----------- | ---------| -------| --------------|
+  | /api/v1/medicalRecord | GET | READ | Get all medicalRecords | Patient, Doctor |
+  | /api/v1/medicalRecord/:id | GET | READ | Get a single medicalRecord | Patient, Doctor |
+  | /api/v1/medicalRecord | POST | CREATE | Add a medicalRecord | Doctor |
+  | /api/v1/medicalRecord/:id | PUT | UPDATE | Update a medicalRecord | Doctor |
+  | /api/v1/medicalRecord/:id | DELETE | DELETE | Delete a medicalRecord | Doctor |
+  
+  ### Specialization Route
+  | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
+  | ----------- | ----------- | ---------| -------| --------------|
+  | /api/v1/specialization | GET | READ | Get all specializations | Patient, Doctor, Staff |
+  | /api/v1/specialization/:id | GET | READ | Get a single specialization | Patient, Staff |
+  | /api/v1/specialization | POST | CREATE | Add a specialization | Staff |
+  | /api/v1/specialization/:id | PUT | UPDATE | Update a specialization | Staff |
+  | /api/v1/specialization/:id | DELETE | DELETE | Delete a specialization | Staff |
