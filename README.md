@@ -46,9 +46,9 @@ This project is part of my Software Engineering course's final project in my 3rd
   $ npm start
   ```
   ## API Documentation
-  API url : https://harmore.herokuapp.com
+  #### API url : https://harmore.herokuapp.com
   
-  ### Patient Route (Need JWT token)
+  #### Patient Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/patient | GET | READ | Get all patients | Doctor, Staff |
@@ -57,7 +57,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/patient/:id | PUT | UPDATE | Update a patient | Patient(with match id) |
   | /api/v1/patient/:id | DELETE | DELETE | Delete a patient | Staff |
   
-  ### Doctor Route (Need JWT token)
+  #### Doctor Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/doctor | GET | READ | Get all doctor | Paitent, Staff |
@@ -66,7 +66,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/doctor/:id | PUT | UPDATE | Update a doctor | Doctor(with match id) |
   | /api/v1/doctor/:id | DELETE | DELETE | Delete a doctor | Staff |
 
-  ### Staff Route (Need JWT token)
+  #### Staff Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/staff | GET | READ | Get all staffs | Staff |
@@ -75,7 +75,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/staff/:id | PUT | UPDATE | Update a staff | staff |
   | /api/v1/staff/:id | DELETE | DELETE | Delete a staff | Staff |
 
-  ### Medical Record Route (Need JWT token)
+  #### Medical Record Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/medicalRecord | GET | READ | Get all medicalRecords | Patient, Doctor |
@@ -84,7 +84,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/medicalRecord/:id | PUT | UPDATE | Update a medicalRecord | Doctor |
   | /api/v1/medicalRecord/:id | DELETE | DELETE | Delete a medicalRecord | Doctor |
   
-  ### Specialization Route (Need JWT token)
+  #### Specialization Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/specialization | GET | READ | Get all specializations | Patient, Doctor, Staff |
@@ -93,10 +93,24 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/specialization/:id | PUT | UPDATE | Update a specialization | Staff |
   | /api/v1/specialization/:id | DELETE | DELETE | Delete a specialization | Staff |
 
-  ### Authentication Route (Don't need JWT token)
+  #### Authentication Route (Don't need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/patient/login | POST | CREATE | Create JWT Token | Registed Patient |
   | /api/v1/patient/register | POST | CREATE | Create an patient account | All users |
   | /api/v1/doctor/login | POST | CREATE | Create JWT Token | Doctor |
   | /api/v1/staff/login | POST | CREATE | Create JWT Token | Staff |
+  
+  #### API Feature
+  ##### Filtering
+  Example : /api/v1/medicalRecord?doctor=123456&patient=789102 (get medical record that match the doctorID and patientID)
+            /api/v1/doctor/123456,213123 (get the information of the two doctors)
+  ##### Sorting
+  Example : /api/v1/medicalRecord?sort=date (Medical Record sort by date)
+            /api/v1/patient?sort=-name (Patient sort by name in descending order) 
+  ##### Field Limiting
+  Example : /api/v1/patient?fields=name,email (Show only patient name) 
+  
+  ##### Pagination
+  Example : /api/v1/doctor?page=2&limit=5 (get the information in page 2 and have 5 doctor per page)
+  
