@@ -65,3 +65,12 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/doctor | POST | CREATE | Add a doctor | Staff |
   | /api/v1/doctor/:id | PUT | UPDATE | Update a doctor | Doctor(with match id) |
   | /api/v1/doctor/:id | DELETE | DELETE | Delete a doctor | Staff |
+
+  ### Staff Route
+  | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
+  | ----------- | ----------- | ---------| -------| --------------|
+  | /api/v1/staff | GET | READ | Get all staffs | Staff |
+  | /api/v1/staff/:id | GET | READ | Get a single staff | Staff |
+  | /api/v1/staff | POST | CREATE | Add a staff | Staff |
+  | /api/v1/staff/:id | PUT | UPDATE | Update a staff | staff |
+  | /api/v1/staff/:id | DELETE | DELETE | Delete a staff | Staff |
