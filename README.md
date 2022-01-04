@@ -110,8 +110,8 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/doctor/123456,213123 | Get the information of the two doctors |
   ##### Sorting
   | Example | Result |
-  | /api/v1/medicalRecord?sort=date | Medical Record sort by date |
   | ----------- | ----------- |
+  | /api/v1/medicalRecord?sort=date | Medical Record sort by date |
   | /api/v1/patient?sort=-name | Patient sort by name in descending order |
   ##### Field Limiting
   | Example | Result |
