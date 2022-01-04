@@ -48,7 +48,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   ## API Documentation
   API url : https://harmore.herokuapp.com
   
-  ### Patient Route
+  ### Patient Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/patient | GET | READ | Get all patients | Doctor, Staff |
@@ -57,7 +57,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/patient/:id | PUT | UPDATE | Update a patient | Patient(with match id) |
   | /api/v1/patient/:id | DELETE | DELETE | Delete a patient | Staff |
   
-  ### Doctor Route
+  ### Doctor Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/doctor | GET | READ | Get all doctor | Paitent, Staff |
@@ -66,7 +66,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/doctor/:id | PUT | UPDATE | Update a doctor | Doctor(with match id) |
   | /api/v1/doctor/:id | DELETE | DELETE | Delete a doctor | Staff |
 
-  ### Staff Route
+  ### Staff Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/staff | GET | READ | Get all staffs | Staff |
@@ -75,7 +75,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/staff/:id | PUT | UPDATE | Update a staff | staff |
   | /api/v1/staff/:id | DELETE | DELETE | Delete a staff | Staff |
 
-  ### Medical Record Route
+  ### Medical Record Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/medicalRecord | GET | READ | Get all medicalRecords | Patient, Doctor |
@@ -84,7 +84,7 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/medicalRecord/:id | PUT | UPDATE | Update a medicalRecord | Doctor |
   | /api/v1/medicalRecord/:id | DELETE | DELETE | Delete a medicalRecord | Doctor |
   
-  ### Specialization Route
+  ### Specialization Route (Need JWT token)
   | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
   | ----------- | ----------- | ---------| -------| --------------|
   | /api/v1/specialization | GET | READ | Get all specializations | Patient, Doctor, Staff |
@@ -92,3 +92,11 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/specialization | POST | CREATE | Add a specialization | Staff |
   | /api/v1/specialization/:id | PUT | UPDATE | Update a specialization | Staff |
   | /api/v1/specialization/:id | DELETE | DELETE | Delete a specialization | Staff |
+
+  ### Authentication Route (Don't need JWT token)
+  | Endpoint | HTTP Method | CRUD Method | Result | Authorization |
+  | ----------- | ----------- | ---------| -------| --------------|
+  | /api/v1/patient/login | POST | CREATE | Create JWT Token | Registed Patient |
+  | /api/v1/patient/register | POST | CREATE | Create an patient account | All users |
+  | /api/v1/doctor/login | POST | CREATE | Create JWT Token | Doctor |
+  | /api/v1/staff/login | POST | CREATE | Create JWT Token | Staff |
