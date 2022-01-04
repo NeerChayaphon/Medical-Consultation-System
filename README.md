@@ -102,15 +102,19 @@ This project is part of my Software Engineering course's final project in my 3rd
   | /api/v1/staff/login | POST | CREATE | Create JWT Token | Staff |
   
   #### API Feature
-  ##### Filtering
-  Example : /api/v1/medicalRecord?doctor=123456&patient=789102 (get medical record that match the doctorID and patientID)
-            /api/v1/doctor/123456,213123 (get the information of the two doctors)
-  ##### Sorting
-  Example : /api/v1/medicalRecord?sort=date (Medical Record sort by date)
-            /api/v1/patient?sort=-name (Patient sort by name in descending order) 
-  ##### Field Limiting
-  Example : /api/v1/patient?fields=name,email (Show only patient name) 
   
+  ##### Filtering
+  | Example | Result |
+  | /api/v1/medicalRecord?doctor=123456&patient=789102 | Get medical record that match the doctorID and patientID |
+  | /api/v1/doctor/123456,213123 | Get the information of the two doctors |
+  ##### Sorting
+  | Example | Result |
+  | /api/v1/medicalRecord?sort=date | Medical Record sort by date |
+  | /api/v1/patient?sort=-name | Patient sort by name in descending order |
+  ##### Field Limiting
+  | Example | Result |
+  | /api/v1/patient?fields=name,email | Show only patient name |
   ##### Pagination
-  Example : /api/v1/doctor?page=2&limit=5 (get the information in page 2 and have 5 doctor per page)
+  | Example | Result |
+  | /api/v1/doctor?page=2&limit=5 | Get the information in page 2 and have 5 doctor per page |
   
