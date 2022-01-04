@@ -105,16 +105,20 @@ This project is part of my Software Engineering course's final project in my 3rd
   
   ##### Filtering
   | Example | Result |
+  | ----------- | ----------- |
   | /api/v1/medicalRecord?doctor=123456&patient=789102 | Get medical record that match the doctorID and patientID |
   | /api/v1/doctor/123456,213123 | Get the information of the two doctors |
   ##### Sorting
   | Example | Result |
   | /api/v1/medicalRecord?sort=date | Medical Record sort by date |
+  | ----------- | ----------- |
   | /api/v1/patient?sort=-name | Patient sort by name in descending order |
   ##### Field Limiting
   | Example | Result |
+  | ----------- | ----------- |
   | /api/v1/patient?fields=name,email | Show only patient name |
   ##### Pagination
   | Example | Result |
+  | ----------- | ----------- |
   | /api/v1/doctor?page=2&limit=5 | Get the information in page 2 and have 5 doctor per page |
   
